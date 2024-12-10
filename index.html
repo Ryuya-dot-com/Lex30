@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lex30 Test</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    margin: 20px;
+}
+  
+h1, h2 {
+    text-align: center;
+    font-weight: normal;
+}
+  
+#instructions, #test-area, #result-area, #participant-info {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+  
+#instructions p, #participant-info p {
+    line-height: 1.6;
+}
+  
+button {
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+  
+button:hover {
+    background: #45a049;
+}
+  
+.answer-container input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+  
+.info {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<h1>Lex30</h1>
+
+<div id="participant-info">
+  <p>Please enter your Participant ID to begin.</p>
+  <input type="text" id="participant-id" placeholder="Enter your ID" maxlength="20">
+  <div style="text-align:center;">
+    <button id="save-participant-id">Submit</button>
+  </div>
+</div>
+
+<div id="instructions" style="display:none;">
+  <p>You will see 30 English words. For each word, type up to 4 words that come to your mind. Press SPACE to go to the next word at any time, or wait 30 seconds and it will move on automatically.</p>
+  <div style="text-align:center;">
+    <button id="start-btn">Start Test</button>
+  </div>
+</div>
+
+<div id="test-area" style="display:none;">
+  <h2 id="stimulus"></h2>
+  <div class="info">Press SPACE to go to the next word anytime, or wait 30 seconds.</div>
+  <div id="answers-area" class="answer-container">
+    <input type="text" placeholder="Type a word (optional)" maxlength="30">
+    <input type="text" placeholder="Type a word (optional)" maxlength="30">
+    <input type="text" placeholder="Type a word (optional)" maxlength="30">
+    <input type="text" placeholder="Type a word (optional)" maxlength="30">
+  </div>
+</div>
+
+<div id="result-area" style="display:none;">
+  <h2>Thank you for your responses!</h2>
+  <div style="text-align:center;">
+    <button id="download-btn">Download Results</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
