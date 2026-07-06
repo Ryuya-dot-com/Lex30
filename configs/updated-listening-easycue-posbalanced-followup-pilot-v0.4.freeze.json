@@ -1,6 +1,6 @@
 {
   "schemaVersion": "lex30-freeze-v1",
-  "frozenAt": "2026-07-06T00:20:38.399030+00:00",
+  "frozenAt": "2026-07-06T01:56:49.836295+00:00",
   "experimentId": "updated-listening-easycue-posbalanced-followup-pilot-v0.4",
   "experimentVersion": "0.4.0",
   "label": "Updated Lex30 - listening easy-cue POS-balanced follow-up pilot v0.4",
@@ -58,8 +58,8 @@
     {
       "role": "experiment_config",
       "path": "configs/updated-listening-easycue-posbalanced-followup-pilot-v0.4.json",
-      "bytes": 45863,
-      "sha256": "53a44b55c86d070cc6dd7e3595bb1944f9665d6ca518c380c2b742926123b39b"
+      "bytes": 45908,
+      "sha256": "bcbaa3ebf3678e99618f3d03c78c3fb8b70873b37c4a5f86ddc15bdcaf3dc268"
     },
     {
       "role": "stimulus_profile",

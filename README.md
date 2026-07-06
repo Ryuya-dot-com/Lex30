@@ -88,6 +88,17 @@ To verify that the frozen config and audio files still match the lock file:
 python3 tools/freeze_experiment.py updated-listening-easycue-posbalanced-followup-pilot-v0.4 --verify
 ```
 
+Before a formal pilot batch, run the broader release-readiness check:
+
+```bash
+python3 tools/validate_release.py
+```
+
+This checks the default v0.4 registry entry, config invariants, freeze manifest,
+audio file presence, one-at-a-time participant UI wiring, bilingual English-only
+instructions, automatic-download wiring, researcher preflight wiring, and
+follow-up probe coverage.
+
 Downloaded CSV files include experiment metadata columns such as `ExperimentId`,
 `ExperimentVersion`, `Mode`, `InterfaceLanguage`, `StimulusSetId`,
 `AudioVersion`, `StimulusOrder`, `StartedAt`, `CompletedAt`,

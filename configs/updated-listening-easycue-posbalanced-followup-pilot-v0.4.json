@@ -19,7 +19,7 @@
   "dataExportSchemaVersion": "lex30-browser-results-v3",
   "pilotStatus": "frozen_followup_pilot",
   "freezeManifest": "configs/updated-listening-easycue-posbalanced-followup-pilot-v0.4.freeze.json",
-  "instructions": "You will hear 30 English words. For each word, type up to 4 English words that come to your mind. After all 30 words, you will answer short follow-up questions about the words.",
+  "instructions": "You will hear 30 English words. For each word, add up to 4 English words that come to your mind, one word at a time. Write only English words. After all 30 words, you will answer short follow-up questions about the words.",
   "selectionMetadata": {
     "status": "followup_pilot_pending_validation",
     "sourceExperimentId": "updated-listening-easycue-posbalanced-pilot-v0.3",

@@ -42,12 +42,19 @@ protected study materials, not in public GitHub Pages content.
 - Perceptual audio QC completed:
 - Researcher preflight passed:
 - Command-line freeze verification passed:
+- Release-readiness check passed:
 - Participant instructions used verbatim:
 
 Freeze verification command:
 
 ```bash
 python3 tools/freeze_experiment.py updated-listening-easycue-posbalanced-followup-pilot-v0.4 --verify
+```
+
+Release-readiness check command:
+
+```bash
+python3 tools/validate_release.py
 ```
 
 ## Participant Tracking

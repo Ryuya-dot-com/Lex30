@@ -63,7 +63,19 @@ in the study notes.
    python3 tools/freeze_experiment.py updated-listening-easycue-posbalanced-followup-pilot-v0.4 --verify
    ```
 
-5. Complete and confirm the pilot data-collection design for larger batches:
+5. Run the local release-readiness check before the first participant in a
+   formal batch:
+
+   ```bash
+   python3 tools/validate_release.py
+   ```
+
+   This includes the freeze verification and also checks the default registry
+   entry, v0.4 config invariants, audio file presence, participant UI wiring,
+   bilingual English-only instructions, researcher preflight wiring, and
+   follow-up probe coverage.
+
+6. Complete and confirm the pilot data-collection design for larger batches:
 
    ```text
    docs/pilot_data_collection_design.md
@@ -75,12 +87,12 @@ in the study notes.
    docs/pilot_batch_notes_template.md
    ```
 
-6. Prepare participant IDs before administration.
+7. Prepare participant IDs before administration.
 
    Use IDs that do not expose names or student numbers unless your ethics/data
    plan explicitly allows them.
 
-7. Prepare the device.
+8. Prepare the device.
 
    Use the same browser and audio setup throughout a batch when possible. Check
    headphones or speakers, volume, and browser permissions. Avoid shared browser
@@ -92,14 +104,14 @@ in the study notes.
    examples/audio_perceptual_qc_template.csv
    ```
 
-8. Protect secrets and analysis files.
+9. Protect secrets and analysis files.
 
    GitHub Pages is public static hosting. Do not place `.env` files, OpenAI API
    keys, ElevenLabs API keys, raw participant exports, or analysis workbooks in
    the published repository. GPT annotation, if used, must be run locally through
    the CLI and treated as optional review metadata.
 
-9. Prepare the storage location.
+10. Prepare the storage location.
 
    Browser-downloaded CSV files should be collected under:
 
