@@ -160,8 +160,8 @@ Goal: write a stable scoring specification before interpreting pilot scores.
 Pilot policy now documented in `docs/scoring_policy.md`:
 
 1. Multiword answer slots.
-   The current v0.4 browser asks for one English word per box and blocks
-   multiword advance. The scorer still reports `multiword_response_slots` and
+   The current v0.4 browser asks participants to add one English word at a time
+   and blocks multiword advance. The scorer still reports `multiword_response_slots` and
    `extra_tokens_in_response_slots` for legacy/recovered rows.
 
 2. Spelling and typo handling.

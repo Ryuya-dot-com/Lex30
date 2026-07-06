@@ -115,7 +115,7 @@ Use a consistent spoken or written instruction such as:
 
 ```text
 You will hear 30 English words. For each word, type up to 4 English words that
-come to your mind. Try to type one word in each box. You may leave boxes blank.
+come to your mind. Add one English word at a time. You may add fewer than 4 words.
 The timer starts when the audio begins. Press Next or Space when you are ready,
 or the page will move on automatically. After the 30 words, answer short
 follow-up questions about the same cue words.

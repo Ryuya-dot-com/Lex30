@@ -45,16 +45,20 @@ const UI_TEXT = {
     downloadSavedBackup: "Download Saved Backup",
     clearSavedBackup: "Clear Saved Backup",
     startTest: "Start Test",
-    instructionsListeningFollowup: "You will hear 30 English words. For each word, type up to 4 English words that come to your mind. Write only English words in the answer boxes. After all 30 words, you will answer short follow-up questions about the words.",
-    instructionsWritten: "You will see 30 English words. For each word, type up to 4 English words that come to your mind. Write only English words in the answer boxes.",
-    responsePolicySingle: "Use one English word per box.",
-    responsePolicyGeneral: "Use one English response per box.",
+    instructionsListeningFollowup: "You will hear 30 English words. For each word, add up to 4 English words that come to your mind, one word at a time. Write only English words. After all 30 words, you will answer short follow-up questions about the words.",
+    instructionsWritten: "You will see 30 English words. For each word, add up to 4 English words that come to your mind, one word at a time. Write only English words.",
+    responsePolicySingle: "Enter one English word at a time. You can add up to {count} words.",
+    responsePolicyGeneral: "Enter one response at a time. You can add up to {count} responses.",
     navigationInstruction: "Press SPACE or Next to go to the next word anytime, or wait {seconds} seconds.",
     playAudioTimer: "Play the audio. The timer starts when the audio begins.",
     answerPlaceholderSingle: "One English word",
     answerPlaceholderGeneral: "English word",
+    addAnswer: "Add",
+    answerCount: "{count} / {total}",
+    answerLimitReached: "Maximum added",
+    removeAnswer: "Remove",
     itemLabel: "Item {number}",
-    next: "Next",
+    next: "次へ",
     downloadBackup: "Download Backup",
     breakTitle: "Break",
     breakMessage: "You may take a short break. Continue when you are ready.",
@@ -89,7 +93,8 @@ const UI_TEXT = {
     downloadJson: "Download JSON",
     alertParticipantId: "Please enter a valid Participant ID.",
     alertPlayAudio: "Please play the audio before moving to the next item.",
-    alertOneWord: "Please type only one English word in each box, or leave the box blank.",
+    alertOneWord: "Please add only one English word at a time.",
+    alertAnswerLimit: "You can add up to {count} responses for this word.",
     alertNoBackup: "No saved backup is available for this version.",
     alertBackupParticipant: "Enter the matching Participant ID before downloading a saved backup on this device.",
     alertClearParticipant: "Enter the matching Participant ID before clearing a saved backup on this device.",
@@ -104,14 +109,18 @@ const UI_TEXT = {
     downloadSavedBackup: "保存済みバックアップをダウンロード",
     clearSavedBackup: "保存済みバックアップを削除",
     startTest: "開始",
-    instructionsListeningFollowup: "これから30個の英単語を聞きます。各単語について、思い浮かんだ英単語を最大4つ入力してください。回答欄には必ず英語の単語を書いてください。30項目が終わった後、同じ単語について短い確認問題に答えます。",
-    instructionsWritten: "これから30個の英単語が表示されます。各単語について、思い浮かんだ英単語を最大4つ入力してください。回答欄には必ず英語の単語を書いてください。",
-    responsePolicySingle: "各ボックスには英語の単語を1語だけ入力してください。",
-    responsePolicyGeneral: "各ボックスには英語の回答を1つ入力してください。",
+    instructionsListeningFollowup: "これから30個の英単語を聞きます。各単語について、思い浮かんだ英単語を1語ずつ、最大4語まで追加してください。回答は必ず英語の単語にしてください。30項目が終わった後、同じ単語について短い確認問題に答えます。",
+    instructionsWritten: "これから30個の英単語が表示されます。各単語について、思い浮かんだ英単語を1語ずつ、最大4語まで追加してください。回答は必ず英語の単語にしてください。",
+    responsePolicySingle: "英語の単語を1語ずつ入力して追加してください。最大{count}語まで追加できます。",
+    responsePolicyGeneral: "回答を1つずつ入力して追加してください。最大{count}個まで追加できます。",
     navigationInstruction: "準備ができたらSPACEキーまたはNextで次に進めます。{seconds}秒後には自動で進みます。",
     playAudioTimer: "音声を再生してください。音声が始まるとタイマーが開始します。",
     answerPlaceholderSingle: "英語1語",
     answerPlaceholderGeneral: "英単語",
+    addAnswer: "追加",
+    answerCount: "{count} / {total}",
+    answerLimitReached: "上限まで追加済み",
+    removeAnswer: "削除",
     itemLabel: "項目 {number}",
     next: "Next",
     downloadBackup: "バックアップをダウンロード",
@@ -148,7 +157,8 @@ const UI_TEXT = {
     downloadJson: "JSONをダウンロード",
     alertParticipantId: "有効な参加者IDを入力してください。",
     alertPlayAudio: "次に進む前に音声を再生してください。",
-    alertOneWord: "各ボックスには英語の単語を1語だけ入力してください。空欄でも構いません。",
+    alertOneWord: "英語の単語を1語ずつ追加してください。",
+    alertAnswerLimit: "この単語には最大{count}個まで回答を追加できます。",
     alertNoBackup: "このバージョンで利用できる保存済みバックアップはありません。",
     alertBackupParticipant: "この端末の保存済みバックアップをダウンロードするには、一致する参加者IDを入力してください。",
     alertClearParticipant: "この端末の保存済みバックアップを削除するには、一致する参加者IDを入力してください。",
@@ -382,31 +392,211 @@ function renderExperimentMetadata() {
 
 function responsePolicyText() {
   return experimentConfig.singleWordPerResponse
-    ? t("responsePolicySingle")
-    : t("responsePolicyGeneral");
+    ? t("responsePolicySingle", { count: experimentConfig.responseCount })
+    : t("responsePolicyGeneral", { count: experimentConfig.responseCount });
 }
 
 function renderAnswerInputs() {
   const answersArea = document.getElementById("answers-area");
   answersArea.innerHTML = "";
 
+  const entry = document.createElement("div");
+  entry.className = "association-entry";
+
+  const input = document.createElement("input");
+  input.id = "association-answer-input";
+  input.className = "association-answer-input";
+  input.type = "text";
+  input.maxLength = experimentConfig.answerMaxLength;
+  input.autocomplete = "off";
+  input.spellcheck = false;
+
+  const addButton = document.createElement("button");
+  addButton.id = "add-answer-btn";
+  addButton.className = "secondary-button add-answer-button";
+  addButton.type = "button";
+
+  entry.append(input, addButton);
+  answersArea.appendChild(entry);
+
+  const count = document.createElement("div");
+  count.id = "answer-count";
+  count.className = "answer-count";
+  answersArea.appendChild(count);
+
+  const list = document.createElement("ol");
+  list.id = "association-answer-list";
+  list.className = "association-answer-list";
+  answersArea.appendChild(list);
+
+  const slots = document.createElement("div");
+  slots.id = "association-answer-slots";
+  slots.hidden = true;
   for (let index = 0; index < experimentConfig.responseCount; index++) {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.maxLength = experimentConfig.answerMaxLength;
-    input.autocomplete = "off";
-    input.spellcheck = false;
-    answersArea.appendChild(input);
+    const slot = document.createElement("input");
+    slot.type = "hidden";
+    slot.dataset.answerSlot = String(index);
+    slots.appendChild(slot);
   }
+  answersArea.appendChild(slots);
   updateAnswerPlaceholders();
+  renderCommittedAnswers();
 }
 
 function updateAnswerPlaceholders() {
   const placeholder = experimentConfig.singleWordPerResponse
     ? t("answerPlaceholderSingle")
     : t("answerPlaceholderGeneral");
-  document.querySelectorAll("#answers-area input").forEach(input => {
+  const input = document.getElementById("association-answer-input");
+  if (input) {
     input.placeholder = `${placeholder} (${interfaceLanguage === "ja" ? "任意" : "optional"})`;
+  }
+  setText("add-answer-btn", "addAnswer");
+  renderCommittedAnswers();
+}
+
+function associationAnswerSlots() {
+  return Array.from(document.querySelectorAll("#answers-area input[data-answer-slot]"));
+}
+
+function currentAssociationInput() {
+  return document.getElementById("association-answer-input");
+}
+
+function committedAssociationAnswers() {
+  return associationAnswerSlots().map(input => input.value.trim());
+}
+
+function collectAssociationAnswers(options = {}) {
+  const answers = committedAssociationAnswers();
+  if (options.includePending) {
+    const pending = currentAssociationInput()?.value.trim() || "";
+    if (pending) {
+      const emptyIndex = answers.findIndex(answer => !answer);
+      if (emptyIndex >= 0) {
+        answers[emptyIndex] = pending;
+      }
+    }
+  }
+  while (answers.length < experimentConfig.responseCount) {
+    answers.push("");
+  }
+  return answers.slice(0, experimentConfig.responseCount);
+}
+
+function setAssociationAnswers(answers) {
+  const compacted = Array.from({ length: experimentConfig.responseCount }, (_item, index) => {
+    return answers[index] ? String(answers[index]).trim() : "";
+  });
+  associationAnswerSlots().forEach((slot, index) => {
+    slot.value = compacted[index] || "";
+  });
+  renderCommittedAnswers();
+}
+
+function clearAssociationAnswers() {
+  const input = currentAssociationInput();
+  if (input) {
+    input.value = "";
+  }
+  setAssociationAnswers([]);
+}
+
+function addAssociationAnswerFromInput(options = {}) {
+  const input = currentAssociationInput();
+  if (!input) {
+    return true;
+  }
+  const value = input.value.trim();
+  if (!value) {
+    if (!options.silentIfEmpty) {
+      input.focus();
+    }
+    return true;
+  }
+  if (experimentConfig.singleWordPerResponse && lexicalWordCount(value) > 1) {
+    alert(t("alertOneWord"));
+    persistAutosave("advance_blocked_multiword_answer");
+    input.focus();
+    return false;
+  }
+
+  const answers = committedAssociationAnswers();
+  const emptyIndex = answers.findIndex(answer => !answer);
+  if (emptyIndex < 0) {
+    alert(t("alertAnswerLimit", { count: experimentConfig.responseCount }));
+    input.focus();
+    return false;
+  }
+  answers[emptyIndex] = value;
+  input.value = "";
+  setAssociationAnswers(answers);
+  persistAutosave("answer_added");
+  const nextInput = currentAssociationInput();
+  if (nextInput && !nextInput.disabled) {
+    nextInput.focus();
+  }
+  return true;
+}
+
+function removeAssociationAnswer(index) {
+  const answers = committedAssociationAnswers()
+    .filter((_answer, answerIndex) => answerIndex !== index)
+    .filter(Boolean);
+  setAssociationAnswers(answers);
+  const input = currentAssociationInput();
+  if (input) {
+    input.focus();
+  }
+  persistAutosave("answer_removed");
+}
+
+function renderCommittedAnswers() {
+  const list = document.getElementById("association-answer-list");
+  const count = document.getElementById("answer-count");
+  const input = currentAssociationInput();
+  const addButton = document.getElementById("add-answer-btn");
+  const answers = committedAssociationAnswers().filter(Boolean);
+  const isFull = answers.length >= experimentConfig.responseCount;
+
+  if (count) {
+    count.textContent = isFull
+      ? `${t("answerCount", { count: answers.length, total: experimentConfig.responseCount })} - ${t("answerLimitReached")}`
+      : t("answerCount", { count: answers.length, total: experimentConfig.responseCount });
+  }
+  if (input) {
+    input.disabled = isFull;
+    if (isFull) {
+      input.placeholder = t("answerLimitReached");
+    } else {
+      const placeholder = experimentConfig.singleWordPerResponse
+        ? t("answerPlaceholderSingle")
+        : t("answerPlaceholderGeneral");
+      input.placeholder = `${placeholder} (${interfaceLanguage === "ja" ? "任意" : "optional"})`;
+    }
+  }
+  if (addButton) {
+    addButton.disabled = isFull;
+  }
+  if (!list) {
+    return;
+  }
+  list.innerHTML = "";
+  answers.forEach((answer, index) => {
+    const item = document.createElement("li");
+    const word = document.createElement("span");
+    word.className = "association-answer-word";
+    word.textContent = answer;
+
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "answer-remove-button";
+    removeButton.dataset.answerIndex = String(index);
+    removeButton.textContent = "x";
+    removeButton.setAttribute("aria-label", `${t("removeAnswer")} ${answer}`);
+
+    item.append(word, removeButton);
+    list.appendChild(item);
   });
 }
 
@@ -492,7 +682,7 @@ function applyLanguage() {
     );
   }
   if (activePhase === "association") {
-    const firstInput = document.querySelector("#answers-area input");
+    const firstInput = currentAssociationInput();
     if (firstInput) {
       firstInput.focus();
     }
@@ -584,6 +774,32 @@ function setupUI() {
         persistAutosave("input");
       }
     });
+    answersArea.addEventListener("keydown", event => {
+      if (activePhase !== "association" || event.target?.id !== "association-answer-input") {
+        return;
+      }
+      if (event.key === "Enter" || event.code === "Space") {
+        event.preventDefault();
+        addAssociationAnswerFromInput();
+      }
+    });
+    answersArea.addEventListener("click", event => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      if (target.id === "add-answer-btn") {
+        addAssociationAnswerFromInput();
+        return;
+      }
+      const removeButton = target.closest(".answer-remove-button");
+      if (removeButton) {
+        const index = Number.parseInt(removeButton.dataset.answerIndex || "", 10);
+        if (Number.isFinite(index)) {
+          removeAssociationAnswer(index);
+        }
+      }
+    });
   }
   if (followUpForm) {
     followUpForm.addEventListener("input", () => {
@@ -600,12 +816,18 @@ function setupUI() {
   });
 
   window.addEventListener("keydown", event => {
+    if (event.target?.id === "association-answer-input") {
+      return;
+    }
     if (activePhase === "association" && event.code === experimentConfig.advanceKey) {
       event.preventDefault();
     }
   });
 
   window.addEventListener("keyup", event => {
+    if (event.target?.id === "association-answer-input") {
+      return;
+    }
     if (activePhase === "association" && event.code === experimentConfig.advanceKey) {
       event.preventDefault();
       nextStimulus();
@@ -691,14 +913,10 @@ function showStimulus(index) {
   }
   updateProgressBar("association-progress-bar", index + 1, stimuli.length);
 
-  const answersArea = document.getElementById("answers-area");
-  answersArea.querySelectorAll("input").forEach(input => {
-    input.value = "";
-  });
-
-  const firstInput = answersArea.querySelector("input");
-  if (firstInput) {
-    firstInput.focus();
+  clearAssociationAnswers();
+  const answerInput = currentAssociationInput();
+  if (answerInput) {
+    answerInput.focus();
   }
 
   if (experimentConfig.stimulusPresentation === "audio") {
@@ -817,12 +1035,14 @@ function nextStimulus(advanceTrigger = "manual") {
 
   clearAutoNextTimer();
 
+  if (!addAssociationAnswerFromInput({ silentIfEmpty: true })) {
+    return;
+  }
+
   const endTime = performance.now();
   const stimulusEndedAt = new Date().toISOString();
   const reactionTime = endTime - startTime;
-  const answersArea = document.getElementById("answers-area");
-  const inputs = answersArea.querySelectorAll("input");
-  const ansList = Array.from(inputs).map(input => input.value.trim());
+  const ansList = collectAssociationAnswers({ includePending: false });
   if (experimentConfig.singleWordPerResponse) {
     const multiwordAnswer = ansList.find(answer => lexicalWordCount(answer) > 1);
     if (multiwordAnswer) {
@@ -1642,14 +1862,10 @@ function collectCurrentDraft() {
   if (currentIndex >= stimuli.length) {
     return null;
   }
-  const answersArea = document.getElementById("answers-area");
-  const answers = answersArea
-    ? Array.from(answersArea.querySelectorAll("input")).map(input => input.value.trim())
-    : [];
   return {
     stimulusOrder: currentIndex + 1,
     stimulus: stimuli[currentIndex] || "",
-    answers,
+    answers: collectAssociationAnswers({ includePending: true }),
     stimulusStartedAt: currentStimulusStartedAt,
     elapsedOnItemMs: startTime ? Math.round(performance.now() - startTime) : "",
     elapsedSinceItemPresentedMs: elapsedSinceItemPresented(),

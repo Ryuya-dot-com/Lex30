@@ -45,10 +45,10 @@ remain visible in token rows but do not add type-score points.
 Lex30 administration asks for up to four responses per stimulus. A response slot
 should normally contain one lexical response.
 
-For the current v0.4 pilot, the browser asks for one English word per response
-box and blocks multiword answer slots before advancing. The scorer still retains
-the all-token reporting path for legacy CSVs, recovered backups, and auditability
-if a multiword slot appears.
+For the current v0.4 pilot, the browser asks participants to add one English
+word at a time and blocks multiword responses before advancing. The scorer still
+retains the all-token reporting path for legacy CSVs, recovered backups, and
+auditability if a multiword slot appears.
 
 Required safeguards:
 
