@@ -1,0 +1,365 @@
+{
+  "config": "configs/updated-listening-easycue-posbalanced-pilot-v0.3.json",
+  "experimentId": "updated-listening-easycue-posbalanced-pilot-v0.3",
+  "modelId": "eleven_multilingual_v2",
+  "outputFormat": "mp3_44100_128",
+  "languageCode": "en",
+  "voiceId": "XrExE9yKIg1WjnnlVkGX",
+  "voiceSettings": {
+    "stability": 0.9,
+    "similarityBoost": 0.9,
+    "style": 0.0,
+    "useSpeakerBoost": true
+  },
+  "execute": true,
+  "files": [
+    {
+      "order": 1,
+      "stimulus": "center",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/01-center.mp3",
+      "status": "written"
+    },
+    {
+      "order": 2,
+      "stimulus": "garden",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/02-garden.mp3",
+      "status": "written"
+    },
+    {
+      "order": 3,
+      "stimulus": "health",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/03-health.mp3",
+      "status": "written"
+    },
+    {
+      "order": 4,
+      "stimulus": "doctor",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/04-doctor.mp3",
+      "status": "written"
+    },
+    {
+      "order": 5,
+      "stimulus": "white",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/05-white.mp3",
+      "status": "written"
+    },
+    {
+      "order": 6,
+      "stimulus": "course",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/06-course.mp3",
+      "status": "written"
+    },
+    {
+      "order": 7,
+      "stimulus": "number",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/07-number.mp3",
+      "status": "written"
+    },
+    {
+      "order": 8,
+      "stimulus": "listen",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/08-listen.mp3",
+      "status": "written"
+    },
+    {
+      "order": 9,
+      "stimulus": "people",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/09-people.mp3",
+      "status": "written"
+    },
+    {
+      "order": 10,
+      "stimulus": "early",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/10-early.mp3",
+      "status": "written"
+    },
+    {
+      "order": 11,
+      "stimulus": "travel",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/11-travel.mp3",
+      "status": "written"
+    },
+    {
+      "order": 12,
+      "stimulus": "office",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/12-office.mp3",
+      "status": "written"
+    },
+    {
+      "order": 13,
+      "stimulus": "ground",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/13-ground.mp3",
+      "status": "written"
+    },
+    {
+      "order": 14,
+      "stimulus": "letter",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/14-letter.mp3",
+      "status": "written"
+    },
+    {
+      "order": 15,
+      "stimulus": "father",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/15-father.mp3",
+      "status": "written"
+    },
+    {
+      "order": 16,
+      "stimulus": "school",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/16-school.mp3",
+      "status": "written"
+    },
+    {
+      "order": 17,
+      "stimulus": "answer",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/17-answer.mp3",
+      "status": "written"
+    },
+    {
+      "order": 18,
+      "stimulus": "nature",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/18-nature.mp3",
+      "status": "written"
+    },
+    {
+      "order": 19,
+      "stimulus": "useful",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/19-useful.mp3",
+      "status": "written"
+    },
+    {
+      "order": 20,
+      "stimulus": "person",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/20-person.mp3",
+      "status": "written"
+    },
+    {
+      "order": 21,
+      "stimulus": "mother",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/21-mother.mp3",
+      "status": "written"
+    },
+    {
+      "order": 22,
+      "stimulus": "black",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/22-black.mp3",
+      "status": "written"
+    },
+    {
+      "order": 23,
+      "stimulus": "member",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/23-member.mp3",
+      "status": "written"
+    },
+    {
+      "order": 24,
+      "stimulus": "family",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/24-family.mp3",
+      "status": "written"
+    },
+    {
+      "order": 25,
+      "stimulus": "appear",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/25-appear.mp3",
+      "status": "written"
+    },
+    {
+      "order": 26,
+      "stimulus": "system",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/26-system.mp3",
+      "status": "written"
+    },
+    {
+      "order": 27,
+      "stimulus": "think",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/27-think.mp3",
+      "status": "written"
+    },
+    {
+      "order": 28,
+      "stimulus": "begin",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/28-begin.mp3",
+      "status": "written"
+    },
+    {
+      "order": 29,
+      "stimulus": "report",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/29-report.mp3",
+      "status": "written"
+    },
+    {
+      "order": 30,
+      "stimulus": "return",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/30-return.mp3",
+      "status": "written"
+    }
+  ],
+  "targetedReplacementReview": {
+    "reason": "User-reported audio issues; replacements selected after waveform QC.",
+    "qcDirectory": "audio/qc/v0.3-replacement-candidates-american-matilda",
+    "backupDirectory": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements",
+    "selectedReplacements": [
+      {
+        "order": 7,
+        "stimulus": "number",
+        "selectedVariant": "plain_stable",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/07-number-plain_stable.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/07-number.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/07-number.mp3"
+      },
+      {
+        "order": 10,
+        "stimulus": "early",
+        "selectedVariant": "plain_stable",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/10-early-plain_stable.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/10-early.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/10-early.mp3"
+      },
+      {
+        "order": 16,
+        "stimulus": "school",
+        "selectedVariant": "plain_balanced",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/16-school-plain_balanced.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/16-school.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/16-school.mp3"
+      },
+      {
+        "order": 20,
+        "stimulus": "person",
+        "selectedVariant": "plain_stable",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/20-person-plain_stable.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/20-person.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/20-person.mp3"
+      },
+      {
+        "order": 22,
+        "stimulus": "black",
+        "selectedVariant": "plain_balanced",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/22-black-plain_balanced.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/22-black.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/22-black.mp3"
+      },
+      {
+        "order": 24,
+        "stimulus": "family",
+        "selectedVariant": "plain_stable",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/24-family-plain_stable.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/24-family.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/24-family.mp3"
+      },
+      {
+        "order": 27,
+        "stimulus": "think",
+        "selectedVariant": "plain_balanced",
+        "source": "audio/qc/v0.3-replacement-candidates-american-matilda/27-think-plain_balanced.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/27-think.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-targeted-waveform-replacements/27-think.mp3"
+      }
+    ]
+  },
+  "targetedAccentReplacementReview": {
+    "reason": "User-reported lexical accent issue for number, early, person.",
+    "strategy": "Replaced with same Matilda voice using English-only eleven_turbo_v2 candidates selected after waveform QC.",
+    "qcDirectory": "audio/qc/v0.3-accent-replacement-candidates",
+    "backupDirectory": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-accent-replacements-number-early-person",
+    "selectedReplacements": [
+      {
+        "order": 7,
+        "stimulus": "number",
+        "selectedVariant": "turbo_v2_plain",
+        "source": "audio/qc/v0.3-accent-replacement-candidates/07-number-turbo_v2_plain.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/07-number.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-accent-replacements-number-early-person/07-number.mp3",
+        "modelId": "eleven_turbo_v2",
+        "voiceId": "XrExE9yKIg1WjnnlVkGX"
+      },
+      {
+        "order": 10,
+        "stimulus": "early",
+        "selectedVariant": "turbo_v2_plain",
+        "source": "audio/qc/v0.3-accent-replacement-candidates/10-early-turbo_v2_plain.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/10-early.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-accent-replacements-number-early-person/10-early.mp3",
+        "modelId": "eleven_turbo_v2",
+        "voiceId": "XrExE9yKIg1WjnnlVkGX"
+      },
+      {
+        "order": 20,
+        "stimulus": "person",
+        "selectedVariant": "turbo_v2_plain",
+        "source": "audio/qc/v0.3-accent-replacement-candidates/20-person-turbo_v2_plain.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/20-person.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-accent-replacements-number-early-person/20-person.mp3",
+        "modelId": "eleven_turbo_v2",
+        "voiceId": "XrExE9yKIg1WjnnlVkGX"
+      }
+    ]
+  },
+  "targetedIpaPhonemeReplacementReview": {
+    "reason": "Previous replacements did not resolve lexical accent issue; waveform checks alone cannot verify word stress.",
+    "strategy": "Replace number and early with same Matilda voice using eleven_flash_v2 inline IPA phoneme tags.",
+    "discarded": "CMU inline phoneme candidates were generated as near-silence and were rejected.",
+    "qcDirectory": "audio/qc/v0.3-inline-phoneme-accent-candidates",
+    "backupDirectory": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-ipa-phoneme-replacements-number-early",
+    "selectedReplacements": [
+      {
+        "order": 7,
+        "stimulus": "number",
+        "selectedVariant": "flash_ipa_phoneme_tag",
+        "source": "audio/qc/v0.3-inline-phoneme-accent-candidates/07-number-flash_ipa_phoneme_tag.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/07-number.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-ipa-phoneme-replacements-number-early/07-number.mp3",
+        "modelId": "eleven_flash_v2",
+        "voiceId": "XrExE9yKIg1WjnnlVkGX",
+        "phonemeAlphabet": "ipa",
+        "phoneme": "ˈnʌmbɚ"
+      },
+      {
+        "order": 10,
+        "stimulus": "early",
+        "selectedVariant": "flash_ipa_phoneme_tag",
+        "source": "audio/qc/v0.3-inline-phoneme-accent-candidates/10-early-flash_ipa_phoneme_tag.mp3",
+        "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/10-early.mp3",
+        "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-ipa-phoneme-replacements-number-early/10-early.mp3",
+        "modelId": "eleven_flash_v2",
+        "voiceId": "XrExE9yKIg1WjnnlVkGX",
+        "phonemeAlphabet": "ipa",
+        "phoneme": "ˈɝli"
+      }
+    ]
+  },
+  "targetedEarlyRedoReview": {
+    "reason": "User accepted number but requested early to be redone again.",
+    "strategy": "Replaced early with same Matilda voice using eleven_flash_v2 and alias text \"urly\" to target American /ER1 L IY0/ without displaying text to participants.",
+    "qcDirectory": "audio/qc/v0.3-early-redo-candidates",
+    "backupDirectory": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-early-urly-replacement",
+    "selectedReplacement": {
+      "order": 10,
+      "stimulus": "early",
+      "selectedVariant": "flash_alias_urly",
+      "ttsText": "urly",
+      "source": "audio/qc/v0.3-early-redo-candidates/10-early-flash_alias_urly.mp3",
+      "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/10-early.mp3",
+      "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-early-urly-replacement/10-early.mp3",
+      "modelId": "eleven_flash_v2",
+      "voiceId": "XrExE9yKIg1WjnnlVkGX"
+    }
+  },
+  "targetedNumberRedoReview": {
+    "reason": "User asked whether number can be improved using the same alias strategy that improved early.",
+    "strategy": "Replaced number with same Matilda voice using eleven_flash_v2 and alias text \"nuhmber\" while preserving stimulus id and filename.",
+    "qcDirectory": "audio/qc/v0.3-number-redo-candidates",
+    "backupDirectory": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-number-nuhmber-replacement",
+    "selectedReplacement": {
+      "order": 7,
+      "stimulus": "number",
+      "selectedVariant": "flash_alias_nuhmber",
+      "ttsText": "nuhmber",
+      "source": "audio/qc/v0.3-number-redo-candidates/07-number-flash_alias_nuhmber.mp3",
+      "destination": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/07-number.mp3",
+      "backup": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/backup-before-number-nuhmber-replacement/07-number.mp3",
+      "modelId": "eleven_flash_v2",
+      "voiceId": "XrExE9yKIg1WjnnlVkGX"
+    }
+  }
+}

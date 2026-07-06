@@ -1,0 +1,55 @@
+{
+  "stimulus_count": 30,
+  "single_alpha_tokens": 30,
+  "audio_surface_ok": 30,
+  "in_all_lists": 28,
+  "off_list_any": 2,
+  "nj8_band_counts": {
+    "1": 16,
+    "2": 8,
+    "3": 4,
+    "4": 2
+  },
+  "bnc_coca_band_counts": {
+    "1": 17,
+    "2": 11,
+    "3": 1,
+    "4": 1
+  },
+  "ngsl_band_counts": {
+    "1": 14,
+    "2": 5,
+    "3": 9,
+    "off": 2
+  },
+  "concreteness_available": 30,
+  "concreteness_mean": 3.777,
+  "wordfreq_zipf_mean": 4.729,
+  "subtlex_lg10cd_mean": 3.102,
+  "familiarity_proxy_counts": {
+    "high": 30
+  },
+  "psycholinguistic_flag_counts": {
+    "very_concrete_review": 12,
+    "very_abstract_review": 3
+  },
+  "wordnet_primary_pos_counts": {
+    "noun": 18,
+    "adjective": 4,
+    "verb": 8
+  },
+  "wordnet_possible_pos_counts": {
+    "noun": 28,
+    "verb": 19,
+    "adjective": 4,
+    "adverb": 2
+  },
+  "wordnet_multi_pos_count": 20,
+  "pos_review_flag_counts": {
+    "multi_pos_review": 20
+  },
+  "experiment_id": "lex30-original-written-v1",
+  "experiment_version": "1.0.0",
+  "stimulus_set_id": "lex30-original-30",
+  "mode": "written"
+}

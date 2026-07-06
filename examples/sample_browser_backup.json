@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "lex30-browser-results-v2",
+  "exportedAt": "2026-07-05T15:30:00.000Z",
+  "experiment": {
+    "experimentId": "updated-listening-easycue-posbalanced-pilot-v0.3",
+    "experimentVersion": "0.3.0",
+    "label": "Updated Lex30 - listening easy-cue POS-balanced pilot v0.3",
+    "mode": "listening",
+    "stimulusPresentation": "audio",
+    "stimulusSetId": "updated-easycue-posbalanced-pilot-30-v0.3",
+    "audioBasePath": "audio/updated-listening-easycue-posbalanced-pilot-v0.3",
+    "audioExtension": "mp3",
+    "audioVersion": "american-matilda-number-nuhmber-20260705-2358",
+    "responseCount": 4,
+    "timerSeconds": 30,
+    "randomizeStimuli": false
+  },
+  "participant": {
+    "participantId": "demo_backup",
+    "participantSessionId": "20260705153000_demo"
+  },
+  "timing": {
+    "startedAt": "2026-07-05T15:29:00.000Z",
+    "completedAt": ""
+  },
+  "state": {
+    "isComplete": false,
+    "testInProgress": true,
+    "currentIndex": 2,
+    "completedResponseCount": 2,
+    "totalStimuli": 30,
+    "exportReason": "manual_backup"
+  },
+  "currentDraft": {
+    "stimulusOrder": 3,
+    "stimulus": "health",
+    "answers": ["doctor", "body", "", ""],
+    "stimulusStartedAt": "2026-07-05T15:30:03.000Z",
+    "elapsedOnItemMs": 4300,
+    "audio": {
+      "audioFile": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/03-health.mp3",
+      "audioSrc": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/03-health.mp3?v=american-matilda-number-nuhmber-20260705-2358",
+      "audioPlayCount": 1,
+      "audioEndedCount": 1,
+      "audioFirstPlayAtMs": 120,
+      "audioLastPlayAtMs": 120,
+      "audioLastEndedAtMs": 780
+    }
+  },
+  "responses": [
+    {
+      "stimulusOrder": 1,
+      "stimulus": "center",
+      "answers": ["middle", "city", "point", ""],
+      "stimulusStartedAt": "2026-07-05T15:29:01.000Z",
+      "stimulusEndedAt": "2026-07-05T15:29:17.000Z",
+      "elapsedSinceTestStartMs": 16000,
+      "reactionTime": 16000.4,
+      "advanceTrigger": "manual",
+      "autoAdvanced": false,
+      "audio": {
+        "audioFile": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/01-center.mp3",
+        "audioSrc": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/01-center.mp3?v=american-matilda-number-nuhmber-20260705-2358",
+        "audioPlayCount": 1,
+        "audioEndedCount": 1,
+        "audioFirstPlayAtMs": 180,
+        "audioLastPlayAtMs": 180,
+        "audioLastEndedAtMs": 820
+      }
+    },
+    {
+      "stimulusOrder": 2,
+      "stimulus": "garden",
+      "answers": ["flower", "tree", "green", "park"],
+      "stimulusStartedAt": "2026-07-05T15:29:18.000Z",
+      "stimulusEndedAt": "2026-07-05T15:30:02.000Z",
+      "elapsedSinceTestStartMs": 61000,
+      "reactionTime": 30000,
+      "advanceTrigger": "timer",
+      "autoAdvanced": true,
+      "audio": {
+        "audioFile": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/02-garden.mp3",
+        "audioSrc": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/02-garden.mp3?v=american-matilda-number-nuhmber-20260705-2358",
+        "audioPlayCount": 2,
+        "audioEndedCount": 2,
+        "audioFirstPlayAtMs": 110,
+        "audioLastPlayAtMs": 4100,
+        "audioLastEndedAtMs": 4700
+      }
+    }
+  ],
+  "autosave": {
+    "savedAt": "2026-07-05T15:30:08.000Z",
+    "reason": "manual_backup",
+    "storageKey": "lex30_autosave_v2:updated-listening-easycue-posbalanced-pilot-v0.3:20260705153000_demo"
+  }
+}

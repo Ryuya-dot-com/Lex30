@@ -1,0 +1,2 @@
+batch_id,reviewer_id,review_date,experiment_id,stimulus,audio_file,device,browser,audio_setup,file_load_pass,intelligibility_pass,pronunciation_pass,noise_clipping_pass,onset_clear,stress_vowel_consonant_risk,config_audio_match,review_decision,decision_note
+pilot_batch_YYYYMMDD,reviewer_a,YYYY-MM-DD,updated-listening-easycue-posbalanced-followup-pilot-v0.4,,,,headphones,yes,yes,yes,yes,yes,no,yes,uncertain,replace this row with one row per cue

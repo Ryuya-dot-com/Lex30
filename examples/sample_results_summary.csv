@@ -1,0 +1,3 @@
+source_file,participant_id,response_slots,lexical_tokens,valid_in_list_tokens,no_response_slots,both_off_list_review_tokens,list_disagreement_tokens,stimulus_repetitions,nj8_token_score,nj8_type_score,nj8_token_percent,bnc_coca_token_score,bnc_coca_type_score,bnc_coca_token_percent,ngsl_token_score,ngsl_type_score,ngsl_token_percent,ngsl_off_list_tokens
+sample_results.csv,demo01,8,6,6,1,0,2,1,3,3,50.0,4,4,66.67,1,1,16.67,4
+sample_results.csv,demo02,4,3,2,0,1,1,1,1,1,33.33,2,2,66.67,0,0,0.0,3

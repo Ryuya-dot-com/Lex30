@@ -1,0 +1,4 @@
+source_files,stimulus,response_token,lookup_token,normalized_head,oov_status,nj8_status,bnc_coca_status,ngsl_status,list_disagreement,manual_override_applied,occurrences,participants,participant_ids,example_raw_response,suggested_corrected_form,review_note
+sample_results.csv,potato,carbohydrat,carbohydrat,carbohydrat,both_off_list_review,off_list,off_list,off_list,False,False,1,1,demo02,carbohydrat,,
+sample_results.csv,potato,mashed,mashed,mash,bnc_coca_only,off_list,in_list,off_list,True,False,2,2,demo01;demo02,mashed,,
+sample_results.csv,window,pane,pane,pane,bnc_coca_only,off_list,in_list,off_list,True,False,1,1,demo01,pane,,

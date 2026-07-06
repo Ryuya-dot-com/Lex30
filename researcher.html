@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lex30 Researcher Setup</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f8fa;
+    color: #2b2f33;
+    margin: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    font-weight: normal;
+}
+
+.section-title {
+    text-align: left;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 22px 0 8px;
+}
+
+.panel {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin: 14px 0 6px;
+}
+
+select, input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #c8ced6;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button {
+    background: #2f6f57;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+button:hover {
+    background: #285f4b;
+}
+
+button:disabled {
+    background: #a7b0b8;
+    cursor: not-allowed;
+}
+
+.secondary-button {
+    background: #eef1f4;
+    color: #4b5560;
+    border: 1px solid #d8dee6;
+}
+
+.secondary-button:hover {
+    background: #e4e8ed;
+}
+
+.meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.meta-item {
+    border: 1px solid #e1e5ea;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.meta-item span {
+    display: block;
+    color: #65707b;
+    font-size: 12px;
+}
+
+.meta-item strong {
+    display: block;
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.copy-feedback {
+    color: #2f6f57;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.details {
+    margin-top: 16px;
+    border-top: 1px solid #e1e5ea;
+    padding-top: 12px;
+    color: #4b5560;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.workflow {
+    margin-top: 18px;
+    border-top: 1px solid #e1e5ea;
+    padding-top: 12px;
+}
+
+.workflow-list {
+    margin: 8px 0 12px;
+    padding-left: 20px;
+    color: #4b5560;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.path-note {
+    margin-top: 8px;
+    color: #4b5560;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+code {
+    background: #f1f3f5;
+    border: 1px solid #e1e5ea;
+    border-radius: 4px;
+    padding: 1px 4px;
+}
+
+.preflight {
+    margin-top: 16px;
+    border-top: 1px solid #e1e5ea;
+    padding-top: 12px;
+}
+
+.preflight-summary {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.preflight-counts {
+    margin-top: 8px;
+    color: #4b5560;
+    font-size: 13px;
+}
+
+.preflight-actions {
+    margin-top: 8px;
+}
+
+.preflight-list {
+    margin-top: 10px;
+    padding-left: 18px;
+    color: #4b5560;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ok {
+    color: #2f6f57;
+}
+
+.warn {
+    color: #8a5a00;
+}
+
+.fail {
+    color: #a33838;
+}
+</style>
+</head>
+<body>
+<h1>Lex30 Researcher Setup</h1>
+
+<div class="panel">
+  <label for="experiment-select">Version</label>
+  <select id="experiment-select"></select>
+
+  <div class="meta">
+    <div class="meta-item">
+      <span>Mode</span>
+      <strong id="mode-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Version</span>
+      <strong id="version-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Status</span>
+      <strong id="status-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Stimuli</span>
+      <strong id="stimulus-count-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Seconds</span>
+      <strong id="timer-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Stimulus Set</span>
+      <strong id="stimulus-set-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Audio Version</span>
+      <strong id="audio-version-value">-</strong>
+    </div>
+    <div class="meta-item">
+      <span>Freeze</span>
+      <strong id="freeze-value">-</strong>
+    </div>
+  </div>
+
+  <label for="participant-link">Participant URL</label>
+  <input type="text" id="participant-link" readonly>
+
+  <div class="actions">
+    <button id="copy-link" disabled>Copy URL</button>
+    <button id="open-link" disabled>Open Participant Page</button>
+    <button id="run-preflight">Run Preflight Check</button>
+    <span id="copy-link-status" class="copy-feedback" aria-live="polite"></span>
+  </div>
+  <div class="path-note" id="preflight-gate-note"></div>
+
+  <div class="details" id="experiment-notes"></div>
+
+  <div class="workflow">
+    <h2 class="section-title">Analysis Export</h2>
+    <ol class="workflow-list">
+      <li>Collect participant CSV downloads and keep JSON downloads as raw archives.</li>
+      <li>Place CSV files under <code>results/raw_exports/</code>.</li>
+      <li>Run the command below from the repository root.</li>
+      <li>Open <code>pilot_workbook.xlsx</code> in the newest <code>results/analysis/</code> folder.</li>
+    </ol>
+
+    <label for="analysis-command">Analysis Command</label>
+    <input type="text" id="analysis-command" readonly>
+
+    <div class="actions">
+      <button id="copy-analysis-command">Copy Analysis Command</button>
+      <span id="copy-analysis-status" class="copy-feedback" aria-live="polite"></span>
+    </div>
+
+    <div class="path-note" id="analysis-note"></div>
+  </div>
+
+  <div class="preflight">
+    <div class="preflight-summary" id="preflight-summary">Preflight has not run.</div>
+    <div class="preflight-counts" id="preflight-counts"></div>
+    <div class="preflight-actions">
+      <button id="toggle-preflight-details" class="secondary-button" style="display:none;">Show Details</button>
+    </div>
+    <ul class="preflight-list" id="preflight-results"></ul>
+  </div>
+</div>
+
+<script>
+let manifest = null;
+let configsById = new Map();
+let preflightState = {
+  experimentId: "",
+  passed: false,
+  running: false
+};
+let preflightDetailsVisible = false;
+
+document.addEventListener("DOMContentLoaded", initializeResearcherSetup);
+
+async function initializeResearcherSetup() {
+  manifest = await fetchJson("experiments.json");
+  const select = document.getElementById("experiment-select");
+
+  for (const experiment of manifest.experiments || []) {
+    const option = document.createElement("option");
+    option.value = experiment.id;
+    option.textContent = experiment.label;
+    select.appendChild(option);
+  }
+
+  select.value = manifest.defaultExperimentId;
+  select.addEventListener("change", updateSelectedExperiment);
+  document.getElementById("copy-link").addEventListener("click", copyParticipantLink);
+  document.getElementById("open-link").addEventListener("click", openParticipantLink);
+  document.getElementById("copy-analysis-command").addEventListener("click", copyAnalysisCommand);
+  document.getElementById("run-preflight").addEventListener("click", runPreflightCheck);
+  document.getElementById("toggle-preflight-details").addEventListener("click", togglePreflightDetails);
+  setParticipantControlsEnabled(false);
+  updateSelectedExperiment();
+}
+
+async function updateSelectedExperiment() {
+  const selectedId = document.getElementById("experiment-select").value;
+  const experiment = manifest.experiments.find(item => item.id === selectedId);
+  const config = await loadConfig(experiment);
+  const participantUrl = new URL("index.html", window.location.href);
+  participantUrl.searchParams.set("experiment", selectedId);
+
+  document.getElementById("participant-link").value = participantUrl.href;
+  document.getElementById("mode-value").textContent = config.mode || experiment.mode || "-";
+  document.getElementById("version-value").textContent = config.experimentVersion || "-";
+  document.getElementById("status-value").textContent = experiment.status || "-";
+  document.getElementById("stimulus-count-value").textContent = String((config.stimuli || []).length);
+  document.getElementById("timer-value").textContent = `${config.timerSeconds || 30}`;
+  document.getElementById("stimulus-set-value").textContent = config.stimulusSetId || "-";
+  document.getElementById("audio-version-value").textContent = config.audioVersion || "-";
+  document.getElementById("freeze-value").textContent = config.freezeManifest || "-";
+  document.getElementById("experiment-notes").textContent = experiment.notes || "";
+  updateAnalysisWorkflow(config, selectedId);
+  clearCopyStatus();
+  resetPreflight();
+}
+
+async function loadConfig(experiment) {
+  if (configsById.has(experiment.id)) {
+    return configsById.get(experiment.id);
+  }
+  const config = await fetchJson(experiment.config);
+  configsById.set(experiment.id, config);
+  return config;
+}
+
+async function fetchJson(path) {
+  const response = await fetch(path, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Could not load ${path}: ${response.status}`);
+  }
+  return response.json();
+}
+
+async function copyParticipantLink() {
+  if (!ensurePreflightPassed()) {
+    return;
+  }
+  await copyInputValue(document.getElementById("participant-link"), "copy-link-status");
+}
+
+async function copyAnalysisCommand() {
+  await copyInputValue(document.getElementById("analysis-command"), "copy-analysis-status");
+}
+
+async function copyInputValue(input, statusId) {
+  input.select();
+  input.setSelectionRange(0, input.value.length);
+
+  try {
+    if (!navigator.clipboard) {
+      throw new Error("Clipboard API unavailable");
+    }
+    await navigator.clipboard.writeText(input.value);
+  } catch (_error) {
+    document.execCommand("copy");
+  }
+  showCopyStatus(statusId, "Copied");
+}
+
+function showCopyStatus(statusId, text) {
+  const status = document.getElementById(statusId);
+  if (!status) {
+    return;
+  }
+  status.textContent = text;
+  window.setTimeout(() => {
+    if (status.textContent === text) {
+      status.textContent = "";
+    }
+  }, 1800);
+}
+
+function clearCopyStatus() {
+  for (const id of ["copy-link-status", "copy-analysis-status"]) {
+    const status = document.getElementById(id);
+    if (status) {
+      status.textContent = "";
+    }
+  }
+}
+
+function updateAnalysisWorkflow(config, selectedId) {
+  const command = buildAnalysisCommand(config, selectedId);
+  document.getElementById("analysis-command").value = command;
+  document.getElementById("analysis-note").textContent =
+    "Default output: results/analysis/YYYYMMDD-HHMMSS/pilot_workbook.xlsx. GPT annotation is disabled by default; add --with-gpt only when you want optional review metadata.";
+}
+
+function buildAnalysisCommand(config, selectedId) {
+  const parts = [
+    "python3",
+    "tools/run_pilot_analysis.py",
+    "results/raw_exports",
+    "--experiment-id",
+    selectedId
+  ];
+  if (!config.freezeManifest) {
+    parts.push("--skip-freeze-verify");
+  }
+  return parts.join(" ");
+}
+
+function openParticipantLink() {
+  if (!ensurePreflightPassed()) {
+    return;
+  }
+  const url = document.getElementById("participant-link").value;
+  window.open(url, "_blank", "noopener");
+}
+
+function resetPreflight() {
+  const selectedId = document.getElementById("experiment-select").value;
+  preflightState = {
+    experimentId: selectedId,
+    passed: false,
+    running: false
+  };
+  document.getElementById("preflight-summary").textContent = "Preflight has not run.";
+  document.getElementById("preflight-summary").className = "preflight-summary";
+  document.getElementById("preflight-counts").textContent = "";
+  document.getElementById("preflight-results").innerHTML = "";
+  document.getElementById("preflight-results").hidden = false;
+  document.getElementById("toggle-preflight-details").style.display = "none";
+  preflightDetailsVisible = false;
+  setParticipantControlsEnabled(false);
+}
+
+async function runPreflightCheck() {
+  const button = document.getElementById("run-preflight");
+  const select = document.getElementById("experiment-select");
+  const selectedId = document.getElementById("experiment-select").value;
+  const experiment = manifest.experiments.find(item => item.id === selectedId);
+  const config = await loadConfig(experiment);
+  const results = [];
+
+  preflightState = {
+    experimentId: selectedId,
+    passed: false,
+    running: true
+  };
+  setParticipantControlsEnabled(false);
+  button.disabled = true;
+  select.disabled = true;
+  setPreflightSummary("Running preflight...", "warn");
+  renderPreflightResults([]);
+  updatePreflightDetails([]);
+
+  try {
+    addCheck(results, window.location.protocol === "http:" || window.location.protocol === "https:", "Page is served over HTTP(S)", window.location.href);
+    addCheck(results, Boolean(config.experimentId), "Experiment config loaded", config.experimentId || "Missing experimentId");
+    addCheck(results, config.experimentId === selectedId, "Selected version matches config", `${selectedId} -> ${config.experimentId || "-"}`);
+    addCheck(results, Array.isArray(config.stimuli) && config.stimuli.length > 0, "Stimulus list is present", `${(config.stimuli || []).length} stimuli`);
+
+    const freeze = await loadFreezeManifest(config, results);
+    if (freeze) {
+      addCheck(results, freeze.experimentId === config.experimentId, "Freeze experimentId matches config", freeze.experimentId || "-");
+      addCheck(results, freeze.experimentVersion === config.experimentVersion, "Freeze experimentVersion matches config", freeze.experimentVersion || "-");
+      addCheck(results, freeze.audioVersion === config.audioVersion, "Freeze audioVersion matches config", freeze.audioVersion || "-");
+      addCheck(results, Number(freeze.stimulusCount) === (config.stimuli || []).length, "Freeze stimulus count matches config", `${freeze.stimulusCount || "-"} frozen`);
+    }
+
+    if (config.stimulusPresentation === "audio") {
+      await checkAudioFiles(config, freeze, results);
+    } else {
+      addCheck(results, true, "Audio file check skipped", "Selected version is not audio-presented");
+    }
+
+    const failures = results.filter(item => item.status === "fail").length;
+    const warnings = results.filter(item => item.status === "warn").length;
+    const summaryClass = failures ? "fail" : warnings ? "warn" : "ok";
+    const passed = failures === 0;
+    setPreflightSummary(
+      failures
+        ? `Preflight failed: ${failures} failed, ${warnings} warning(s).`
+        : warnings
+          ? `Preflight completed with ${warnings} warning(s).`
+          : "Preflight OK: config, freeze manifest, and audio files are readable.",
+      summaryClass
+    );
+    updatePreflightGate(selectedId, passed);
+  } catch (error) {
+    addCheck(results, false, "Preflight crashed", error.message || String(error));
+    setPreflightSummary("Preflight failed.", "fail");
+    updatePreflightGate(selectedId, false);
+  } finally {
+    renderPreflightResults(results);
+    updatePreflightDetails(results);
+    button.disabled = false;
+    select.disabled = false;
+  }
+}
+
+function updatePreflightGate(experimentId, passed) {
+  const selectedId = document.getElementById("experiment-select").value;
+  if (selectedId !== experimentId) {
+    return;
+  }
+  preflightState = {
+    experimentId,
+    passed,
+    running: false
+  };
+  setParticipantControlsEnabled(passed);
+}
+
+function ensurePreflightPassed() {
+  const selectedId = document.getElementById("experiment-select").value;
+  if (preflightState.experimentId === selectedId && preflightState.passed) {
+    return true;
+  }
+  alert("Run Preflight Check and resolve any failures before sharing the participant URL.");
+  return false;
+}
+
+function setParticipantControlsEnabled(enabled) {
+  const note = document.getElementById("preflight-gate-note");
+  for (const id of ["copy-link", "open-link"]) {
+    const button = document.getElementById(id);
+    if (button) {
+      button.disabled = !enabled;
+      button.title = enabled
+        ? "Preflight passed for the selected version."
+        : "Run Preflight Check before sharing the participant URL.";
+    }
+  }
+  if (note) {
+    note.textContent = enabled
+      ? "Participant URL is unlocked for the selected version."
+      : "Participant URL is locked until preflight passes for the selected version.";
+  }
+}
+
+async function loadFreezeManifest(config, results) {
+  if (!config.freezeManifest) {
+    addCheck(results, false, "Freeze manifest is configured", "Missing freezeManifest");
+    return null;
+  }
+  try {
+    const freeze = await fetchJson(config.freezeManifest);
+    addCheck(results, true, "Freeze manifest loaded", config.freezeManifest);
+    return freeze;
+  } catch (error) {
+    addCheck(results, false, "Freeze manifest loaded", error.message || String(error));
+    return null;
+  }
+}
+
+async function checkAudioFiles(config, freeze, results) {
+  if (!config.audioBasePath) {
+    addCheck(results, false, "Audio base path is configured", "Missing audioBasePath");
+    return;
+  }
+  const frozenAudioByOrder = new Map();
+  for (const file of freeze?.audioFiles || []) {
+    frozenAudioByOrder.set(Number(file.order), file);
+  }
+
+  for (const [index, stimulus] of (config.stimuli || []).entries()) {
+    const order = index + 1;
+    const path = audioPathForStimulus(config, stimulus, index);
+    const frozen = frozenAudioByOrder.get(order);
+    try {
+      const file = await fetchBinaryMetadata(path);
+      const detailParts = [`${path}`, `${file.bytes} bytes`];
+      let ok = true;
+      let warn = false;
+
+      if (frozen?.bytes && Number(frozen.bytes) !== file.bytes) {
+        ok = false;
+        detailParts.push(`expected ${frozen.bytes} bytes`);
+      }
+      if (frozen?.sha256 && file.sha256 && frozen.sha256 !== file.sha256) {
+        ok = false;
+        detailParts.push("SHA-256 mismatch");
+      }
+      if (frozen?.sha256 && !file.sha256) {
+        warn = true;
+        detailParts.push("SHA-256 unavailable in this browser context");
+      }
+      addCheck(results, ok, `Audio ${String(order).padStart(2, "0")} ${stimulus}`, detailParts.join(" | "), warn);
+    } catch (error) {
+      addCheck(results, false, `Audio ${String(order).padStart(2, "0")} ${stimulus}`, error.message || String(error));
+    }
+  }
+}
+
+async function fetchBinaryMetadata(path) {
+  const response = await fetch(versionedAudioPathForCheck(path), { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`${path}: HTTP ${response.status}`);
+  }
+  const buffer = await response.arrayBuffer();
+  return {
+    bytes: buffer.byteLength,
+    sha256: await sha256ArrayBuffer(buffer)
+  };
+}
+
+async function sha256ArrayBuffer(buffer) {
+  if (!window.crypto || !window.crypto.subtle) {
+    return "";
+  }
+  const hash = await window.crypto.subtle.digest("SHA-256", buffer);
+  return Array.from(new Uint8Array(hash))
+    .map(byte => byte.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function audioPathForStimulus(config, stimulus, index) {
+  if (config.audioFiles && config.audioFiles[stimulus]) {
+    return config.audioFiles[stimulus];
+  }
+  const order = String(index + 1).padStart(2, "0");
+  const filePart = sanitizeFilePart(stimulus).toLowerCase();
+  const extension = String(config.audioExtension || "mp3").replace(/^\./, "");
+  return `${String(config.audioBasePath || "").replace(/\/$/, "")}/${order}-${filePart}.${extension}`;
+}
+
+function versionedAudioPathForCheck(path) {
+  const selectedId = document.getElementById("experiment-select").value;
+  const config = configsById.get(selectedId);
+  if (!config?.audioVersion) {
+    return path;
+  }
+  const separator = path.includes("?") ? "&" : "?";
+  return `${path}${separator}v=${encodeURIComponent(config.audioVersion)}`;
+}
+
+function sanitizeFilePart(value) {
+  return String(value || "anonymous").replace(/[^A-Za-z0-9_-]+/g, "_").slice(0, 80);
+}
+
+function addCheck(results, passed, label, detail, warning = false) {
+  results.push({
+    status: passed ? (warning ? "warn" : "ok") : "fail",
+    label,
+    detail
+  });
+}
+
+function setPreflightSummary(text, statusClass) {
+  const summary = document.getElementById("preflight-summary");
+  summary.textContent = text;
+  summary.className = `preflight-summary ${statusClass || ""}`.trim();
+}
+
+function renderPreflightResults(results) {
+  const list = document.getElementById("preflight-results");
+  list.innerHTML = "";
+  for (const result of results) {
+    const item = document.createElement("li");
+    item.className = result.status;
+    item.textContent = `${result.status.toUpperCase()}: ${result.label} - ${result.detail}`;
+    list.appendChild(item);
+  }
+}
+
+function updatePreflightDetails(results) {
+  const counts = document.getElementById("preflight-counts");
+  const list = document.getElementById("preflight-results");
+  const toggle = document.getElementById("toggle-preflight-details");
+  if (!results.length) {
+    counts.textContent = "";
+    toggle.style.display = "none";
+    list.hidden = false;
+    return;
+  }
+
+  const ok = results.filter(item => item.status === "ok").length;
+  const warnings = results.filter(item => item.status === "warn").length;
+  const failures = results.filter(item => item.status === "fail").length;
+  const audioOk = results.filter(item => item.status === "ok" && item.label.startsWith("Audio ")).length;
+  const audioSummary = audioOk ? `${audioOk} audio files OK · ` : "";
+  counts.textContent = `${audioSummary}${ok} total OK · ${warnings} warning(s) · ${failures} failed`;
+  preflightDetailsVisible = failures > 0 || warnings > 0;
+  list.hidden = !preflightDetailsVisible;
+  toggle.style.display = "inline-block";
+  toggle.textContent = preflightDetailsVisible ? "Hide Details" : "Show Details";
+}
+
+function togglePreflightDetails() {
+  const list = document.getElementById("preflight-results");
+  const toggle = document.getElementById("toggle-preflight-details");
+  preflightDetailsVisible = !preflightDetailsVisible;
+  list.hidden = !preflightDetailsVisible;
+  toggle.textContent = preflightDetailsVisible ? "Hide Details" : "Show Details";
+}
+</script>
+</body>
+</html>
