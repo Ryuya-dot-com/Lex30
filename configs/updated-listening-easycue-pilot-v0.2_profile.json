@@ -1,0 +1,47 @@
+{
+  "stimulus_count": 30,
+  "single_alpha_tokens": 30,
+  "audio_surface_ok": 30,
+  "in_all_lists": 30,
+  "off_list_any": 0,
+  "nj8_band_counts": {
+    "1": 30
+  },
+  "bnc_coca_band_counts": {
+    "1": 30
+  },
+  "ngsl_band_counts": {
+    "1": 30
+  },
+  "concreteness_available": 30,
+  "concreteness_mean": 3.826,
+  "wordfreq_zipf_mean": 5.335,
+  "subtlex_lg10cd_mean": 3.469,
+  "familiarity_proxy_counts": {
+    "high": 30
+  },
+  "psycholinguistic_flag_counts": {
+    "very_concrete_review": 11
+  },
+  "wordnet_primary_pos_counts": {
+    "noun": 20,
+    "ambiguous": 3,
+    "verb": 6,
+    "adjective": 1
+  },
+  "wordnet_possible_pos_counts": {
+    "noun": 28,
+    "verb": 19,
+    "adjective": 3,
+    "adverb": 1
+  },
+  "wordnet_multi_pos_count": 20,
+  "pos_review_flag_counts": {
+    "multi_pos_review": 20,
+    "ambiguous_primary_review": 3
+  },
+  "experiment_id": "updated-listening-easycue-pilot-v0.2",
+  "experiment_version": "0.2.0",
+  "stimulus_set_id": "updated-easycue-pilot-30-v0.2",
+  "mode": "listening"
+}

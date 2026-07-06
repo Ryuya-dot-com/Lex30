@@ -1,0 +1,2 @@
+batch_id,reviewer_id,review_date,analysis_session_key,participant_id,stimulus,response_token,lookup_token,normalized_head,oov_status,review_category,decision,corrected_form,count_in_final_score,confidence,decision_note
+pilot_batch_YYYYMMDD,reviewer_a,YYYY-MM-DD,,,,,,,,spelling,uncertain,,uncertain,,replace this row with calibration cases from Review_Items or Scored_Tokens

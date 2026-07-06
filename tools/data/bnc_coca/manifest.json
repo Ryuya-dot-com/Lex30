@@ -1,0 +1,29 @@
+{
+  "id": "bnc_coca",
+  "name": "BNC/COCA headwords and word-family list",
+  "creator": "Paul Nation",
+  "source_url": "https://www.wgtn.ac.nz/lals/resources/paul-nations-resources/vocabulary-lists",
+  "description": "Headword lists and an Excel word-family list ordered by 1000-word frequency bands.",
+  "files": [
+    "headwords 1st 1000.txt",
+    "headwords 2nd 1000.txt",
+    "headwords 3rd 1000.txt",
+    "headwords 4th 1000.txt",
+    "headwords 5th 1000.txt",
+    "headwords 6th 1000.txt",
+    "headwords 7th 1000.txt",
+    "headwords 8th 1000.txt",
+    "headwords 9th 1000.txt",
+    "headwords 10th 1000.txt",
+    "BNC_COCA_lists.xlsx",
+    "BNC_COCA_lists.pdf"
+  ],
+  "unit": "headwords and word families with related forms",
+  "license": "See Paul Nation's BNC/COCA vocabulary-list distribution terms",
+  "redistributable": true,
+  "delivery": "bundled under data/bnc_coca for the public Streamlit app",
+  "notes": [
+    "The headword loader treats each text file as a 1000-headword band.",
+    "The word-family loader reads BNC_COCA_lists.xlsx and maps related forms to family heads."
+  ]
+}

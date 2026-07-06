@@ -2,13 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lex30 Test</title>
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f9f9f9;
-    color: #333;
-    margin: 20px;
+    background: #f6f7f9;
+    color: #2b2f33;
+    margin: 0;
+    padding: 24px 20px;
 }
   
 h1, h2 {
@@ -16,13 +22,13 @@ h1, h2 {
     font-weight: normal;
 }
   
-#instructions, #test-area, #result-area, #participant-info {
-    max-width: 600px;
+#instructions, #test-area, #break-area, #phase-break-area, #followup-area, #result-area, #participant-info, #setup-error {
+    max-width: 640px;
     margin: 0 auto;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 24px rgba(32, 41, 54, 0.08);
 }
   
 #instructions p, #participant-info p {
@@ -37,20 +43,218 @@ button {
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
-    margin-top: 10px;
+    font-weight: 600;
+    min-height: 42px;
 }
   
 button:hover {
     background: #45a049;
 }
+
+.secondary-button {
+    background: #56616d;
+}
+
+.secondary-button:hover {
+    background: #48535f;
+}
+
+.primary-button {
+    min-width: 112px;
+    padding: 11px 22px;
+}
+
+.backup-button {
+    background: #eef1f4;
+    color: #4b5560;
+    border: 1px solid #d8dee6;
+}
+
+.backup-button:hover {
+    background: #e4e8ed;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.task-actions {
+    justify-content: space-between;
+}
+
+.top-controls {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 900px;
+    margin: 0 auto 8px;
+}
+
+.language-toggle {
+    display: inline-flex;
+    gap: 4px;
+    background: #e8edf3;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.language-button {
+    min-height: 34px;
+    padding: 6px 10px;
+    background: transparent;
+    color: #4b5560;
+    border-radius: 4px;
+}
+
+.language-button:hover {
+    background: #d9e1ea;
+}
+
+.language-button.active {
+    background: #2f6f57;
+    color: #fff;
+}
+
+.danger-panel {
+    border-left: 4px solid #a33838;
+}
   
 .answer-container input {
     display: block;
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin: 8px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 15px;
+}
+
+.progress-track {
+    height: 8px;
+    background: #e8edf3;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 0 0 12px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: #2f6f57;
+    border-radius: inherit;
+    transition: width 160ms ease;
+}
+
+.phase-summary {
+    text-align: center;
+    line-height: 1.6;
+}
+
+.phase-summary strong {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.download-status {
+    color: #2f6f57;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    margin: 6px 0 14px;
+}
+
+.followup-field {
+    margin: 14px 0;
+}
+
+.followup-section {
+    border-top: 1px solid #e1e5ea;
+    padding-top: 14px;
+    margin-top: 18px;
+}
+
+.followup-section:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.followup-section h3 {
+    font-size: 15px;
+    margin: 0 0 10px;
+    color: #3b4652;
+}
+
+.followup-field label,
+.followup-options-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.followup-field input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.followup-field input[type="range"] {
+    width: 100%;
+    min-height: 32px;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: 12px;
+}
+
+.followup-options {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 14px 0;
+    padding: 12px;
+}
+
+.followup-options-title {
+    line-height: 1.25;
+}
+
+.followup-options label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 8px 0;
+    font-weight: normal;
+    border: 1px solid #d8dee6;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.followup-options label:hover {
+    background: #f6f8fa;
+}
+
+.followup-options input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+}
+
+.cue-reveal {
+    background: #eef4ff;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    font-size: 22px;
+    margin: 12px 0;
 }
   
 .info {
@@ -59,43 +263,132 @@ button:hover {
     text-align: center;
     margin-bottom: 10px;
 }
+
+#audio-area audio {
+    width: 100%;
+    max-width: 360px;
+}
+
+@media (max-width: 520px) {
+    body {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    #instructions, #test-area, #break-area, #phase-break-area, #followup-area, #result-area, #participant-info, #setup-error {
+        padding: 20px;
+    }
+
+    .action-bar {
+        align-items: stretch;
+    }
+
+    .task-actions {
+        display: grid;
+        grid-template-columns: 1fr auto;
+    }
+
+    .primary-button {
+        min-width: 96px;
+    }
+}
 </style>
 </head>
 <body>
-<h1>Lex30</h1>
-
-<div id="participant-info">
-  <p>Please enter your Participant ID to begin.</p>
-  <input type="text" id="participant-id" placeholder="Enter your ID" maxlength="20">
-  <div style="text-align:center;">
-    <button id="save-participant-id">Submit</button>
+<div class="top-controls">
+  <div class="language-toggle" role="group" aria-label="Language">
+    <button id="lang-en" class="language-button" type="button">English</button>
+    <button id="lang-ja" class="language-button" type="button">日本語</button>
   </div>
 </div>
+<h1>Lex30</h1>
+<div id="experiment-label" class="info"></div>
+
+<div id="setup-error" class="danger-panel" style="display:none;">
+  <h2>Setup Error</h2>
+  <p id="setup-error-text"></p>
+</div>
+
+<div id="participant-info">
+  <p id="participant-info-text">Please enter your Participant ID to begin.</p>
+  <input type="text" id="participant-id" placeholder="Enter your ID" maxlength="20">
+  <div style="text-align:center;">
+	    <button id="save-participant-id">Submit</button>
+	    <button id="download-saved-backup" class="secondary-button" style="display:none;">Download Saved Backup</button>
+	    <button id="clear-saved-backup" class="secondary-button" style="display:none;">Clear Saved Backup</button>
+	  </div>
+	</div>
 
 <div id="instructions" style="display:none;">
-  <p>You will see 30 English words. For each word, type up to 4 words that come to your mind. Press SPACE to go to the next word at any time, or wait 30 seconds and it will move on automatically.</p>
+  <p id="instructions-text">You will see English words. For each word, type the words that come to your mind.</p>
   <div style="text-align:center;">
     <button id="start-btn">Start Test</button>
   </div>
 </div>
 
 <div id="test-area" style="display:none;">
+  <div id="progress" class="info"></div>
+  <div class="progress-track" aria-hidden="true"><div id="association-progress-bar" class="progress-fill"></div></div>
   <h2 id="stimulus"></h2>
-  <div class="info">Press SPACE to go to the next word anytime, or wait 30 seconds.</div>
+  <div id="audio-area" class="info"></div>
+  <div id="timer-instruction" class="info">Press SPACE to go to the next word anytime.</div>
   <div id="answers-area" class="answer-container">
     <input type="text" placeholder="Type a word (optional)" maxlength="30">
     <input type="text" placeholder="Type a word (optional)" maxlength="30">
     <input type="text" placeholder="Type a word (optional)" maxlength="30">
     <input type="text" placeholder="Type a word (optional)" maxlength="30">
   </div>
+  <div class="action-bar task-actions">
+    <button id="download-backup-btn" class="backup-button">Download Backup</button>
+    <button id="next-btn" class="primary-button">Next</button>
+  </div>
+</div>
+
+<div id="break-area" style="display:none;">
+  <div class="phase-summary">
+    <strong id="break-title">Break</strong>
+    <p id="break-message">You may take a short break. Continue when you are ready.</p>
+  </div>
+  <div class="action-bar">
+    <button id="continue-break-btn" class="primary-button">Continue</button>
+  </div>
+</div>
+
+<div id="phase-break-area" style="display:none;">
+  <div class="phase-summary">
+    <strong id="phase-break-title">Part 1 complete</strong>
+    <p id="phase-break-message">You have finished the 30 listening items. The next part asks short follow-up questions about the same words.</p>
+  </div>
+  <div class="action-bar">
+    <button id="start-followup-btn" class="primary-button">Start Part 2</button>
+  </div>
+</div>
+
+<div id="followup-area" style="display:none;">
+  <div id="followup-progress" class="info"></div>
+  <div class="progress-track" aria-hidden="true"><div id="followup-progress-bar" class="progress-fill"></div></div>
+  <h2 id="followup-title"></h2>
+  <p id="followup-instruction"></p>
+  <div id="followup-cue" class="cue-reveal" style="display:none;"></div>
+  <div id="followup-form"></div>
+  <div class="action-bar task-actions">
+    <button id="download-followup-backup-btn" class="backup-button">Download Backup</button>
+    <button id="followup-next-btn" class="primary-button">Next</button>
+  </div>
 </div>
 
 <div id="result-area" style="display:none;">
-  <h2>Thank you for your responses!</h2>
+  <h2 id="thank-you-title">Thank you for your responses!</h2>
+  <p id="download-status" class="download-status">Your result files should download automatically. If they do not, use the buttons below.</p>
   <div style="text-align:center;">
-    <button id="download-btn">Download Results</button>
-  </div>
-</div>
+	    <button id="download-btn">Download Results</button>
+	    <button id="download-json-btn">Download JSON</button>
+	    <button id="clear-saved-backup-result" class="secondary-button" style="display:none;">Clear Saved Backup</button>
+	  </div>
+	</div>
 
 <script src="script.js"></script>
 </body>

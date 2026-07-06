@@ -1,0 +1,55 @@
+{
+  "stimulus_count": 30,
+  "single_alpha_tokens": 30,
+  "audio_surface_ok": 30,
+  "in_all_lists": 30,
+  "off_list_any": 0,
+  "nj8_band_counts": {
+    "1": 16,
+    "2": 8,
+    "3": 4,
+    "4": 2
+  },
+  "bnc_coca_band_counts": {
+    "1": 16,
+    "2": 8,
+    "3": 6
+  },
+  "ngsl_band_counts": {
+    "1": 16,
+    "2": 8,
+    "3": 6
+  },
+  "concreteness_available": 30,
+  "concreteness_mean": 3.717,
+  "wordfreq_zipf_mean": 4.965,
+  "subtlex_lg10cd_mean": 3.139,
+  "familiarity_proxy_counts": {
+    "high": 28,
+    "medium": 2
+  },
+  "psycholinguistic_flag_counts": {
+    "very_concrete_review": 10
+  },
+  "wordnet_primary_pos_counts": {
+    "adjective": 3,
+    "noun": 20,
+    "ambiguous": 2,
+    "verb": 5
+  },
+  "wordnet_possible_pos_counts": {
+    "noun": 27,
+    "verb": 16,
+    "adjective": 3,
+    "adverb": 1
+  },
+  "wordnet_multi_pos_count": 16,
+  "pos_review_flag_counts": {
+    "multi_pos_review": 16,
+    "ambiguous_primary_review": 2
+  },
+  "experiment_id": "updated-written-pilot-v0.1",
+  "experiment_version": "0.1.0",
+  "stimulus_set_id": "updated-pilot-30-v0.1",
+  "mode": "written"
+}

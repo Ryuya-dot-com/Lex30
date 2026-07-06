@@ -1,0 +1,190 @@
+{
+  "config": "configs/updated-listening-easycue-pilot-v0.2.json",
+  "experimentId": "updated-listening-easycue-pilot-v0.2",
+  "modelId": "eleven_multilingual_v2",
+  "outputFormat": "mp3_44100_128",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "execute": false,
+  "files": [
+    {
+      "order": 1,
+      "stimulus": "number",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/01-number.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 2,
+      "stimulus": "house",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/02-house.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 3,
+      "stimulus": "change",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/03-change.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 4,
+      "stimulus": "mother",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/04-mother.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 5,
+      "stimulus": "member",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/05-member.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 6,
+      "stimulus": "return",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/06-return.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 7,
+      "stimulus": "answer",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/07-answer.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 8,
+      "stimulus": "course",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/08-course.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 9,
+      "stimulus": "young",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/09-young.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 10,
+      "stimulus": "travel",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/10-travel.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 11,
+      "stimulus": "letter",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/11-letter.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 12,
+      "stimulus": "school",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/12-school.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 13,
+      "stimulus": "appear",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/13-appear.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 14,
+      "stimulus": "world",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/14-world.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 15,
+      "stimulus": "health",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/15-health.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 16,
+      "stimulus": "father",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/16-father.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 17,
+      "stimulus": "useful",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/17-useful.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 18,
+      "stimulus": "woman",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/18-woman.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 19,
+      "stimulus": "people",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/19-people.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 20,
+      "stimulus": "garden",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/20-garden.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 21,
+      "stimulus": "police",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/21-police.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 22,
+      "stimulus": "doctor",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/22-doctor.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 23,
+      "stimulus": "leader",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/23-leader.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 24,
+      "stimulus": "system",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/24-system.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 25,
+      "stimulus": "report",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/25-report.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 26,
+      "stimulus": "ground",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/26-ground.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 27,
+      "stimulus": "family",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/27-family.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 28,
+      "stimulus": "think",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/28-think.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 29,
+      "stimulus": "nature",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/29-nature.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 30,
+      "stimulus": "office",
+      "path": "audio/updated-listening-easycue-pilot-v0.2/30-office.mp3",
+      "status": "dry_run"
+    }
+  ]
+}

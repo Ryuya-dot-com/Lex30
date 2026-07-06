@@ -1,0 +1,4 @@
+Participant,Stimulus,Answer1,Answer2,Answer3,Answer4,ReactionTime(ms)
+demo01,potato,carbohydrate,mashed,boiled,potato,12345
+demo01,window,glass,broken,pane,,10123
+demo02,potato,carbohydrat,mashed,boiled,potato,12345

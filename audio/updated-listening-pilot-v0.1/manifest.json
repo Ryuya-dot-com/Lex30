@@ -1,0 +1,190 @@
+{
+  "config": "configs/updated-listening-pilot-v0.1.json",
+  "experimentId": "updated-listening-pilot-v0.1",
+  "modelId": "eleven_multilingual_v2",
+  "outputFormat": "mp3_44100_128",
+  "voiceId": "hpp4J3VqNfWAUOO0d1Us",
+  "execute": false,
+  "files": [
+    {
+      "order": 1,
+      "stimulus": "visual",
+      "path": "audio/updated-listening-pilot-v0.1/01-visual.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 2,
+      "stimulus": "father",
+      "path": "audio/updated-listening-pilot-v0.1/02-father.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 3,
+      "stimulus": "change",
+      "path": "audio/updated-listening-pilot-v0.1/03-change.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 4,
+      "stimulus": "school",
+      "path": "audio/updated-listening-pilot-v0.1/04-school.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 5,
+      "stimulus": "liquid",
+      "path": "audio/updated-listening-pilot-v0.1/05-liquid.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 6,
+      "stimulus": "victim",
+      "path": "audio/updated-listening-pilot-v0.1/06-victim.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 7,
+      "stimulus": "system",
+      "path": "audio/updated-listening-pilot-v0.1/07-system.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 8,
+      "stimulus": "devote",
+      "path": "audio/updated-listening-pilot-v0.1/08-devote.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 9,
+      "stimulus": "course",
+      "path": "audio/updated-listening-pilot-v0.1/09-course.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 10,
+      "stimulus": "injury",
+      "path": "audio/updated-listening-pilot-v0.1/10-injury.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 11,
+      "stimulus": "office",
+      "path": "audio/updated-listening-pilot-v0.1/11-office.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 12,
+      "stimulus": "number",
+      "path": "audio/updated-listening-pilot-v0.1/12-number.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 13,
+      "stimulus": "mother",
+      "path": "audio/updated-listening-pilot-v0.1/13-mother.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 14,
+      "stimulus": "advice",
+      "path": "audio/updated-listening-pilot-v0.1/14-advice.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 15,
+      "stimulus": "nature",
+      "path": "audio/updated-listening-pilot-v0.1/15-nature.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 16,
+      "stimulus": "report",
+      "path": "audio/updated-listening-pilot-v0.1/16-report.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 17,
+      "stimulus": "people",
+      "path": "audio/updated-listening-pilot-v0.1/17-people.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 18,
+      "stimulus": "lawyer",
+      "path": "audio/updated-listening-pilot-v0.1/18-lawyer.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 19,
+      "stimulus": "branch",
+      "path": "audio/updated-listening-pilot-v0.1/19-branch.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 20,
+      "stimulus": "member",
+      "path": "audio/updated-listening-pilot-v0.1/20-member.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 21,
+      "stimulus": "arrest",
+      "path": "audio/updated-listening-pilot-v0.1/21-arrest.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 22,
+      "stimulus": "ground",
+      "path": "audio/updated-listening-pilot-v0.1/22-ground.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 23,
+      "stimulus": "wealth",
+      "path": "audio/updated-listening-pilot-v0.1/23-wealth.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 24,
+      "stimulus": "ethnic",
+      "path": "audio/updated-listening-pilot-v0.1/24-ethnic.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 25,
+      "stimulus": "repeat",
+      "path": "audio/updated-listening-pilot-v0.1/25-repeat.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 26,
+      "stimulus": "health",
+      "path": "audio/updated-listening-pilot-v0.1/26-health.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 27,
+      "stimulus": "borrow",
+      "path": "audio/updated-listening-pilot-v0.1/27-borrow.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 28,
+      "stimulus": "tackle",
+      "path": "audio/updated-listening-pilot-v0.1/28-tackle.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 29,
+      "stimulus": "family",
+      "path": "audio/updated-listening-pilot-v0.1/29-family.mp3",
+      "status": "dry_run"
+    },
+    {
+      "order": 30,
+      "stimulus": "police",
+      "path": "audio/updated-listening-pilot-v0.1/30-police.mp3",
+      "status": "dry_run"
+    }
+  ]
+}

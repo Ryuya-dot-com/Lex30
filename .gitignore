@@ -1,0 +1,27 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+.env
+.env.*
+
+test-results/
+
+results/raw_exports/*
+!results/raw_exports/README.md
+results/analysis/*
+!results/analysis/README.md
+results/recovered/*
+!results/recovered/README.md
+
+audio/qc/
+audio/**/backup-before-*/
+
+/NJ8.csv
+tools/data/**/*.DS_Store
+tools/data/Brysbaert et al. (2014)/Brysbaert et al. (2014).pdf
+tools/data/NationBNCCOCA/about-bnc-coca-vocabulary-list.pdf
+tools/data/SUBTLEXus/SUBTLEXusExcel2007.xlsx
+tools/data/SUBTLEXus/SUBTLEXusfrequencyabove1.xls
+tools/data/SUBTLEXus/SUBTLEXusrawdata.dat
+tools/data/bnc_coca/BNC_COCA_lists.pdf

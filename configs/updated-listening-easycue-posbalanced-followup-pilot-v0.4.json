@@ -1,0 +1,1248 @@
+{
+  "experimentId": "updated-listening-easycue-posbalanced-followup-pilot-v0.4",
+  "experimentVersion": "0.4.0",
+  "label": "Updated Lex30 - listening easy-cue POS-balanced follow-up pilot v0.4",
+  "mode": "listening",
+  "stimulusPresentation": "audio",
+  "stimulusSetId": "updated-easycue-posbalanced-followup-30-v0.4",
+  "responseCount": 4,
+  "answerMaxLength": 30,
+  "singleWordPerResponse": true,
+  "timerSeconds": 30,
+  "advanceKey": "Space",
+  "randomizeStimuli": false,
+  "breaks": {
+    "enabled": true,
+    "associationAfterStimulusOrders": [15]
+  },
+  "downloadPrefix": "lex30_results",
+  "dataExportSchemaVersion": "lex30-browser-results-v3",
+  "pilotStatus": "frozen_followup_pilot",
+  "freezeManifest": "configs/updated-listening-easycue-posbalanced-followup-pilot-v0.4.freeze.json",
+  "instructions": "You will hear 30 English words. For each word, type up to 4 English words that come to your mind. After all 30 words, you will answer short follow-up questions about the words.",
+  "selectionMetadata": {
+    "status": "followup_pilot_pending_validation",
+    "sourceExperimentId": "updated-listening-easycue-posbalanced-pilot-v0.3",
+    "sourceCandidateFile": "tools/generated/stimulus_candidates.csv",
+    "seed": "updated-lex30-easycue-posbalanced-pilot-v0.3",
+    "targetNj8BandCounts": {
+      "1": 30
+    },
+    "targetWordNetPrimaryPosCounts": {
+      "noun": 18,
+      "verb": 8,
+      "adjective": 4
+    },
+    "maxNj8Rank": 1000,
+    "cueDifficultyPolicy": "All stimulus cues are NJ8 K1 with rank <= 1000, and WordNet primary-POS counts match the original Lex30 baseline.",
+    "selectionRule": "Same cue and audio set as frozen v0.3; v0.4 adds post-association cue recognition and semantic-depth probes.",
+    "reviewWarning": "This pilot is frozen for administration/QC of the follow-up format, but it is not yet a psychometrically validated final test."
+  },
+  "stimuli": [
+    "center",
+    "garden",
+    "health",
+    "doctor",
+    "white",
+    "course",
+    "number",
+    "listen",
+    "people",
+    "early",
+    "travel",
+    "office",
+    "ground",
+    "letter",
+    "father",
+    "school",
+    "answer",
+    "nature",
+    "useful",
+    "person",
+    "mother",
+    "black",
+    "member",
+    "family",
+    "appear",
+    "system",
+    "think",
+    "begin",
+    "report",
+    "return"
+  ],
+  "audioBasePath": "audio/updated-listening-easycue-posbalanced-pilot-v0.3",
+  "audioExtension": "mp3",
+  "audioVersion": "american-matilda-number-nuhmber-20260705-2358",
+  "audioAutoplay": true,
+  "followUp": {
+    "enabled": true,
+    "schemaVersion": "lex30-followup-v1",
+    "instructions": "Post-association cue recognition and semantic-depth checks. These questions are shown only after the free association task is complete.",
+    "recognition": {
+      "enabled": true,
+      "heardWordMaxLength": 40,
+      "confidenceLabel": "How clearly did you hear this word during the first task?",
+      "leftLabel": "Not clearly",
+      "rightLabel": "Very clearly"
+    },
+    "semantic": {
+      "enabled": true,
+      "japaneseMeaningMaxLength": 80,
+      "meaningConfidenceLabel": "How well do you know the meaning of this word?",
+      "responseConfidenceLabel": "How confident are you that your earlier associated words matched this cue?",
+      "leftLabel": "Not at all",
+      "rightLabel": "Very confident"
+    },
+    "probes": {
+      "center": {
+        "collocation": {
+          "prompt": "Which word often goes with center?",
+          "correctOptionId": "city",
+          "options": [
+            {"id": "city", "label": "city"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "late", "label": "late"},
+            {"id": "mother", "label": "mother"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to center?",
+          "correctOptionId": "middle",
+          "options": [
+            {"id": "middle", "label": "middle point"},
+            {"id": "family", "label": "family member"},
+            {"id": "color", "label": "color"},
+            {"id": "sound", "label": "sound"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to center?",
+          "correctOptionId": "middle",
+          "options": [
+            {"id": "middle", "label": "middle"},
+            {"id": "early", "label": "early"},
+            {"id": "garden", "label": "garden"},
+            {"id": "report", "label": "report"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to center?",
+          "correctOptionId": "edge",
+          "options": [
+            {"id": "edge", "label": "edge"},
+            {"id": "office", "label": "office"},
+            {"id": "answer", "label": "answer"},
+            {"id": "health", "label": "health"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "garden": {
+        "collocation": {
+          "prompt": "Which word often goes with garden?",
+          "correctOptionId": "flower",
+          "options": [
+            {"id": "flower", "label": "flower"},
+            {"id": "letter", "label": "letter"},
+            {"id": "return", "label": "return"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a garden?",
+          "correctOptionId": "place",
+          "options": [
+            {"id": "place", "label": "place"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to garden?",
+          "correctOptionId": "yard",
+          "options": [
+            {"id": "yard", "label": "yard"},
+            {"id": "course", "label": "course"},
+            {"id": "black", "label": "black"},
+            {"id": "begin", "label": "begin"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "health": {
+        "collocation": {
+          "prompt": "Which word often goes with health?",
+          "correctOptionId": "care",
+          "options": [
+            {"id": "care", "label": "care"},
+            {"id": "letter", "label": "letter"},
+            {"id": "black", "label": "black"},
+            {"id": "office", "label": "office"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to health?",
+          "correctOptionId": "condition",
+          "options": [
+            {"id": "condition", "label": "body condition"},
+            {"id": "job", "label": "job"},
+            {"id": "color", "label": "color"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to health?",
+          "correctOptionId": "wellness",
+          "options": [
+            {"id": "wellness", "label": "wellness"},
+            {"id": "letter", "label": "letter"},
+            {"id": "father", "label": "father"},
+            {"id": "travel", "label": "travel"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to health?",
+          "correctOptionId": "illness",
+          "options": [
+            {"id": "illness", "label": "illness"},
+            {"id": "nature", "label": "nature"},
+            {"id": "system", "label": "system"},
+            {"id": "person", "label": "person"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "doctor": {
+        "collocation": {
+          "prompt": "Which word often goes with doctor?",
+          "correctOptionId": "hospital",
+          "options": [
+            {"id": "hospital", "label": "hospital"},
+            {"id": "garden", "label": "garden"},
+            {"id": "black", "label": "black"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a doctor?",
+          "correctOptionId": "person",
+          "options": [
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to doctor?",
+          "correctOptionId": "physician",
+          "options": [
+            {"id": "physician", "label": "physician"},
+            {"id": "student", "label": "student"},
+            {"id": "answer", "label": "answer"},
+            {"id": "early", "label": "early"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "white": {
+        "collocation": {
+          "prompt": "Which word often goes with white?",
+          "correctOptionId": "snow",
+          "options": [
+            {"id": "snow", "label": "snow"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "system", "label": "system"},
+            {"id": "return", "label": "return"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is white?",
+          "correctOptionId": "color",
+          "options": [
+            {"id": "color", "label": "color"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to white?",
+          "correctOptionId": "pale",
+          "options": [
+            {"id": "pale", "label": "pale"},
+            {"id": "late", "label": "late"},
+            {"id": "school", "label": "school"},
+            {"id": "ground", "label": "ground"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to white?",
+          "correctOptionId": "black",
+          "options": [
+            {"id": "black", "label": "black"},
+            {"id": "office", "label": "office"},
+            {"id": "travel", "label": "travel"},
+            {"id": "health", "label": "health"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "course": {
+        "collocation": {
+          "prompt": "Which word often goes with course?",
+          "correctOptionId": "training",
+          "options": [
+            {"id": "training", "label": "training"},
+            {"id": "mother", "label": "mother"},
+            {"id": "black", "label": "black"},
+            {"id": "ground", "label": "ground"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to course?",
+          "correctOptionId": "class",
+          "options": [
+            {"id": "class", "label": "class or program"},
+            {"id": "family", "label": "family member"},
+            {"id": "color", "label": "color"},
+            {"id": "sound", "label": "sound"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to course?",
+          "correctOptionId": "class",
+          "options": [
+            {"id": "class", "label": "class"},
+            {"id": "early", "label": "early"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "return", "label": "return"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "number": {
+        "collocation": {
+          "prompt": "Which word often goes with number?",
+          "correctOptionId": "phone",
+          "options": [
+            {"id": "phone", "label": "phone"},
+            {"id": "garden", "label": "garden"},
+            {"id": "useful", "label": "useful"},
+            {"id": "father", "label": "father"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to number?",
+          "correctOptionId": "quantity",
+          "options": [
+            {"id": "quantity", "label": "quantity or symbol"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to number?",
+          "correctOptionId": "figure",
+          "options": [
+            {"id": "figure", "label": "figure"},
+            {"id": "mother", "label": "mother"},
+            {"id": "listen", "label": "listen"},
+            {"id": "white", "label": "white"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "listen": {
+        "collocation": {
+          "prompt": "Which word often goes with listen?",
+          "correctOptionId": "carefully",
+          "options": [
+            {"id": "carefully", "label": "carefully"},
+            {"id": "number", "label": "number"},
+            {"id": "white", "label": "white"},
+            {"id": "office", "label": "office"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is listen?",
+          "correctOptionId": "action",
+          "options": [
+            {"id": "action", "label": "action"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to listen?",
+          "correctOptionId": "hear",
+          "options": [
+            {"id": "hear", "label": "hear"},
+            {"id": "write", "label": "write"},
+            {"id": "black", "label": "black"},
+            {"id": "family", "label": "family"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "people": {
+        "collocation": {
+          "prompt": "Which word often goes with people?",
+          "correctOptionId": "many",
+          "options": [
+            {"id": "many", "label": "many"},
+            {"id": "garden", "label": "garden"},
+            {"id": "white", "label": "white"},
+            {"id": "begin", "label": "begin"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing are people?",
+          "correctOptionId": "persons",
+          "options": [
+            {"id": "persons", "label": "persons"},
+            {"id": "places", "label": "places"},
+            {"id": "colors", "label": "colors"},
+            {"id": "numbers", "label": "numbers"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to people?",
+          "correctOptionId": "persons",
+          "options": [
+            {"id": "persons", "label": "persons"},
+            {"id": "answer", "label": "answer"},
+            {"id": "course", "label": "course"},
+            {"id": "early", "label": "early"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "early": {
+        "collocation": {
+          "prompt": "Which word often goes with early?",
+          "correctOptionId": "morning",
+          "options": [
+            {"id": "morning", "label": "morning"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "number", "label": "number"},
+            {"id": "black", "label": "black"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to early?",
+          "correctOptionId": "time",
+          "options": [
+            {"id": "time", "label": "before the usual time"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "group", "label": "group"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to early?",
+          "correctOptionId": "soon",
+          "options": [
+            {"id": "soon", "label": "soon"},
+            {"id": "mother", "label": "mother"},
+            {"id": "ground", "label": "ground"},
+            {"id": "system", "label": "system"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to early?",
+          "correctOptionId": "late",
+          "options": [
+            {"id": "late", "label": "late"},
+            {"id": "health", "label": "health"},
+            {"id": "people", "label": "people"},
+            {"id": "garden", "label": "garden"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "travel": {
+        "collocation": {
+          "prompt": "Which word often goes with travel?",
+          "correctOptionId": "abroad",
+          "options": [
+            {"id": "abroad", "label": "abroad"},
+            {"id": "white", "label": "white"},
+            {"id": "letter", "label": "letter"},
+            {"id": "mother", "label": "mother"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is travel?",
+          "correctOptionId": "action",
+          "options": [
+            {"id": "action", "label": "action"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to travel?",
+          "correctOptionId": "journey",
+          "options": [
+            {"id": "journey", "label": "journey"},
+            {"id": "listen", "label": "listen"},
+            {"id": "black", "label": "black"},
+            {"id": "person", "label": "person"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "office": {
+        "collocation": {
+          "prompt": "Which word often goes with office?",
+          "correctOptionId": "work",
+          "options": [
+            {"id": "work", "label": "work"},
+            {"id": "garden", "label": "garden"},
+            {"id": "early", "label": "early"},
+            {"id": "family", "label": "family"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is an office?",
+          "correctOptionId": "place",
+          "options": [
+            {"id": "place", "label": "place"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to office?",
+          "correctOptionId": "workplace",
+          "options": [
+            {"id": "workplace", "label": "workplace"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "return", "label": "return"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "ground": {
+        "collocation": {
+          "prompt": "Which word often goes with ground?",
+          "correctOptionId": "floor",
+          "options": [
+            {"id": "floor", "label": "floor"},
+            {"id": "mother", "label": "mother"},
+            {"id": "useful", "label": "useful"},
+            {"id": "answer", "label": "answer"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to ground?",
+          "correctOptionId": "surface",
+          "options": [
+            {"id": "surface", "label": "surface or earth"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "time", "label": "time"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to ground?",
+          "correctOptionId": "earth",
+          "options": [
+            {"id": "earth", "label": "earth"},
+            {"id": "letter", "label": "letter"},
+            {"id": "begin", "label": "begin"},
+            {"id": "white", "label": "white"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "letter": {
+        "collocation": {
+          "prompt": "Which word often goes with letter?",
+          "correctOptionId": "write",
+          "options": [
+            {"id": "write", "label": "write"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "early", "label": "early"},
+            {"id": "garden", "label": "garden"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to letter?",
+          "correctOptionId": "message",
+          "options": [
+            {"id": "message", "label": "written message or symbol"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to letter?",
+          "correctOptionId": "mail",
+          "options": [
+            {"id": "mail", "label": "mail"},
+            {"id": "mother", "label": "mother"},
+            {"id": "listen", "label": "listen"},
+            {"id": "black", "label": "black"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "father": {
+        "collocation": {
+          "prompt": "Which word often goes with father?",
+          "correctOptionId": "mother",
+          "options": [
+            {"id": "mother", "label": "mother"},
+            {"id": "garden", "label": "garden"},
+            {"id": "number", "label": "number"},
+            {"id": "early", "label": "early"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a father?",
+          "correctOptionId": "family",
+          "options": [
+            {"id": "family", "label": "family member"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to father?",
+          "correctOptionId": "dad",
+          "options": [
+            {"id": "dad", "label": "dad"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "office", "label": "office"},
+            {"id": "answer", "label": "answer"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "school": {
+        "collocation": {
+          "prompt": "Which word often goes with school?",
+          "correctOptionId": "student",
+          "options": [
+            {"id": "student", "label": "student"},
+            {"id": "white", "label": "white"},
+            {"id": "return", "label": "return"},
+            {"id": "garden", "label": "garden"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a school?",
+          "correctOptionId": "institution",
+          "options": [
+            {"id": "institution", "label": "place or institution"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to school?",
+          "correctOptionId": "academy",
+          "options": [
+            {"id": "academy", "label": "academy"},
+            {"id": "mother", "label": "mother"},
+            {"id": "black", "label": "black"},
+            {"id": "think", "label": "think"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "answer": {
+        "collocation": {
+          "prompt": "Which word often goes with answer?",
+          "correctOptionId": "question",
+          "options": [
+            {"id": "question", "label": "question"},
+            {"id": "garden", "label": "garden"},
+            {"id": "white", "label": "white"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to answer?",
+          "correctOptionId": "response",
+          "options": [
+            {"id": "response", "label": "response"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to answer?",
+          "correctOptionId": "reply",
+          "options": [
+            {"id": "reply", "label": "reply"},
+            {"id": "health", "label": "health"},
+            {"id": "office", "label": "office"},
+            {"id": "black", "label": "black"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "nature": {
+        "collocation": {
+          "prompt": "Which word often goes with nature?",
+          "correctOptionId": "environment",
+          "options": [
+            {"id": "environment", "label": "environment"},
+            {"id": "number", "label": "number"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "early", "label": "early"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to nature?",
+          "correctOptionId": "world",
+          "options": [
+            {"id": "world", "label": "natural world"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to nature?",
+          "correctOptionId": "environment",
+          "options": [
+            {"id": "environment", "label": "environment"},
+            {"id": "listen", "label": "listen"},
+            {"id": "letter", "label": "letter"},
+            {"id": "father", "label": "father"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "useful": {
+        "collocation": {
+          "prompt": "Which word often goes with useful?",
+          "correctOptionId": "tool",
+          "options": [
+            {"id": "tool", "label": "tool"},
+            {"id": "mother", "label": "mother"},
+            {"id": "black", "label": "black"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to useful?",
+          "correctOptionId": "helpful",
+          "options": [
+            {"id": "helpful", "label": "helpful quality"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to useful?",
+          "correctOptionId": "helpful",
+          "options": [
+            {"id": "helpful", "label": "helpful"},
+            {"id": "early", "label": "early"},
+            {"id": "school", "label": "school"},
+            {"id": "return", "label": "return"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to useful?",
+          "correctOptionId": "useless",
+          "options": [
+            {"id": "useless", "label": "useless"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "garden", "label": "garden"},
+            {"id": "people", "label": "people"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "person": {
+        "collocation": {
+          "prompt": "Which word often goes with person?",
+          "correctOptionId": "young",
+          "options": [
+            {"id": "young", "label": "young"},
+            {"id": "garden", "label": "garden"},
+            {"id": "number", "label": "number"},
+            {"id": "return", "label": "return"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a person?",
+          "correctOptionId": "human",
+          "options": [
+            {"id": "human", "label": "human"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to person?",
+          "correctOptionId": "individual",
+          "options": [
+            {"id": "individual", "label": "individual"},
+            {"id": "white", "label": "white"},
+            {"id": "travel", "label": "travel"},
+            {"id": "office", "label": "office"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "mother": {
+        "collocation": {
+          "prompt": "Which word often goes with mother?",
+          "correctOptionId": "child",
+          "options": [
+            {"id": "child", "label": "child"},
+            {"id": "number", "label": "number"},
+            {"id": "garden", "label": "garden"},
+            {"id": "black", "label": "black"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a mother?",
+          "correctOptionId": "family",
+          "options": [
+            {"id": "family", "label": "family member"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to mother?",
+          "correctOptionId": "mom",
+          "options": [
+            {"id": "mom", "label": "mom"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "answer", "label": "answer"},
+            {"id": "early", "label": "early"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "black": {
+        "collocation": {
+          "prompt": "Which word often goes with black?",
+          "correctOptionId": "coffee",
+          "options": [
+            {"id": "coffee", "label": "coffee"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "travel", "label": "travel"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is black?",
+          "correctOptionId": "color",
+          "options": [
+            {"id": "color", "label": "color"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to black?",
+          "correctOptionId": "dark",
+          "options": [
+            {"id": "dark", "label": "dark"},
+            {"id": "early", "label": "early"},
+            {"id": "school", "label": "school"},
+            {"id": "report", "label": "report"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to black?",
+          "correctOptionId": "white",
+          "options": [
+            {"id": "white", "label": "white"},
+            {"id": "mother", "label": "mother"},
+            {"id": "listen", "label": "listen"},
+            {"id": "system", "label": "system"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "member": {
+        "collocation": {
+          "prompt": "Which word often goes with member?",
+          "correctOptionId": "team",
+          "options": [
+            {"id": "team", "label": "team"},
+            {"id": "garden", "label": "garden"},
+            {"id": "early", "label": "early"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to member?",
+          "correctOptionId": "group_person",
+          "options": [
+            {"id": "group_person", "label": "person in a group"},
+            {"id": "color", "label": "color"},
+            {"id": "place", "label": "place"},
+            {"id": "time", "label": "time"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to member?",
+          "correctOptionId": "participant",
+          "options": [
+            {"id": "participant", "label": "participant"},
+            {"id": "white", "label": "white"},
+            {"id": "return", "label": "return"},
+            {"id": "office", "label": "office"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "family": {
+        "collocation": {
+          "prompt": "Which word often goes with family?",
+          "correctOptionId": "member",
+          "options": [
+            {"id": "member", "label": "member"},
+            {"id": "black", "label": "black"},
+            {"id": "number", "label": "number"},
+            {"id": "travel", "label": "travel"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of thing is a family?",
+          "correctOptionId": "group",
+          "options": [
+            {"id": "group", "label": "group of related people"},
+            {"id": "color", "label": "color"},
+            {"id": "place", "label": "place"},
+            {"id": "action", "label": "action"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to family?",
+          "correctOptionId": "relatives",
+          "options": [
+            {"id": "relatives", "label": "relatives"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "begin", "label": "begin"},
+            {"id": "white", "label": "white"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "appear": {
+        "collocation": {
+          "prompt": "Which word often goes with appear?",
+          "correctOptionId": "suddenly",
+          "options": [
+            {"id": "suddenly", "label": "suddenly"},
+            {"id": "mother", "label": "mother"},
+            {"id": "black", "label": "black"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is appear?",
+          "correctOptionId": "action",
+          "options": [
+            {"id": "action", "label": "action"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to appear?",
+          "correctOptionId": "emerge",
+          "options": [
+            {"id": "emerge", "label": "emerge"},
+            {"id": "listen", "label": "listen"},
+            {"id": "letter", "label": "letter"},
+            {"id": "family", "label": "family"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to appear?",
+          "correctOptionId": "disappear",
+          "options": [
+            {"id": "disappear", "label": "disappear"},
+            {"id": "office", "label": "office"},
+            {"id": "health", "label": "health"},
+            {"id": "white", "label": "white"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "system": {
+        "collocation": {
+          "prompt": "Which word often goes with system?",
+          "correctOptionId": "computer",
+          "options": [
+            {"id": "computer", "label": "computer"},
+            {"id": "mother", "label": "mother"},
+            {"id": "early", "label": "early"},
+            {"id": "garden", "label": "garden"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to system?",
+          "correctOptionId": "organized_set",
+          "options": [
+            {"id": "organized_set", "label": "organized set of parts"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "time", "label": "time"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to system?",
+          "correctOptionId": "structure",
+          "options": [
+            {"id": "structure", "label": "structure"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "return", "label": "return"},
+            {"id": "black", "label": "black"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "think": {
+        "collocation": {
+          "prompt": "Which word often goes with think?",
+          "correctOptionId": "about",
+          "options": [
+            {"id": "about", "label": "about"},
+            {"id": "garden", "label": "garden"},
+            {"id": "white", "label": "white"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is think?",
+          "correctOptionId": "mental_action",
+          "options": [
+            {"id": "mental_action", "label": "mental action"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to think?",
+          "correctOptionId": "consider",
+          "options": [
+            {"id": "consider", "label": "consider"},
+            {"id": "letter", "label": "letter"},
+            {"id": "office", "label": "office"},
+            {"id": "early", "label": "early"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "begin": {
+        "collocation": {
+          "prompt": "Which word often goes with begin?",
+          "correctOptionId": "start",
+          "options": [
+            {"id": "start", "label": "start"},
+            {"id": "mother", "label": "mother"},
+            {"id": "black", "label": "black"},
+            {"id": "garden", "label": "garden"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is begin?",
+          "correctOptionId": "action",
+          "options": [
+            {"id": "action", "label": "action"},
+            {"id": "person", "label": "person"},
+            {"id": "place", "label": "place"},
+            {"id": "color", "label": "color"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to begin?",
+          "correctOptionId": "start",
+          "options": [
+            {"id": "start", "label": "start"},
+            {"id": "father", "label": "father"},
+            {"id": "health", "label": "health"},
+            {"id": "school", "label": "school"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to begin?",
+          "correctOptionId": "end",
+          "options": [
+            {"id": "end", "label": "end"},
+            {"id": "office", "label": "office"},
+            {"id": "people", "label": "people"},
+            {"id": "white", "label": "white"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "report": {
+        "collocation": {
+          "prompt": "Which word often goes with report?",
+          "correctOptionId": "write",
+          "options": [
+            {"id": "write", "label": "write"},
+            {"id": "garden", "label": "garden"},
+            {"id": "early", "label": "early"},
+            {"id": "mother", "label": "mother"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "Which meaning is closest to report?",
+          "correctOptionId": "document",
+          "options": [
+            {"id": "document", "label": "document or account"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "animal", "label": "animal"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which word is closest in meaning to report?",
+          "correctOptionId": "account",
+          "options": [
+            {"id": "account", "label": "account"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "black", "label": "black"},
+            {"id": "return", "label": "return"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      },
+      "return": {
+        "collocation": {
+          "prompt": "Which word often goes with return?",
+          "correctOptionId": "home",
+          "options": [
+            {"id": "home", "label": "home"},
+            {"id": "white", "label": "white"},
+            {"id": "number", "label": "number"},
+            {"id": "doctor", "label": "doctor"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "category": {
+          "prompt": "What kind of word is return?",
+          "correctOptionId": "action",
+          "options": [
+            {"id": "action", "label": "action"},
+            {"id": "person", "label": "person"},
+            {"id": "color", "label": "color"},
+            {"id": "number", "label": "number"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "synonym": {
+          "prompt": "Which phrase is closest in meaning to return?",
+          "correctOptionId": "come_back",
+          "options": [
+            {"id": "come_back", "label": "come back"},
+            {"id": "listen", "label": "listen"},
+            {"id": "family", "label": "family"},
+            {"id": "black", "label": "black"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        },
+        "antonym": {
+          "prompt": "Which word is most opposite to return?",
+          "correctOptionId": "leave",
+          "options": [
+            {"id": "leave", "label": "leave"},
+            {"id": "mother", "label": "mother"},
+            {"id": "health", "label": "health"},
+            {"id": "system", "label": "system"},
+            {"id": "dont_know", "label": "I don't know"}
+          ]
+        }
+      }
+    }
+  }
+}
