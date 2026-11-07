@@ -106,6 +106,47 @@ Before final-form validation, decide whether repetition should be exact-form,
 lemma-based, or word-family-based. The current pilot reports enough token detail
 to audit this decision.
 
+## Spoken Response Transcription And Homophone Sensitivity
+
+For `v0.5` spoken forms (`continuous_4` and `discrete_naming`), raw `.zip`
+archives are processed offline via `tools/transcribe_spoken_lex30.py`:
+
+- ASR transcripts are researcher-review inputs, not unverified ground truth.
+  Inspect `spoken_transcription_review.csv` (especially low-confidence segments,
+  cue-bleed overlaps, and homophone-flagged items) and rerun with
+  `--apply-review-csv` before final reporting.
+- Spoken homophones (e.g., `night`/`knight`, `write`/`right`) cannot be
+  disambiguated by phonology alone. The scorer flags homophone-group tokens and
+  reports deterministic sensitivity bounds (`homophone_conservative_nj8_score`
+  assigning the highest-frequency/lowest-credit homophone vs
+  `homophone_lenient_nj8_score` assigning the lowest-frequency/highest-credit
+  homophone) alongside the transcribed primary score.
+
+## Secondary Multifaceted Diagnostics (6 Dimensions)
+
+Alongside the unchanged primary deterministic binary score (`K1 = 0`, `K2+ = 1`),
+`score_lex30.py` and `run_pilot_analysis.py` output secondary diagnostic indices
+in `multifaceted_summary.csv` and the `Multifaceted` workbook sheet:
+
+1. **Frequency Sophistication**: polytomous band totals (`K1=0, K2=1, K3=2, K4+=3`)
+   and continuous log-rank, SUBTLEX-US `Lg10CD`, and `wordfreq` Zipf means.
+2. **Retrieval Fluency**: slot-1 onset latency (`mean_rt1_onset_ms`,
+   `median_rt1_onset_ms`), inter-response interval (`mean_iri_ms`), and 5s/10s
+   time-cutoff K2+ scores.
+3. **Phonological vs Semantic Processing**: cue-response form/clang ratio and
+   homophone sensitivity bounds.
+4. **Network Structure & Chaining**: lexical TTR, intra-item POS diversity,
+   response-to-response chaining index (`sim(R_t, R_{t-1}) - sim(R_t, Cue)`),
+   forward flow, and optional `--association-norms` stereotypy strength.
+5. **Psycholinguistic & Morphological Depth**: Brysbaert concreteness mean,
+   Shannon POS entropy, noun-bias ratio, derivational suffix ratio, and word length.
+6. **Receptive–Productive Bottleneck (`v0.4` follow-up)**: cue perception accuracy,
+   Japanese meaning dictionary match (`tools/data/cue_japanese_glosses.json`),
+   conditional K2+ yield on receptively known cues, and productive retrieval gap.
+
+These secondary indices are descriptive research profiles and never overwrite or
+reweight primary binary Lex30 scores.
+
 ## Manual Review Workflow
 
 1. Run the no-GPT analysis first.

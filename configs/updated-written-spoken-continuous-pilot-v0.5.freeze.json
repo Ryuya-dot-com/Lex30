@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "lex30-freeze-v1",
+  "frozenAt": "2026-11-07T16:17:48.970730+00:00",
+  "experimentId": "updated-written-spoken-continuous-pilot-v0.5",
+  "experimentVersion": "0.5.0",
+  "label": "Updated Lex30 - written cue, spoken continuous (30s) pilot v0.5",
+  "registryEntry": {
+    "id": "updated-written-spoken-continuous-pilot-v0.5",
+    "label": "Updated Lex30 - written cue, spoken continuous (30s) pilot v0.5",
+    "config": "configs/updated-written-spoken-continuous-pilot-v0.5.json",
+    "mode": "written_cue_spoken",
+    "status": "spoken_pilot"
+  },
+  "mode": "written_cue_spoken",
+  "stimulusPresentation": "text",
+  "stimulusSetId": "updated-easycue-posbalanced-pilot-30-v0.3",
+  "stimulusCount": 30,
+  "responseCount": 4,
+  "timerSeconds": 30,
+  "randomizeStimuli": false,
+  "audioBasePath": null,
+  "audioExtension": null,
+  "audioVersion": "",
+  "audioAutoplay": null,
+  "stimuli": [
+    "center",
+    "garden",
+    "health",
+    "doctor",
+    "white",
+    "course",
+    "number",
+    "listen",
+    "people",
+    "early",
+    "travel",
+    "office",
+    "ground",
+    "letter",
+    "father",
+    "school",
+    "answer",
+    "nature",
+    "useful",
+    "person",
+    "mother",
+    "black",
+    "member",
+    "family",
+    "appear",
+    "system",
+    "think",
+    "begin",
+    "report",
+    "return"
+  ],
+  "files": [
+    {
+      "role": "experiment_config",
+      "path": "configs/updated-written-spoken-continuous-pilot-v0.5.json",
+      "bytes": 2308,
+      "sha256": "34e1564d73cac42540819e6420aa84463d73e644bf5c3626e3c2ec266fc68d01"
+    }
+  ],
+  "audioFiles": [],
+  "notes": [
+    "This lock file records the exact config and audio file checksums for pilot administration.",
+    "Rule-based scoring remains primary; optional GPT annotations are review metadata only.",
+    "Spelling is preserved as typed unless a researcher supplies a manual override file during scoring."
+  ]
+}

@@ -77,19 +77,20 @@ def build_freeze(experiment_id: str) -> dict[str, Any]:
             )
 
     audio_files: list[dict[str, Any]] = []
-    for order, stimulus in enumerate(config.get("stimuli", []), start=1):
-        audio_path = audio_file_for(config, stimulus, order)
-        if not audio_path.exists():
-            raise FileNotFoundError(audio_path)
-        audio_files.append(
-            {
-                "order": order,
-                "stimulus": stimulus,
-                "path": relative(audio_path),
-                "bytes": audio_path.stat().st_size,
-                "sha256": sha256_file(audio_path),
-            }
-        )
+    if config.get("stimulusPresentation") == "audio":
+        for order, stimulus in enumerate(config.get("stimuli", []), start=1):
+            audio_path = audio_file_for(config, stimulus, order)
+            if not audio_path.exists():
+                raise FileNotFoundError(audio_path)
+            audio_files.append(
+                {
+                    "order": order,
+                    "stimulus": stimulus,
+                    "path": relative(audio_path),
+                    "bytes": audio_path.stat().st_size,
+                    "sha256": sha256_file(audio_path),
+                }
+            )
 
     return {
         "schemaVersion": "lex30-freeze-v1",

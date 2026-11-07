@@ -12,6 +12,7 @@ import random
 import re
 import statistics
 import sys
+import unicodedata
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from importlib import metadata as importlib_metadata
@@ -297,6 +298,57 @@ EXCEL_NUMERIC_FIELDS = {
     "antonym_correct_percent",
     "low_filled_slot_percent",
     "low_filled_slot_sessions",
+    "nj8_polytomous_score",
+    "bnc_coca_polytomous_score",
+    "nj8_polytomous_token_score",
+    "bnc_coca_polytomous_token_score",
+    "nj8_log_rank",
+    "mean_nj8_log_rank",
+    "subtlex_lg10cd",
+    "mean_subtlex_lg10cd",
+    "wordfreq_zipf",
+    "mean_wordfreq_zipf",
+    "slot_onset_ms",
+    "slot_completed_ms",
+    "inter_response_interval_ms",
+    "mean_rt1_onset_ms",
+    "median_rt1_onset_ms",
+    "mean_iri_ms",
+    "nj8_k2plus_within_5s",
+    "nj8_k2plus_within_10s",
+    "cue_orthographic_similarity",
+    "clang_candidate_tokens",
+    "clang_percent_of_lexical_tokens",
+    "homophone_ambiguous_tokens",
+    "homophone_conservative_nj8_score",
+    "homophone_lenient_nj8_score",
+    "association_norm_strength",
+    "mean_association_norm_strength",
+    "semantic_sim_to_cue",
+    "chaining_step_delta",
+    "forward_flow_step",
+    "lexical_ttr",
+    "mean_intra_item_pos_diversity",
+    "mean_chaining_index",
+    "mean_forward_flow",
+    "adjacent_clang_chain_tokens",
+    "concreteness_mean",
+    "mean_response_concreteness",
+    "pos_entropy_bits",
+    "noun_bias_ratio",
+    "derivational_suffix_ratio",
+    "word_length",
+    "mean_word_length",
+    "heard_exact_items",
+    "heard_exact_percent",
+    "heard_close_or_exact_items",
+    "heard_close_or_exact_percent",
+    "japanese_meaning_matched_items",
+    "japanese_meaning_matched_percent",
+    "receptive_known_items",
+    "nj8_token_percent_given_heard_exact",
+    "nj8_token_percent_given_meaning_matched",
+    "productive_retrieval_gap_percent",
 }
 DATA_DICTIONARY_ROWS = [
     ["Sheet", "Field or Flag", "Meaning"],
@@ -342,6 +394,12 @@ DATA_DICTIONARY_ROWS = [
     ["Item_Diagnostics", "item_total_correlation", "Correlation between cue score and total score; includes the item in the total."],
     ["Item_Diagnostics", "item_rest_correlation", "Correlation between cue score and total score excluding that cue."],
     ["Item_Diagnostics", "item_score_positive_percent", "Percentage of complete sessions with a positive cue score."],
+    ["Multifaceted", "nj8_polytomous_token_score", "Dim 1 sophistication: polytomous band sum (K1=0, K2=1, K3=2, K4+=3; off-list/repetition=0)."],
+    ["Multifaceted", "mean_rt1_onset_ms / mean_iri_ms", "Dim 2 retrieval fluency: first-response voice/keystroke onset latency and inter-response interval in ms."],
+    ["Multifaceted", "clang_percent_of_lexical_tokens", "Dim 3 form reliance: share of non-repetition lexical tokens showing high orthographic/homophone overlap with the cue."],
+    ["Multifaceted", "mean_chaining_index / mean_forward_flow", "Dim 4 exploration: sim(R_{k-1}, R_k) - sim(Cue, R_k) (>0 favors chaining over star retrieval) and mean semantic divergence."],
+    ["Multifaceted", "mean_response_concreteness / pos_entropy_bits", "Dim 5 abstractness & morphosyntax: Brysbaert concreteness mean (lower = more abstract) and content-POS Shannon entropy."],
+    ["Multifaceted", "nj8_token_percent_given_heard_exact / productive_retrieval_gap_percent", "Dim 6 bottleneck: K2+ rate conditioned on accurate cue recognition, and share of receptively known cues yielding zero K2+ output."],
     ["Manual decision columns", "decision_by / decision_at", "Optional human-entered audit trail in the Excel workbook only."],
     ["Manual decision columns", "decision_note", "Optional rationale for inclusion, exclusion, correction, or item-retention decisions."],
 ]
@@ -908,6 +966,7 @@ def write_decision_summary_sheet(
             ["Item_Diagnostics", "Cue-level item-total/item-rest diagnostics", "Use for pilot item-retention review."],
             ["Cue_Score_Matrix", "Session-by-cue token-score matrix", "Use as input for item and reliability analyses."],
             ["Data_Dictionary", "Flag and manual-decision field definitions", "Use when documenting analysis decisions."],
+            ["Multifaceted", "6-dimension productive vocabulary & bottleneck profile", "Secondary psycholinguistic, fluency, exploration, and v0.4 follow-up profile."],
             ["Summary", "Participant-level score summary", "Use after QC decisions are finalized."],
             ["Scored_Tokens", "Full token-level scoring table", "Use for audits and secondary analyses."],
         ]
@@ -1007,6 +1066,7 @@ def write_readme_sheet(
         ["Item_Summary", "Stimulus-level response, timing, and audio-play QC."],
         ["Psychometrics", "Descriptive pilot reliability and score-distribution diagnostics."],
         ["Cue_Score_Matrix", "Cue-level token scores by analysis session."],
+        ["Multifaceted", "6-dimension productive vocabulary profile (sophistication, fluency, clang, exploration, abstractness, bottleneck)."],
         ["Summary", "Participant-level NJ8/BNC-COCA/NGSL scores."],
         ["Review_Items", "Human-review items such as off-list and list-disagreement forms."],
         ["Scored_Tokens", "Detailed token-level scored responses."],
@@ -1089,6 +1149,8 @@ def write_analysis_workbook(
     write_csv_sheet(workbook, title="Psychometrics", path=outputs["psychometrics_summary_csv"])
     write_csv_sheet(workbook, title="Item_Diagnostics", path=outputs["item_diagnostics_csv"])
     write_csv_sheet(workbook, title="Cue_Score_Matrix", path=outputs["cue_score_matrix_csv"])
+    if "multifaceted_summary_csv" in outputs:
+        write_csv_sheet(workbook, title="Multifaceted", path=outputs["multifaceted_summary_csv"])
     write_csv_sheet(workbook, title="Summary", path=outputs["summary_csv"])
     write_csv_sheet(workbook, title="Scored_Tokens", path=outputs["scored_csv"])
     write_json_sheet(workbook, title="Manifest", path=outputs["analysis_manifest_json"])
@@ -1106,6 +1168,14 @@ def write_json_sheet(workbook: Any, *, title: str, path: Path) -> None:
     sheet.column_dimensions["A"].width = 120
 
 
+def is_audio_stimulus_row(row: dict[str, str]) -> bool:
+    pres = (row.get("StimulusPresentation") or "").strip().lower()
+    if pres in {"audio", "text"}:
+        return pres == "audio"
+    mode = (row.get("Mode") or "").strip().lower()
+    return mode.startswith("listening")
+
+
 def item_summary(raw_rows: list[dict[str, str]], answer_columns: list[str]) -> list[dict[str, Any]]:
     grouped: dict[str, list[dict[str, str]]] = defaultdict(list)
     for row in raw_rows:
@@ -1118,9 +1188,10 @@ def item_summary(raw_rows: list[dict[str, str]], answer_columns: list[str]) -> l
             for parsed in (parse_float(row.get("ReactionTime(ms)")) for row in item_rows)
             if parsed is not None
         ]
+        audio_rows = [row for row in item_rows if is_audio_stimulus_row(row)]
         play_values = [
             parsed
-            for parsed in (parse_int(row.get("AudioPlayCount")) for row in item_rows)
+            for parsed in (parse_int(row.get("AudioPlayCount")) for row in audio_rows)
             if parsed is not None
         ]
         lexical_counts = [len(response_tokens(row, answer_columns)) for row in item_rows]
@@ -1128,13 +1199,13 @@ def item_summary(raw_rows: list[dict[str, str]], answer_columns: list[str]) -> l
         filled = sum(filled_slots(row, answer_columns) for row in item_rows)
         multiword_slots = multiword_slot_count(item_rows, answer_columns)
         extra_tokens = extra_tokens_in_slots(item_rows, answer_columns)
-        no_audio_play = sum(1 for row in item_rows if parse_int(row.get("AudioPlayCount")) == 0)
+        no_audio_play = sum(1 for row in audio_rows if parse_int(row.get("AudioPlayCount")) == 0)
         auto_advanced = sum(1 for row in item_rows if parse_bool(row.get("AutoAdvanced")))
         mean_tokens = mean([float(value) for value in lexical_counts])
         mean_rt = mean(rt_values)
         median_rt = median(rt_values)
         mean_play_count = mean([float(value) for value in play_values])
-        missing_audio_logs = sum(1 for row in item_rows if "AudioPlayCount" not in row)
+        missing_audio_logs = sum(1 for row in audio_rows if "AudioPlayCount" not in row)
         filled_percent = percent(filled, answer_slots)
         auto_percent = percent(auto_advanced, len(item_rows))
         followup = followup_metrics(item_rows)
@@ -1174,7 +1245,7 @@ def item_summary(raw_rows: list[dict[str, str]], answer_columns: list[str]) -> l
                 "mean_audio_play_count": mean_play_count,
                 "items_missing_audio_play_log": missing_audio_logs,
                 "items_with_no_audio_play": no_audio_play,
-                "no_audio_play_percent": percent(no_audio_play, len(item_rows)),
+                "no_audio_play_percent": percent(no_audio_play, len(audio_rows)),
                 "auto_advanced_items": auto_advanced,
                 "auto_advanced_percent": auto_percent,
                 **followup,
@@ -1195,7 +1266,10 @@ def participant_qc(raw_rows: list[dict[str, str]], answer_columns: list[str], *,
             for parsed in (parse_float(row.get("ReactionTime(ms)")) for row in participant_rows)
             if parsed is not None
         ]
+        audio_rows = [row for row in participant_rows if is_audio_stimulus_row(row)]
         stimuli = [(row.get("Stimulus") or "").strip() for row in participant_rows if (row.get("Stimulus") or "").strip()]
+        subset_vals = {(row.get("StimulusSubset") or "").strip() for row in participant_rows if (row.get("StimulusSubset") or "").strip()}
+        session_expected_items = (expected_items // 2) if (expected_items >= 20 and subset_vals in ({"form_a"}, {"form_b"})) else expected_items
         experiment_ids = sorted({(row.get("ExperimentId") or "").strip() for row in participant_rows if (row.get("ExperimentId") or "").strip()})
         audio_versions = sorted({(row.get("AudioVersion") or "").strip() for row in participant_rows if (row.get("AudioVersion") or "").strip()})
         answer_slots = len(participant_rows) * len(answer_columns)
@@ -1203,11 +1277,11 @@ def participant_qc(raw_rows: list[dict[str, str]], answer_columns: list[str], *,
         multiword_slots = multiword_slot_count(participant_rows, answer_columns)
         extra_tokens = extra_tokens_in_slots(participant_rows, answer_columns)
         auto_advanced = sum(1 for row in participant_rows if parse_bool(row.get("AutoAdvanced")))
-        no_audio_play = sum(1 for row in participant_rows if parse_int(row.get("AudioPlayCount")) == 0)
-        completion_percent = percent(len(set(stimuli)), expected_items)
+        no_audio_play = sum(1 for row in audio_rows if parse_int(row.get("AudioPlayCount")) == 0)
+        completion_percent = percent(len(set(stimuli)), session_expected_items)
         filled_percent = percent(filled, answer_slots)
         auto_percent = percent(auto_advanced, len(participant_rows))
-        no_audio_percent = percent(no_audio_play, len(participant_rows))
+        no_audio_percent = percent(no_audio_play, len(audio_rows))
         followup = followup_metrics(participant_rows)
         low_followup_completion = bool(
             followup_enabled(participant_rows)
@@ -1215,10 +1289,10 @@ def participant_qc(raw_rows: list[dict[str, str]], answer_columns: list[str], *,
         )
         flags = joined_flags(
             {
-                "incomplete_30_items": len(set(stimuli)) != expected_items,
+                "incomplete_30_items": len(set(stimuli)) != session_expected_items,
                 "duplicate_stimuli": len(stimuli) != len(set(stimuli)),
-                "missing_audio_play_logs": any("AudioPlayCount" not in row for row in participant_rows),
-                "no_audio_play_item": any(parse_int(row.get("AudioPlayCount")) == 0 for row in participant_rows),
+                "missing_audio_play_logs": any("AudioPlayCount" not in row for row in audio_rows),
+                "no_audio_play_item": no_audio_play > 0,
                 "high_auto_advance": auto_percent >= 25,
                 "low_filled_slot_rate": filled_percent < 50,
                 "multiword_response_slots": multiword_slots > 0,
@@ -1765,6 +1839,204 @@ def write_multiword_sensitivity(
     return rows
 
 
+DEFAULT_JAPANESE_GLOSSES_PATH = score_lex30.DATA_ROOT / "cue_japanese_glosses.json"
+DEFAULT_PARALLEL_HALVES_PATH = score_lex30.DATA_ROOT / "parallel_split_halves.json"
+
+
+def resolve_active_stimuli(
+    experiment_config: dict[str, Any],
+    raw_rows: list[dict[str, str]],
+    requested_subset: str = "auto",
+) -> list[str]:
+    base_stimuli = [str(s).strip() for s in (experiment_config.get("stimuli") or []) if str(s).strip()]
+    subset = requested_subset
+    if subset == "auto":
+        observed = {
+            str(r.get("StimulusSubset") or "").strip()
+            for r in raw_rows
+            if str(r.get("StimulusSubset") or "").strip()
+        }
+        subset = next(iter(observed)) if observed in ({"form_a"}, {"form_b"}) else "all"
+    if subset not in ("form_a", "form_b") or not base_stimuli:
+        return base_stimuli
+    if DEFAULT_PARALLEL_HALVES_PATH.exists():
+        payload = json.loads(DEFAULT_PARALLEL_HALVES_PATH.read_text(encoding="utf-8"))
+        set_id = str(experiment_config.get("stimulusSetId") or "").strip()
+        matched = ((payload.get("sets") or {}).get(set_id) or {}).get(subset)
+        if isinstance(matched, list) and matched:
+            allowed = {str(x).strip() for x in matched}
+            return [s for s in base_stimuli if s in allowed]
+    parity = 0 if subset == "form_a" else 1
+    return [s for idx, s in enumerate(base_stimuli) if idx % 2 == parity]
+
+
+def load_japanese_glosses(path: Path = DEFAULT_JAPANESE_GLOSSES_PATH) -> tuple[dict[str, list[str]], list[str]]:
+    if not path.exists():
+        return {}, []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    raw_glosses = payload.get("glosses") or {}
+    glosses = {
+        str(cue).strip().lower(): [unicodedata.normalize("NFKC", str(g)).strip() for g in items if str(g).strip()]
+        for cue, items in raw_glosses.items()
+    }
+    negations = [unicodedata.normalize("NFKC", str(n)).strip() for n in (payload.get("negationMarkers") or []) if str(n).strip()]
+    return glosses, negations
+
+
+def japanese_meaning_matches(raw_text: str, stimulus: str, glosses: dict[str, list[str]], negations: list[str]) -> bool:
+    """Deterministic dictionary match for v0.4 JapaneseMeaning follow-up entries."""
+    # shortcut: NFKC substring gloss dictionary + negation rejection; upgrade to SudachiPy lemma matching if open-ended paraphrases dominate.
+    cleaned = unicodedata.normalize("NFKC", raw_text or "").strip()
+    cleaned = re.sub(r"[\s、。，．・/()（）「」『』!?！？~〜\-]+", "", cleaned)
+    if not cleaned:
+        return False
+    if any(neg in cleaned for neg in negations):
+        return False
+    accepted = glosses.get(stimulus.strip().lower()) or []
+    return any(gloss in cleaned for gloss in accepted if gloss)
+
+
+def write_multifaceted_summary(
+    *,
+    path: Path,
+    raw_rows: list[dict[str, str]],
+    scored_rows: list[dict[str, Any]],
+    summary_rows: list[dict[str, Any]],
+    antbnc: dict[str, str],
+) -> list[dict[str, Any]]:
+    raw_by_session: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for r in raw_rows:
+        source_f, sess_id, part_id = row_session_key(r)
+        raw_by_session[score_lex30.analysis_session_key(source_f, sess_id, part_id)].append(r)
+
+    cue_nj8_by_session: dict[tuple[str, str], int] = defaultdict(int)
+    for s_row in scored_rows:
+        sess_k = str(s_row.get("analysis_session_key") or "")
+        stim = str(s_row.get("stimulus") or "").strip().lower()
+        cue_nj8_by_session[(sess_k, stim)] += field_int(s_row, "nj8_score_token")
+
+    glosses, negations = load_japanese_glosses()
+    homophones = score_lex30.get_multifaceted_norms()["homophones"]
+
+    out_rows: list[dict[str, Any]] = []
+    for summary in summary_rows:
+        session_key = str(summary.get("analysis_session_key") or "")
+        s_raw_rows = raw_by_session.get(session_key, [])
+
+        def _mode_val(col_name: str) -> str:
+            vals = [str(r.get(col_name) or "").strip() for r in s_raw_rows if str(r.get(col_name) or "").strip()]
+            return vals[0] if vals else ""
+
+        has_followup = followup_enabled(s_raw_rows)
+        heard_exact_count = 0
+        heard_close_count = 0
+        ja_matched_count = 0
+        receptive_known_count = 0
+        nj8_on_heard_exact = 0
+        nj8_on_meaning_matched = 0
+        receptive_known_zero_k2 = 0
+
+        if has_followup:
+            for r in s_raw_rows:
+                stim_low = (r.get("Stimulus") or "").strip().lower()
+                stim_head = score_lex30.antbnc_normalize(stim_low, antbnc)
+                heard_tokens = WORD_RE.findall(r.get("HeardWord") or "")
+                heard_low = heard_tokens[0].lower() if heard_tokens else ""
+                heard_head = score_lex30.antbnc_normalize(heard_low, antbnc) if heard_low else ""
+
+                is_exact = bool(heard_low and (heard_low == stim_low or heard_head == stim_head))
+                is_close = bool(
+                    is_exact
+                    or (
+                        heard_low
+                        and (
+                            score_lex30.levenshtein_similarity(stim_low, heard_low) >= 0.75
+                            or heard_low in homophones.get(stim_low, ())
+                        )
+                    )
+                )
+                ja_ok = japanese_meaning_matches(r.get("JapaneseMeaning") or "", stim_low, glosses, negations)
+                probe_hits = sum(
+                    1 for p in ("CollocationCorrect", "CategoryCorrect", "SynonymCorrect") if parse_bool(r.get(p))
+                )
+                receptively_known = bool(ja_ok or probe_hits >= 2)
+                cue_nj8 = cue_nj8_by_session.get((session_key, stim_low), 0)
+
+                if is_exact:
+                    heard_exact_count += 1
+                    nj8_on_heard_exact += cue_nj8
+                if is_close:
+                    heard_close_count += 1
+                if ja_ok:
+                    ja_matched_count += 1
+                    nj8_on_meaning_matched += cue_nj8
+                if receptively_known and (not is_audio_stimulus_row(r) or is_close):
+                    receptive_known_count += 1
+                    if cue_nj8 == 0:
+                        receptive_known_zero_k2 += 1
+
+        n_items = len(s_raw_rows)
+        out_rows.append(
+            {
+                "analysis_session_key": session_key,
+                "source_file": summary.get("source_file", ""),
+                "participant_session_id": summary.get("participant_session_id", ""),
+                "participant_id": summary.get("participant_id", ""),
+                "response_modality": _mode_val("ResponseModality") or ("spoken" if "spoken" in _mode_val("Mode") else "written"),
+                "spoken_task_style": _mode_val("SpokenTaskStyle"),
+                "discrete_advance_mode": _mode_val("DiscreteAdvanceMode"),
+                "association_instruction_style": _mode_val("AssociationInstructionStyle") or "free",
+                "nj8_token_score": summary.get("nj8_token_score", ""),
+                "nj8_type_score": summary.get("nj8_type_score", ""),
+                "nj8_token_percent_of_response_slots": summary.get("nj8_token_percent_of_response_slots", ""),
+                "nj8_polytomous_token_score": summary.get("nj8_polytomous_token_score", ""),
+                "bnc_coca_polytomous_token_score": summary.get("bnc_coca_polytomous_token_score", ""),
+                "mean_nj8_log_rank": summary.get("mean_nj8_log_rank", ""),
+                "mean_subtlex_lg10cd": summary.get("mean_subtlex_lg10cd", ""),
+                "mean_wordfreq_zipf": summary.get("mean_wordfreq_zipf", ""),
+                "mean_rt1_onset_ms": summary.get("mean_rt1_onset_ms", ""),
+                "median_rt1_onset_ms": summary.get("median_rt1_onset_ms", ""),
+                "mean_iri_ms": summary.get("mean_iri_ms", ""),
+                "nj8_k2plus_within_5s": summary.get("nj8_k2plus_within_5s", ""),
+                "nj8_k2plus_within_10s": summary.get("nj8_k2plus_within_10s", ""),
+                "clang_candidate_tokens": summary.get("clang_candidate_tokens", ""),
+                "clang_percent_of_lexical_tokens": summary.get("clang_percent_of_lexical_tokens", ""),
+                "homophone_ambiguous_tokens": summary.get("homophone_ambiguous_tokens", ""),
+                "homophone_conservative_nj8_score": summary.get("homophone_conservative_nj8_score", ""),
+                "homophone_lenient_nj8_score": summary.get("homophone_lenient_nj8_score", ""),
+                "mean_association_norm_strength": summary.get("mean_association_norm_strength", ""),
+                "lexical_ttr": summary.get("lexical_ttr", ""),
+                "mean_intra_item_pos_diversity": summary.get("mean_intra_item_pos_diversity", ""),
+                "mean_chaining_index": summary.get("mean_chaining_index", ""),
+                "mean_forward_flow": summary.get("mean_forward_flow", ""),
+                "adjacent_clang_chain_tokens": summary.get("adjacent_clang_chain_tokens", ""),
+                "mean_response_concreteness": summary.get("mean_response_concreteness", ""),
+                "pos_entropy_bits": summary.get("pos_entropy_bits", ""),
+                "noun_bias_ratio": summary.get("noun_bias_ratio", ""),
+                "derivational_suffix_ratio": summary.get("derivational_suffix_ratio", ""),
+                "mean_word_length": summary.get("mean_word_length", ""),
+                "heard_exact_items": heard_exact_count if has_followup else "",
+                "heard_exact_percent": percent(heard_exact_count, n_items) if has_followup else "",
+                "heard_close_or_exact_items": heard_close_count if has_followup else "",
+                "heard_close_or_exact_percent": percent(heard_close_count, n_items) if has_followup else "",
+                "japanese_meaning_matched_items": ja_matched_count if has_followup else "",
+                "japanese_meaning_matched_percent": percent(ja_matched_count, n_items) if has_followup else "",
+                "receptive_known_items": receptive_known_count if has_followup else "",
+                "nj8_token_percent_given_heard_exact": (
+                    percent(nj8_on_heard_exact, heard_exact_count * 4) if (has_followup and heard_exact_count > 0) else ""
+                ),
+                "nj8_token_percent_given_meaning_matched": (
+                    percent(nj8_on_meaning_matched, ja_matched_count * 4) if (has_followup and ja_matched_count > 0) else ""
+                ),
+                "productive_retrieval_gap_percent": (
+                    percent(receptive_known_zero_k2, receptive_known_count) if (has_followup and receptive_known_count > 0) else ""
+                ),
+            }
+        )
+    write_dict_csv(path, out_rows)
+    return out_rows
+
+
 def bootstrap_statistic(
     values: list[Any],
     statistic_fn: Any,
@@ -2149,6 +2421,7 @@ def make_report(
     output_dir: Path,
     freeze_errors: list[str],
     expected_items: int,
+    multifaceted_rows: list[dict[str, Any]] | None = None,
 ) -> None:
     experiment_counts = top_counter(raw_rows, "ExperimentId")
     audio_counts = top_counter(raw_rows, "AudioVersion")
@@ -2338,6 +2611,33 @@ def make_report(
             ],
         )
     )
+    if multifaceted_rows:
+        def _mf_mean(col: str, digits: int = 2) -> Any:
+            vals = [v for v in (optional_float(r.get(col)) for r in multifaceted_rows) if v is not None]
+            return round(statistics.fmean(vals), digits) if vals else "-"
+
+        lines.extend(["", "## Multifaceted Vocabulary Profile (6 Dimensions)", ""])
+        lines.extend(
+            markdown_table(
+                ["Dimension", "Metric", "Batch Mean"],
+                [
+                    ["1. Sophistication", "NJ8 polytomous token score (K1=0..K4+=3)", _mf_mean("nj8_polytomous_token_score", 2)],
+                    ["1. Sophistication", "Mean NJ8 log10(rank)", _mf_mean("mean_nj8_log_rank", 4)],
+                    ["1. Sophistication", "Mean SUBTLEX-US Lg10CD", _mf_mean("mean_subtlex_lg10cd", 3)],
+                    ["2. Retrieval Fluency", "Mean RT1 onset (ms)", _mf_mean("mean_rt1_onset_ms", 1)],
+                    ["2. Retrieval Fluency", "Mean inter-response interval (ms)", _mf_mean("mean_iri_ms", 1)],
+                    ["2. Retrieval Fluency", "NJ8 K2+ tokens within 5s / 10s", f"{_mf_mean('nj8_k2plus_within_5s', 2)} / {_mf_mean('nj8_k2plus_within_10s', 2)}"],
+                    ["3. Associative Quality", "Clang form-based % of lexical tokens", _mf_mean("clang_percent_of_lexical_tokens", 2)],
+                    ["3. Associative Quality", "Homophone NJ8 conservative / lenient", f"{_mf_mean('homophone_conservative_nj8_score', 2)} / {_mf_mean('homophone_lenient_nj8_score', 2)}"],
+                    ["4. Semantic Structure", "Lexical TTR", _mf_mean("lexical_ttr", 4)],
+                    ["4. Semantic Structure", "Mean chaining index / forward flow", f"{_mf_mean('mean_chaining_index', 4)} / {_mf_mean('mean_forward_flow', 4)}"],
+                    ["5. Abstractness & POS", "Mean Brysbaert concreteness (1-5)", _mf_mean("mean_response_concreteness", 3)],
+                    ["5. Abstractness & POS", "Content-POS entropy (bits) / Noun bias", f"{_mf_mean('pos_entropy_bits', 3)} / {_mf_mean('noun_bias_ratio', 3)}"],
+                    ["6. Receptive Bottleneck", "NJ8 % given heard exact / meaning matched", f"{_mf_mean('nj8_token_percent_given_heard_exact', 2)} / {_mf_mean('nj8_token_percent_given_meaning_matched', 2)}"],
+                    ["6. Receptive Bottleneck", "Productive retrieval gap % (known cue, 0 K2+)", _mf_mean("productive_retrieval_gap_percent", 2)],
+                ],
+            )
+        )
     lines.extend(
         [
             "",
@@ -2604,6 +2904,7 @@ def make_manifest(
         TOOLS_ROOT / "run_pilot_analysis.py",
         TOOLS_ROOT / "score_lex30.py",
         TOOLS_ROOT / "freeze_experiment.py",
+        TOOLS_ROOT / "transcribe_spoken_lex30.py",
     ]
     data_paths = [
         score_lex30.DEFAULT_NJ8_PATH,
@@ -2611,6 +2912,8 @@ def make_manifest(
         score_lex30.DEFAULT_ANTBNC_PATH,
         score_lex30.DEFAULT_NGSL_STATS_PATH,
         score_lex30.DEFAULT_NGSL_LEMMAS_PATH,
+        DEFAULT_JAPANESE_GLOSSES_PATH,
+        DEFAULT_PARALLEL_HALVES_PATH,
     ]
     payload = {
         "schemaVersion": "lex30-pilot-analysis-v1",
@@ -2660,6 +2963,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("input_path", nargs="?", type=Path, default=DEFAULT_RAW_DIR)
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--manual-overrides", type=Path)
+    parser.add_argument(
+        "--association-norms",
+        type=Path,
+        help="Optional cue-response association norms CSV/TSV passed through to score_lex30.py.",
+    )
     parser.add_argument("--external-criteria", type=Path, help="Optional CSV with participant/session-linked external criterion fields.")
     parser.add_argument(
         "--external-criteria-key",
@@ -2669,6 +2977,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--with-gpt", action="store_true", help="Pass through optional GPT annotation. Costs API credits.")
     parser.add_argument("--gpt-model", default="gpt-5.5")
     parser.add_argument("--experiment-id", default=DEFAULT_EXPERIMENT_ID)
+    parser.add_argument(
+        "--stimulus-subset",
+        choices=("auto", "all", "form_a", "form_b"),
+        default="auto",
+        help="Analyze all 30 stimuli or a matched 15-cue parallel half-form (defaults to auto-detecting StimulusSubset).",
+    )
     parser.add_argument("--skip-freeze-verify", action="store_true")
     parser.add_argument("--allow-mixed-experiments", action="store_true", help="Do not stop when raw CSV metadata/stimuli do not match --experiment-id.")
     parser.add_argument("--force", action="store_true", help="Allow writing into a non-empty explicit --output-dir.")
@@ -2718,6 +3032,7 @@ def main(argv: list[str] | None = None) -> int:
         "participant_qc_csv": output_dir / "participant_qc.csv",
         "score_diagnostics_csv": output_dir / "score_diagnostics.csv",
         "multiword_sensitivity_csv": output_dir / "multiword_sensitivity.csv",
+        "multifaceted_summary_csv": output_dir / "multifaceted_summary.csv",
         "report_md": output_dir / "pilot_report.md",
         "workbook_xlsx": output_dir / "pilot_workbook.xlsx",
         "cue_score_matrix_csv": output_dir / "cue_score_matrix.csv",
@@ -2742,11 +3057,14 @@ def main(argv: list[str] | None = None) -> int:
     ]
     if args.manual_overrides:
         scorer_args.extend(["--manual-overrides", str(args.manual_overrides)])
+    if args.association_norms:
+        scorer_args.extend(["--association-norms", str(args.association_norms)])
     if args.with_gpt:
         scorer_args.extend(["--with-gpt", "--gpt-model", args.gpt_model])
     score_lex30.main(scorer_args)
 
-    expected_items = len(experiment_config.get("stimuli") or []) or expected_item_count(args.experiment_id)
+    active_stimuli = resolve_active_stimuli(experiment_config, raw_rows, args.stimulus_subset)
+    expected_items = len(active_stimuli) or expected_item_count(args.experiment_id)
     item_rows = item_summary(raw_rows, answer_columns)
     qc_rows = participant_qc(raw_rows, answer_columns, expected_items=expected_items)
     write_dict_csv(outputs["item_summary_csv"], item_rows)
@@ -2785,20 +3103,27 @@ def main(argv: list[str] | None = None) -> int:
         scored_rows=scored_rows,
         summary_rows=summary_rows,
     )
+    multifaceted_rows = write_multifaceted_summary(
+        path=outputs["multifaceted_summary_csv"],
+        raw_rows=raw_rows,
+        scored_rows=scored_rows,
+        summary_rows=summary_rows,
+        antbnc=score_lex30.load_antbnc(score_lex30.DEFAULT_ANTBNC_PATH),
+    )
     cue_rows = write_cue_score_matrix(
         path=outputs["cue_score_matrix_csv"],
         scored_rows=scored_rows,
-        stimuli=[str(stimulus) for stimulus in experiment_config.get("stimuli", [])],
+        stimuli=active_stimuli,
     )
     item_diagnostic_rows = write_item_diagnostics(
         path=outputs["item_diagnostics_csv"],
         cue_rows=cue_rows,
-        stimuli=[str(stimulus) for stimulus in experiment_config.get("stimuli", [])],
+        stimuli=active_stimuli,
     )
     write_psychometrics_summary(
         path=outputs["psychometrics_summary_csv"],
         cue_rows=cue_rows,
-        stimuli=[str(stimulus) for stimulus in experiment_config.get("stimuli", [])],
+        stimuli=active_stimuli,
         item_diagnostic_rows=item_diagnostic_rows,
     )
     make_report(
@@ -2812,6 +3137,7 @@ def main(argv: list[str] | None = None) -> int:
         item_diagnostic_rows=item_diagnostic_rows,
         score_diagnostic_rows=score_diagnostic_rows,
         sensitivity_rows=sensitivity_rows,
+        multifaceted_rows=multifaceted_rows,
         external_correlation_rows=external_correlation_rows,
         external_metadata=external_metadata,
         qc_rows=qc_rows,

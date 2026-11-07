@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "lex30-practice-audio-v1",
+  "voice": "Samantha (en_US, macOS system TTS)",
+  "rateWpm": 165,
+  "format": "mp3 (mono, 24000 Hz, 48 kbps)",
+  "note": "Non-scored warm-up items only; never included in primary 30-item Lex30 scoring.",
+  "items": [
+    {
+      "order": 1,
+      "stimulus": "book",
+      "file": "audio/practice/01-book.mp3"
+    },
+    {
+      "order": 2,
+      "stimulus": "water",
+      "file": "audio/practice/02-water.mp3"
+    }
+  ]
+}

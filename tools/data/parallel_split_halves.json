@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "lex30-parallel-split-halves-v1",
+  "practiceStimuli": [
+    "book",
+    "water"
+  ],
+  "sets": {
+    "updated-easycue-posbalanced-pilot-30-v0.3": {
+      "description": "Psycholinguistically and POS-matched 15-cue parallel split halves (9 nouns, 4 verbs, 2 adjectives each; semantic pairs separated across halves).",
+      "matchingSummary": {
+        "formA": {
+          "count": 15,
+          "posCounts": { "noun": 9, "verb": 4, "adjective": 2 },
+          "meanNj8Rank": 349.467,
+          "meanConcreteness": 3.695,
+          "meanSubtlexLg10Cd": 3.446,
+          "meanWordfreqZipf": 5.295
+        },
+        "formB": {
+          "count": 15,
+          "posCounts": { "noun": 9, "verb": 4, "adjective": 2 },
+          "meanNj8Rank": 349.467,
+          "meanConcreteness": 3.687,
+          "meanSubtlexLg10Cd": 3.441,
+          "meanWordfreqZipf": 5.297
+        },
+        "separatedSemanticPairs": [
+          ["black", "white"],
+          ["father", "mother"],
+          ["people", "person"],
+          ["doctor", "health"],
+          ["school", "office"],
+          ["member", "family"],
+          ["begin", "return"]
+        ]
+      },
+      "form_a": [
+        "center",
+        "garden",
+        "doctor",
+        "listen",
+        "people",
+        "early",
+        "travel",
+        "father",
+        "school",
+        "nature",
+        "black",
+        "member",
+        "think",
+        "begin",
+        "report"
+      ],
+      "form_b": [
+        "health",
+        "white",
+        "course",
+        "number",
+        "office",
+        "ground",
+        "letter",
+        "answer",
+        "useful",
+        "person",
+        "mother",
+        "family",
+        "appear",
+        "system",
+        "return"
+      ]
+    }
+  }
+}

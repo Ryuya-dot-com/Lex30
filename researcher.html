@@ -5,130 +5,294 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lex30 Researcher Setup</title>
 <style>
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f8fa;
-    color: #2b2f33;
-    margin: 20px;
+:root {
+    --brand: #2f6f57;
+    --brand-hover: #255946;
+    --brand-soft: #eef7f3;
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --surface-subtle: #f8fafb;
+    --border: #d8e0e8;
+    --text: #1f2933;
+    --muted: #5f6c7b;
 }
 
-h1, h2 {
-    text-align: center;
-    font-weight: normal;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 20px 16px 44px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.topbar {
+    max-width: 820px;
+    margin: 0 auto 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.topbar-nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.topbar-nav a {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-decoration: none;
+}
+
+.topbar-nav a:hover {
+    background: var(--brand-soft);
+    border-color: var(--brand);
+}
+
+.language-toggle {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 999px;
+    background: #e6ebf0;
+    border: 1px solid #d5dde5;
+}
+
+.language-button {
+    margin-top: 0;
+    min-height: 28px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: transparent;
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 600;
+    border: 0;
+}
+
+.language-button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.language-button.active {
+    background: #ffffff;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
 }
 
 .section-title {
     text-align: left;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 22px 0 8px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .panel {
-    max-width: 720px;
+    max-width: 820px;
     margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    background: var(--surface);
+    padding: 24px 26px;
+    border-radius: 12px;
+    border: 1px solid rgba(216, 224, 232, 0.85);
+    box-shadow: 0 10px 28px rgba(24, 39, 56, 0.06);
+}
+
+.step-card {
+    padding: 18px 0;
+    border-top: 1px solid #e6ebf1;
+}
+
+.step-card:first-child {
+    padding-top: 0;
+    border-top: 0;
 }
 
 label {
     display: block;
-    font-size: 14px;
-    margin: 14px 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3b4652;
+    margin: 12px 0 5px;
 }
 
 select, input {
-    box-sizing: border-box;
     width: 100%;
-    padding: 9px;
-    border: 1px solid #c8ced6;
-    border-radius: 4px;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #c4cdd7;
+    border-radius: 8px;
     font-size: 14px;
+    color: var(--text);
+    background: #fff;
+}
+
+input[readonly] {
+    background: var(--surface-subtle);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
 }
 
 button {
-    background: #2f6f57;
+    background: var(--brand);
     color: #fff;
-    border: none;
-    padding: 10px 15px;
+    border: 1px solid transparent;
+    padding: 9px 15px;
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-top: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+    min-height: 38px;
+    transition: background-color 120ms ease;
 }
 
-button:hover {
-    background: #285f4b;
+button:hover:not(:disabled) {
+    background: var(--brand-hover);
 }
 
 button:disabled {
-    background: #a7b0b8;
+    background: #b5bfc9;
     cursor: not-allowed;
 }
 
-.secondary-button {
-    background: #eef1f4;
-    color: #4b5560;
-    border: 1px solid #d8dee6;
+button:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
 }
 
-.secondary-button:hover {
-    background: #e4e8ed;
+.secondary-button {
+    background: var(--surface-subtle);
+    color: #3b4652;
+    border: 1px solid var(--border);
+}
+
+.secondary-button:hover:not(:disabled) {
+    background: #ebeff4;
+}
+
+.preview-banner {
+    margin-top: 14px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: var(--brand-soft);
+    border: 1px solid #c5e3d6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #163d2e;
+}
+
+.preview-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.preview-pill {
+    background: #fff;
+    border: 1px solid #b7d7c8;
+    border-radius: 999px;
+    padding: 2px 9px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
-    margin-top: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 2px 14px;
 }
 
 .meta-item {
-    border: 1px solid #e1e5ea;
-    border-radius: 6px;
-    padding: 10px;
+    background: var(--surface-subtle);
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+    padding: 8px 10px;
 }
 
 .meta-item span {
     display: block;
-    color: #65707b;
-    font-size: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .meta-item strong {
     display: block;
-    font-size: 15px;
-    margin-top: 4px;
+    font-size: 13px;
+    margin-top: 3px;
+    overflow-wrap: anywhere;
 }
 
 .actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     align-items: center;
 }
 
 .copy-feedback {
-    color: #2f6f57;
+    color: var(--brand);
     font-size: 13px;
+    font-weight: 600;
     min-height: 18px;
 }
 
 .details {
-    margin-top: 16px;
-    border-top: 1px solid #e1e5ea;
-    padding-top: 12px;
-    color: #4b5560;
+    margin-top: 12px;
+    color: var(--muted);
     font-size: 13px;
-    line-height: 1.5;
-}
-
-.workflow {
-    margin-top: 18px;
-    border-top: 1px solid #e1e5ea;
-    padding-top: 12px;
+    line-height: 1.55;
 }
 
 .workflow-list {
@@ -136,55 +300,57 @@ button:disabled {
     padding-left: 20px;
     color: #4b5560;
     font-size: 13px;
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
 .path-note {
     margin-top: 8px;
-    color: #4b5560;
-    font-size: 13px;
+    color: var(--muted);
+    font-size: 12px;
     line-height: 1.5;
 }
 
 code {
-    background: #f1f3f5;
-    border: 1px solid #e1e5ea;
+    background: #f1f4f7;
+    border: 1px solid #e1e6ec;
     border-radius: 4px;
-    padding: 1px 4px;
+    padding: 1px 5px;
+    font-size: 12px;
 }
 
-.preflight {
-    margin-top: 16px;
-    border-top: 1px solid #e1e5ea;
-    padding-top: 12px;
+.preflight-box {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
 }
 
 .preflight-summary {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .preflight-counts {
-    margin-top: 8px;
-    color: #4b5560;
-    font-size: 13px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
 }
 
 .preflight-actions {
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .preflight-list {
-    margin-top: 10px;
+    margin: 8px 0 0;
     padding-left: 18px;
     color: #4b5560;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.5;
 }
 
 .ok {
-    color: #2f6f57;
+    color: var(--brand);
 }
 
 .warn {
@@ -197,91 +363,388 @@ code {
 </style>
 </head>
 <body>
-<h1>Lex30 Researcher Setup</h1>
+<header class="topbar">
+  <h1 data-i18n="pageHeading">Lex30 Researcher Setup</h1>
+  <nav class="topbar-nav" aria-label="Researcher tools">
+    <a href="review_spoken.html" data-i18n="navReviewUi">Spoken Review UI →</a>
+    <a href="index.html" target="_blank" rel="noopener" data-i18n="navParticipantView">Default Participant View ↗</a>
+    <div class="language-toggle" role="group" aria-label="Interface language">
+      <button type="button" id="researcher-lang-en" class="language-button active" aria-pressed="true">English</button>
+      <button type="button" id="researcher-lang-ja" class="language-button" aria-pressed="false">日本語</button>
+    </div>
+  </nav>
+</header>
 
 <div class="panel">
-  <label for="experiment-select">Version</label>
-  <select id="experiment-select"></select>
+  <section class="step-card">
+    <h2 class="section-title"><span class="step-num">1</span> <span data-i18n="step1Title">Experiment &amp; Task Design</span></h2>
+    <div class="selector-grid">
+      <div>
+        <label for="stimulus-modality-filter" data-i18n="labelStimModality">Stimulus Modality Filter</label>
+        <select id="stimulus-modality-filter">
+          <option value="all" data-i18n="optStimAll">All stimulus modalities</option>
+          <option value="text" data-i18n="optStimText">Visual text cue (written presentation)</option>
+          <option value="audio" data-i18n="optStimAudio">Audio cue (listening presentation)</option>
+        </select>
+      </div>
+      <div>
+        <label for="response-mode-filter" data-i18n="labelRespMode">Response Mode Filter</label>
+        <select id="response-mode-filter">
+          <option value="all" data-i18n="optRespAll">All response modes</option>
+          <option value="written" data-i18n="optRespWritten">Written (typed)</option>
+          <option value="spoken_continuous" data-i18n="optRespSpokenCont">Spoken: continuous 30s (up to 4 words)</option>
+          <option value="spoken_discrete" data-i18n="optRespSpokenDisc">Spoken: discrete naming (1 word per slot)</option>
+        </select>
+      </div>
+    </div>
 
-  <div class="meta">
-    <div class="meta-item">
-      <span>Mode</span>
-      <strong id="mode-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Version</span>
-      <strong id="version-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Status</span>
-      <strong id="status-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Stimuli</span>
-      <strong id="stimulus-count-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Seconds</span>
-      <strong id="timer-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Stimulus Set</span>
-      <strong id="stimulus-set-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Audio Version</span>
-      <strong id="audio-version-value">-</strong>
-    </div>
-    <div class="meta-item">
-      <span>Freeze</span>
-      <strong id="freeze-value">-</strong>
-    </div>
-  </div>
+    <label for="experiment-select" data-i18n="labelFrozenVersion">Frozen Experiment Version</label>
+    <select id="experiment-select"></select>
 
-  <label for="participant-link">Participant URL</label>
-  <input type="text" id="participant-link" readonly>
+    <div class="selector-grid">
+      <div>
+        <label for="instruction-style-select" data-i18n="labelInstruction">Association Instruction</label>
+        <select id="instruction-style-select">
+          <option value="free" data-i18n="optInstFree">Standard free association (default)</option>
+          <option value="star_no_chaining" data-i18n="optInstStar">Cue-anchored (avoid chaining from previous answers)</option>
+        </select>
+      </div>
+      <div id="discrete-advance-wrapper" style="display:none;">
+        <label for="discrete-advance-select" data-i18n="labelDiscreteAdvance">Discrete Naming Slot Advance</label>
+        <select id="discrete-advance-select">
+          <option value="vad_and_key" data-i18n="optAdvVadKey">Real-time VAD auto-advance + Enter/Space key (default)</option>
+          <option value="key_only" data-i18n="optAdvKeyOnly">Manual Enter/Space key or button only</option>
+        </select>
+      </div>
+      <div>
+        <label for="practice-count-select" data-i18n="labelPractice">Practice Warm-up Trials</label>
+        <select id="practice-count-select">
+          <option value="auto" data-i18n="optPracAuto">Auto (2 warm-up items for spoken, 0 for written)</option>
+          <option value="2" data-i18n="optPrac2">2 un-scored warm-up items ("book", "water")</option>
+          <option value="0" data-i18n="optPrac0">None (start main items immediately)</option>
+        </select>
+      </div>
+      <div>
+        <label for="stimulus-subset-select" data-i18n="labelSubset">Form / Within-Subject Split</label>
+        <select id="stimulus-subset-select">
+          <option value="all" data-i18n="optSubAll">Full 30-cue form (default)</option>
+          <option value="form_a" data-i18n="optSubA">Parallel Half-Form A (15 matched cues)</option>
+          <option value="form_b" data-i18n="optSubB">Parallel Half-Form B (15 matched cues)</option>
+        </select>
+      </div>
+      <div>
+        <label for="stimulus-order-select" data-i18n="labelOrder">Item Order / Counterbalancing</label>
+        <select id="stimulus-order-select">
+          <option value="fixed" data-i18n="optOrdFixed">Fixed canonical order (default)</option>
+          <option value="counterbalanced_ba" data-i18n="optOrdCounter">Counterbalanced block order (Half B → Half A)</option>
+          <option value="random" data-i18n="optOrdRandom">Randomized order</option>
+        </select>
+      </div>
+      <div>
+        <label for="participant-lang-select" data-i18n="labelParticipantLang">Participant UI Language</label>
+        <select id="participant-lang-select">
+          <option value="auto" data-i18n="optLangAuto">Auto (browser locale / participant can switch)</option>
+          <option value="ja" data-i18n="optLangJa">Japanese initial display (participant can switch)</option>
+          <option value="en" data-i18n="optLangEn">English initial display (participant can switch)</option>
+          <option value="ja_locked" data-i18n="optLangJaLocked">Japanese locked (hide language toggle)</option>
+          <option value="en_locked" data-i18n="optLangEnLocked">English locked (hide language toggle)</option>
+        </select>
+      </div>
+    </div>
 
-  <div class="actions">
-    <button id="copy-link" disabled>Copy URL</button>
-    <button id="open-link" disabled>Open Participant Page</button>
-    <button id="run-preflight">Run Preflight Check</button>
-    <span id="copy-link-status" class="copy-feedback" aria-live="polite"></span>
-  </div>
-  <div class="path-note" id="preflight-gate-note"></div>
+    <div id="session-preview-bar" class="preview-banner" aria-live="polite">
+      <strong data-i18n="previewHeading">Participant Experience Preview</strong>
+      <div id="session-preview-pills" class="preview-pills"></div>
+    </div>
 
-  <div class="details" id="experiment-notes"></div>
+    <div class="details" id="experiment-notes"></div>
 
-  <div class="workflow">
-    <h2 class="section-title">Analysis Export</h2>
-    <ol class="workflow-list">
-      <li>Collect participant CSV downloads and keep JSON downloads as raw archives.</li>
-      <li>Place CSV files under <code>results/raw_exports/</code>.</li>
-      <li>Run the command below from the repository root.</li>
-      <li>Open <code>pilot_workbook.xlsx</code> in the newest <code>results/analysis/</code> folder.</li>
+    <div class="meta">
+      <div class="meta-item"><span data-i18n="metaMode">Mode</span><strong id="mode-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaResponse">Response</span><strong id="response-modality-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaVersion">Version</span><strong id="version-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaStatus">Status</span><strong id="status-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaStimuli">Stimuli</span><strong id="stimulus-count-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaTimer">Timer (s)</span><strong id="timer-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaStimSet">Stimulus Set</span><strong id="stimulus-set-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaAudioVer">Audio Version</span><strong id="audio-version-value">-</strong></div>
+      <div class="meta-item"><span data-i18n="metaFreeze">Freeze</span><strong id="freeze-value">-</strong></div>
+    </div>
+  </section>
+
+  <section class="step-card">
+    <h2 class="section-title"><span class="step-num">2</span> <span data-i18n="step2Title">Preflight Verification &amp; Participant URL</span></h2>
+    <label for="participant-link" data-i18n="labelParticipantLink">Shareable Participant URL</label>
+    <input type="text" id="participant-link" readonly>
+
+    <div class="actions">
+      <button id="copy-link" disabled data-i18n="btnCopyUrl">Copy URL</button>
+      <button id="open-link" disabled data-i18n="btnOpenParticipant">Open Participant Page ↗</button>
+      <button id="run-preflight" class="secondary-button" data-i18n="btnRunPreflight">Re-run Preflight Check</button>
+      <span id="copy-link-status" class="copy-feedback" aria-live="polite"></span>
+    </div>
+    <div class="path-note" id="preflight-gate-note"></div>
+
+    <div class="preflight-box">
+      <div class="preflight-summary" id="preflight-summary">Preflight has not run.</div>
+      <div class="preflight-counts" id="preflight-counts"></div>
+      <div class="preflight-actions">
+        <button id="toggle-preflight-details" class="secondary-button" style="display:none;">Show Details</button>
+      </div>
+      <ul class="preflight-list" id="preflight-results"></ul>
+    </div>
+  </section>
+
+  <section class="step-card">
+    <h2 class="section-title"><span class="step-num">3</span> <span data-i18n="step3Title">Post-Session Transcription &amp; Multifaceted Analysis</span></h2>
+    <div id="spoken-workflow" style="display:none; margin-bottom:14px;">
+      <ol class="workflow-list">
+        <li data-i18n="spokenStep1">Collect participant .zip downloads under results/spoken_zips/.</li>
+        <li data-i18n="spokenStep2">Extract acoustic voice-onset latency (RT1) and optional Whisper transcripts into results/raw_exports/:</li>
+      </ol>
+      <label for="transcribe-command" data-i18n="labelTranscribeCmd">Spoken Transcription &amp; Acoustic RT Command</label>
+      <input type="text" id="transcribe-command" readonly>
+      <div class="actions">
+        <button id="copy-transcribe-command" class="secondary-button" data-i18n="btnCopyTranscribe">Copy Transcription Command</button>
+        <a href="review_spoken.html" target="_blank" rel="noopener" style="text-decoration:none;"><button type="button" class="secondary-button" data-i18n="btnOpenReviewUi">Open Spoken Review UI (review_spoken.html)</button></a>
+        <span id="copy-transcribe-status" class="copy-feedback" aria-live="polite"></span>
+      </div>
+      <div class="path-note" data-i18n="spokenReviewNote">Inspect and play WAVs + homophone flags in review_spoken.html, save spoken_transcription_review.csv, apply with --apply-review-csv, then run pilot analysis below.</div>
+    </div>
+    <ol class="workflow-list" id="written-workflow-list">
+      <li data-i18n="writtenStep1">Collect participant CSV downloads and keep JSON/ZIP downloads as raw archives.</li>
+      <li data-i18n="writtenStep2">Place CSV files under results/raw_exports/.</li>
+      <li data-i18n="writtenStep3">Run the command below from the repository root.</li>
+      <li data-i18n="writtenStep4">Open pilot_workbook.xlsx (includes Multifaceted 6-dimension evaluation sheet) in the newest results/analysis/ folder.</li>
     </ol>
 
-    <label for="analysis-command">Analysis Command</label>
+    <label for="analysis-command" data-i18n="labelAnalysisCmd">Analysis Command</label>
     <input type="text" id="analysis-command" readonly>
 
     <div class="actions">
-      <button id="copy-analysis-command">Copy Analysis Command</button>
+      <button id="copy-analysis-command" data-i18n="btnCopyAnalysis">Copy Analysis Command</button>
       <span id="copy-analysis-status" class="copy-feedback" aria-live="polite"></span>
     </div>
 
     <div class="path-note" id="analysis-note"></div>
-  </div>
-
-  <div class="preflight">
-    <div class="preflight-summary" id="preflight-summary">Preflight has not run.</div>
-    <div class="preflight-counts" id="preflight-counts"></div>
-    <div class="preflight-actions">
-      <button id="toggle-preflight-details" class="secondary-button" style="display:none;">Show Details</button>
-    </div>
-    <ul class="preflight-list" id="preflight-results"></ul>
-  </div>
+  </section>
 </div>
 
 <script>
+const LANGUAGE_STORAGE_KEY = "lex30_interface_language";
+
+const RESEARCHER_I18N = {
+  en: {
+    docTitle: "Lex30 Researcher Setup",
+    pageHeading: "Lex30 Researcher Setup",
+    navReviewUi: "Spoken Review UI →",
+    navParticipantView: "Default Participant View ↗",
+    step1Title: "Experiment & Task Design",
+    labelStimModality: "Stimulus Modality Filter",
+    optStimAll: "All stimulus modalities",
+    optStimText: "Visual text cue (written presentation)",
+    optStimAudio: "Audio cue (listening presentation)",
+    labelRespMode: "Response Mode Filter",
+    optRespAll: "All response modes",
+    optRespWritten: "Written (typed)",
+    optRespSpokenCont: "Spoken: continuous 30s (up to 4 words)",
+    optRespSpokenDisc: "Spoken: discrete naming (1 word per slot)",
+    labelFrozenVersion: "Frozen Experiment Version",
+    labelInstruction: "Association Instruction",
+    optInstFree: "Standard free association (default)",
+    optInstStar: "Cue-anchored (avoid chaining from previous answers)",
+    labelDiscreteAdvance: "Discrete Naming Slot Advance",
+    optAdvVadKey: "Real-time VAD auto-advance + Enter/Space key (default)",
+    optAdvKeyOnly: "Manual Enter/Space key or button only",
+    labelPractice: "Practice Warm-up Trials",
+    optPracAuto: "Auto (2 warm-up items for spoken, 0 for written)",
+    optPrac2: "2 un-scored warm-up items (\"book\", \"water\")",
+    optPrac0: "None (start main items immediately)",
+    labelSubset: "Form / Within-Subject Split",
+    optSubAll: "Full 30-cue form (default)",
+    optSubA: "Parallel Half-Form A (15 matched cues)",
+    optSubB: "Parallel Half-Form B (15 matched cues)",
+    labelOrder: "Item Order / Counterbalancing",
+    optOrdFixed: "Fixed canonical order (default)",
+    optOrdCounter: "Counterbalanced block order (Half B → Half A)",
+    optOrdRandom: "Randomized order",
+    labelParticipantLang: "Participant UI Language",
+    optLangAuto: "Auto (browser locale / participant can switch)",
+    optLangJa: "Japanese initial display (participant can switch)",
+    optLangEn: "English initial display (participant can switch)",
+    optLangJaLocked: "Japanese locked (hide language toggle)",
+    optLangEnLocked: "English locked (hide language toggle)",
+    previewHeading: "Participant Experience Preview",
+    metaMode: "Mode",
+    metaResponse: "Response",
+    metaVersion: "Version",
+    metaStatus: "Status",
+    metaStimuli: "Stimuli",
+    metaTimer: "Timer (s)",
+    metaStimSet: "Stimulus Set",
+    metaAudioVer: "Audio Version",
+    metaFreeze: "Freeze",
+    step2Title: "Preflight Verification & Participant URL",
+    labelParticipantLink: "Shareable Participant URL",
+    btnCopyUrl: "Copy URL",
+    btnOpenParticipant: "Open Participant Page ↗",
+    btnRunPreflight: "Re-run Preflight Check",
+    step3Title: "Post-Session Transcription & Multifaceted Analysis",
+    spokenStep1: "Collect participant .zip downloads under results/spoken_zips/.",
+    spokenStep2: "Extract acoustic voice-onset latency (RT1) and optional Whisper transcripts into results/raw_exports/:",
+    labelTranscribeCmd: "Spoken Transcription & Acoustic RT Command",
+    btnCopyTranscribe: "Copy Transcription Command",
+    btnOpenReviewUi: "Open Spoken Review UI (review_spoken.html)",
+    spokenReviewNote: "Inspect and play WAVs + homophone flags in review_spoken.html, save spoken_transcription_review.csv, apply with --apply-review-csv, then run pilot analysis below.",
+    writtenStep1: "Collect participant CSV downloads and keep JSON/ZIP downloads as raw archives.",
+    writtenStep2: "Place CSV files under results/raw_exports/.",
+    writtenStep3: "Run the command below from the repository root.",
+    writtenStep4: "Open pilot_workbook.xlsx (includes Multifaceted 6-dimension evaluation sheet) in the newest results/analysis/ folder.",
+    labelAnalysisCmd: "Analysis Command",
+    btnCopyAnalysis: "Copy Analysis Command",
+    analysisNote: "Default output: results/analysis/YYYYMMDD-HHMMSS/pilot_workbook.xlsx (includes Multifaceted 6-dimension evaluation). GPT annotation is disabled by default; add --with-gpt only when you want optional review metadata.",
+    copied: "Copied",
+    pillAudio: "Audio cue",
+    pillText: "Text cue",
+    pillSpokenDiscKey: "Spoken discrete (Key only)",
+    pillSpokenDiscVad: "Spoken discrete (VAD + Key)",
+    pillSpokenCont: "Spoken continuous (4 words)",
+    pillTyped: "Typed response",
+    pillWarmups: "{count} warm-ups",
+    pillNoWarmup: "No warm-up",
+    pillCuesAll: "{count} cues",
+    pillCuesHalf: "{count} cues ({form})",
+    pillFollowUp: "+ Part 2 follow-up",
+    pillAssocOnly: "Association only",
+    pillLangAuto: "UI: Auto (EN/JA)",
+    pillLangJa: "UI: JA (switchable)",
+    pillLangEn: "UI: EN (switchable)",
+    pillLangJaLocked: "UI: JA (locked)",
+    pillLangEnLocked: "UI: EN (locked)",
+    pillEstMin: "Est. ~{min} min",
+    preflightNotRun: "Preflight has not run.",
+    preflightRunning: "Running preflight...",
+    preflightOk: "Preflight OK: config, freeze manifest, and audio files are readable.",
+    preflightWarn: "Preflight completed with {warnings} warning(s).",
+    preflightFail: "Preflight failed: {failures} failed, {warnings} warning(s).",
+    preflightCrashed: "Preflight failed.",
+    preflightCounts: "{audioPart}{ok} total OK · {warnings} warning(s) · {failures} failed",
+    preflightAudioPart: "{count} audio files OK · ",
+    showDetails: "Show Details",
+    hideDetails: "Hide Details",
+    gateUnlocked: "Participant URL is unlocked for the selected version.",
+    gateLocked: "Participant URL is locked until preflight passes for the selected version.",
+    titlePassed: "Preflight passed for the selected version.",
+    titleLocked: "Run Preflight Check before sharing the participant URL.",
+    alertNeedPreflight: "Run Preflight Check and resolve any failures before sharing the participant URL."
+  },
+  ja: {
+    docTitle: "Lex30 研究者設定",
+    pageHeading: "Lex30 研究者設定",
+    navReviewUi: "音声確認UI (review_spoken) →",
+    navParticipantView: "参加者画面を開く ↗",
+    step1Title: "実験条件・課題デザインの設定",
+    labelStimModality: "刺激提示モダリティ（絞り込み）",
+    optStimAll: "すべての刺激モダリティ",
+    optStimText: "文字提示（視覚刺激）",
+    optStimAudio: "音声提示（リスニング刺激）",
+    labelRespMode: "回答モード（絞り込み）",
+    optRespAll: "すべての回答モード",
+    optRespWritten: "タイピング回答（written）",
+    optRespSpokenCont: "音声回答：30秒連続発話（最大4語）",
+    optRespSpokenDisc: "音声回答：1語ずつ区切る discrete naming",
+    labelFrozenVersion: "凍結済み実験バージョン",
+    labelInstruction: "連想教示スタイル",
+    optInstFree: "標準の自由連想（デフォルト）",
+    optInstStar: "刺激語アンカー教示（前の回答からの連鎖を抑制）",
+    labelDiscreteAdvance: "Discrete Naming の枠送り方法",
+    optAdvVadKey: "リアルタイム音声検出（VAD）自動送り＋Enter/Spaceキー（デフォルト）",
+    optAdvKeyOnly: "Enter/Spaceキーまたはボタンのみ（手動）",
+    labelPractice: "本番前の練習試行（採点対象外）",
+    optPracAuto: "自動（音声回答は2語、タイピングは0語）",
+    optPrac2: "練習2項目を実施（\"book\", \"water\"）",
+    optPrac0: "練習なし（すぐに本番項目を開始）",
+    labelSubset: "フォーム選択（被験者内分割・平行フォーム）",
+    optSubAll: "全30語フルフォーム（デフォルト）",
+    optSubA: "平行ハーフ Form A（品詞・心理言語特性マッチ済み15語）",
+    optSubB: "平行ハーフ Form B（品詞・心理言語特性マッチ済み15語）",
+    labelOrder: "提示順序・カウンターバランス",
+    optOrdFixed: "固定順序（標準）",
+    optOrdCounter: "ブロック順入替（Half B → Half A）",
+    optOrdRandom: "ランダム順",
+    labelParticipantLang: "参加者画面の表示言語",
+    optLangAuto: "自動（ブラウザ言語・参加者が切替可能）",
+    optLangJa: "日本語を初期表示（参加者が切替可能）",
+    optLangEn: "英語を初期表示（参加者が切替可能）",
+    optLangJaLocked: "日本語に固定（言語切替ボタンを非表示）",
+    optLangEnLocked: "英語に固定（言語切替ボタンを非表示）",
+    previewHeading: "参加者セッションの概要プレビュー",
+    metaMode: "モード",
+    metaResponse: "回答形式",
+    metaVersion: "バージョン",
+    metaStatus: "状態",
+    metaStimuli: "刺激語数",
+    metaTimer: "制限時間(秒)",
+    metaStimSet: "刺激語セット",
+    metaAudioVer: "音声版数",
+    metaFreeze: "凍結マニフェスト",
+    step2Title: "プリフライト検証と参加者配布URL",
+    labelParticipantLink: "参加者配布用URL",
+    btnCopyUrl: "URLをコピー",
+    btnOpenParticipant: "参加者ページを開く ↗",
+    btnRunPreflight: "プリフライト確認を再実行",
+    step3Title: "実施後の音声書き起こし・多面的スコア分析",
+    spokenStep1: "参加者の .zip ダウンロードファイルを results/spoken_zips/ に集めます。",
+    spokenStep2: "音声発話開始潜時（Acoustic RT1）と Whisper 書き起こしを results/raw_exports/ に出力します：",
+    labelTranscribeCmd: "音声書き起こし＆音響RT抽出コマンド",
+    btnCopyTranscribe: "書き起こしコマンドをコピー",
+    btnOpenReviewUi: "音声確認UIを開く (review_spoken.html)",
+    spokenReviewNote: "review_spoken.html でWAV再生と同音異義語候補を確認し、spoken_transcription_review.csv を保存して --apply-review-csv で反映後、下の分析コマンドを実行してください。",
+    writtenStep1: "参加者のCSVファイルを集め、JSON/ZIPは生データアーカイブとして保管します。",
+    writtenStep2: "CSVファイルを results/raw_exports/ に配置します。",
+    writtenStep3: "リポジトリのルートディレクトリで下のコマンドを実行します。",
+    writtenStep4: "results/analysis/ 内の最新フォルダにある pilot_workbook.xlsx（Multifaceted 6観点評価シートを含む）を開きます。",
+    labelAnalysisCmd: "分析コマンド",
+    btnCopyAnalysis: "分析コマンドをコピー",
+    analysisNote: "標準出力先: results/analysis/YYYYMMDD-HHMMSS/pilot_workbook.xlsx（Multifaceted 6観点評価を含む）。GPT補助注釈はデフォルトで無効です（必要な場合のみ --with-gpt を追加）。",
+    copied: "コピーしました",
+    pillAudio: "音声刺激",
+    pillText: "文字刺激",
+    pillSpokenDiscKey: "音声 discrete（キー送り）",
+    pillSpokenDiscVad: "音声 discrete（VAD＋キー）",
+    pillSpokenCont: "音声 連続発話（最大4語）",
+    pillTyped: "タイピング回答",
+    pillWarmups: "練習{count}語",
+    pillNoWarmup: "練習なし",
+    pillCuesAll: "本番{count}語",
+    pillCuesHalf: "本番{count}語 ({form})",
+    pillFollowUp: "+ Part 2 確認問題",
+    pillAssocOnly: "連想課題のみ",
+    pillLangAuto: "UI: 自動(日/英)",
+    pillLangJa: "UI: 日本語(切替可)",
+    pillLangEn: "UI: 英語(切替可)",
+    pillLangJaLocked: "UI: 日本語(固定)",
+    pillLangEnLocked: "UI: 英語(固定)",
+    pillEstMin: "所要 約{min}分",
+    preflightNotRun: "プリフライト確認はまだ実行されていません。",
+    preflightRunning: "プリフライト確認を実行中...",
+    preflightOk: "プリフライトOK：設定・凍結マニフェスト・音声ファイルの整合性を確認しました。",
+    preflightWarn: "プリフライト完了（警告 {warnings} 件）。",
+    preflightFail: "プリフライト失敗：エラー {failures} 件、警告 {warnings} 件。",
+    preflightCrashed: "プリフライト確認に失敗しました。",
+    preflightCounts: "{audioPart}合計 {ok} 件OK · 警告 {warnings} 件 · エラー {failures} 件",
+    preflightAudioPart: "音声 {count} 件OK · ",
+    showDetails: "詳細を表示",
+    hideDetails: "詳細を隠す",
+    gateUnlocked: "選択中のバージョンの参加者URLが有効化されました。",
+    gateLocked: "プリフライト確認が通過するまで参加者URLはロックされています。",
+    titlePassed: "選択中のバージョンでプリフライト確認済みです。",
+    titleLocked: "参加者URLを共有する前にプリフライト確認を実行してください。",
+    alertNeedPreflight: "参加者URLを共有する前にプリフライト確認を実行し、エラーを解消してください。"
+  }
+};
+
+let researcherLang = "en";
 let manifest = null;
 let configsById = new Map();
 let preflightState = {
@@ -290,51 +753,336 @@ let preflightState = {
   running: false
 };
 let preflightDetailsVisible = false;
+let lastPreflightResults = [];
+let lastPreflightMode = "not_run";
+
+function detectInitialLanguage() {
+  try {
+    const params = new URLSearchParams(window.location.search || "");
+    const q = params.get("lang");
+    if (q === "ja" || q === "en") return q;
+  } catch (_e) {}
+  try {
+    const saved = typeof localStorage !== "undefined" ? localStorage.getItem(LANGUAGE_STORAGE_KEY) : null;
+    if (saved === "ja" || saved === "en") return saved;
+  } catch (_e) {}
+  if (typeof navigator !== "undefined" && /^ja\b/i.test(String(navigator.language || ""))) {
+    return "ja";
+  }
+  return "en";
+}
+
+function rt(key, params = {}) {
+  const table = RESEARCHER_I18N[researcherLang] || RESEARCHER_I18N.en;
+  const raw = table[key] ?? RESEARCHER_I18N.en[key] ?? key;
+  return Object.entries(params).reduce(
+    (acc, [k, v]) => acc.replaceAll(`{${k}}`, String(v)),
+    raw
+  );
+}
+
+function applyResearcherLanguage() {
+  document.documentElement.lang = researcherLang === "ja" ? "ja" : "en";
+  document.title = rt("docTitle");
+  for (const code of ["en", "ja"]) {
+    const btn = document.getElementById(`researcher-lang-${code}`);
+    if (btn) {
+      const active = researcherLang === code;
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    }
+  }
+  if (document.querySelectorAll) {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (key) {
+        el.textContent = rt(key);
+      }
+    });
+  }
+  const analysisNote = document.getElementById("analysis-note");
+  if (analysisNote && analysisNote.textContent) {
+    analysisNote.textContent = rt("analysisNote");
+  }
+  const selectedId = document.getElementById("experiment-select")?.value;
+  if (selectedId && configsById.has(selectedId)) {
+    renderSessionSummaryAndCount(configsById.get(selectedId));
+  }
+  const urlUnlocked = Boolean(selectedId && preflightState.experimentId === selectedId && preflightState.passed);
+  setParticipantControlsEnabled(urlUnlocked);
+  refreshLocalizedPreflightSummary();
+  updatePreflightDetails(lastPreflightResults, { preserveVisibility: true });
+}
+
+function setResearcherLanguage(lang) {
+  if (lang !== "en" && lang !== "ja") return;
+  researcherLang = lang;
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+    }
+  } catch (_e) {}
+  applyResearcherLanguage();
+}
+
+function refreshLocalizedPreflightSummary() {
+  if (lastPreflightMode === "not_run") {
+    const summary = document.getElementById("preflight-summary");
+    if (summary) {
+      summary.textContent = rt("preflightNotRun");
+      summary.className = "preflight-summary";
+    }
+    return;
+  }
+  if (lastPreflightMode === "running") {
+    setPreflightSummary(rt("preflightRunning"), "warn");
+    return;
+  }
+  if (lastPreflightMode === "crashed") {
+    setPreflightSummary(rt("preflightCrashed"), "fail");
+    return;
+  }
+  const failures = lastPreflightResults.filter(item => item.status === "fail").length;
+  const warnings = lastPreflightResults.filter(item => item.status === "warn").length;
+  const summaryClass = failures ? "fail" : warnings ? "warn" : "ok";
+  setPreflightSummary(
+    failures
+      ? rt("preflightFail", { failures, warnings })
+      : warnings
+        ? rt("preflightWarn", { warnings })
+        : rt("preflightOk"),
+    summaryClass
+  );
+}
 
 document.addEventListener("DOMContentLoaded", initializeResearcherSetup);
 
 async function initializeResearcherSetup() {
+  researcherLang = detectInitialLanguage();
+  const langEnBtn = document.getElementById("researcher-lang-en");
+  const langJaBtn = document.getElementById("researcher-lang-ja");
+  if (langEnBtn) langEnBtn.addEventListener("click", () => setResearcherLanguage("en"));
+  if (langJaBtn) langJaBtn.addEventListener("click", () => setResearcherLanguage("ja"));
+  applyResearcherLanguage();
+
   manifest = await fetchJson("experiments.json");
-  const select = document.getElementById("experiment-select");
+  populateExperimentOptions(manifest.defaultExperimentId);
 
-  for (const experiment of manifest.experiments || []) {
-    const option = document.createElement("option");
-    option.value = experiment.id;
-    option.textContent = experiment.label;
-    select.appendChild(option);
-  }
-
-  select.value = manifest.defaultExperimentId;
-  select.addEventListener("change", updateSelectedExperiment);
+  document.getElementById("stimulus-modality-filter").addEventListener("change", handleConditionFilterChange);
+  document.getElementById("response-mode-filter").addEventListener("change", handleConditionFilterChange);
+  document.getElementById("experiment-select").addEventListener("change", updateSelectedExperiment);
+  document.getElementById("instruction-style-select").addEventListener("change", updateParticipantLinkParams);
+  document.getElementById("discrete-advance-select").addEventListener("change", updateParticipantLinkParams);
+  document.getElementById("practice-count-select").addEventListener("change", updateParticipantLinkParams);
+  document.getElementById("stimulus-subset-select").addEventListener("change", updateParticipantLinkParams);
+  document.getElementById("stimulus-order-select").addEventListener("change", updateParticipantLinkParams);
+  document.getElementById("participant-lang-select").addEventListener("change", updateParticipantLinkParams);
   document.getElementById("copy-link").addEventListener("click", copyParticipantLink);
   document.getElementById("open-link").addEventListener("click", openParticipantLink);
   document.getElementById("copy-analysis-command").addEventListener("click", copyAnalysisCommand);
+  document.getElementById("copy-transcribe-command").addEventListener("click", copyTranscribeCommand);
   document.getElementById("run-preflight").addEventListener("click", runPreflightCheck);
   document.getElementById("toggle-preflight-details").addEventListener("click", togglePreflightDetails);
   setParticipantControlsEnabled(false);
   updateSelectedExperiment();
 }
 
+function experimentMatchesFilters(experiment) {
+  const stimFilter = document.getElementById("stimulus-modality-filter").value;
+  const respFilter = document.getElementById("response-mode-filter").value;
+  const stimModality = experiment.stimulusPresentation || (String(experiment.mode || "").startsWith("listening") ? "audio" : "text");
+  const respModality = experiment.responseModality || "written";
+  const taskStyle = experiment.spokenTaskStyle || "";
+
+  if (stimFilter !== "all" && stimModality !== stimFilter) {
+    return false;
+  }
+  if (respFilter === "written" && respModality !== "written") {
+    return false;
+  }
+  if (respFilter === "spoken_continuous" && !(respModality === "spoken" && taskStyle === "continuous_4")) {
+    return false;
+  }
+  if (respFilter === "spoken_discrete" && !(respModality === "spoken" && taskStyle === "discrete_naming")) {
+    return false;
+  }
+  return true;
+}
+
+function populateExperimentOptions(preferredId = "") {
+  const select = document.getElementById("experiment-select");
+  const previousId = preferredId || select.value;
+  const matches = (manifest.experiments || []).filter(experimentMatchesFilters);
+  select.innerHTML = "";
+  for (const experiment of matches) {
+    const option = document.createElement("option");
+    option.value = experiment.id;
+    option.textContent = experiment.label;
+    select.appendChild(option);
+  }
+  if (!matches.length) {
+    return;
+  }
+  if (matches.some(item => item.id === previousId)) {
+    select.value = previousId;
+  } else {
+    // Prefer the latest matching entry so researchers get the newest v0.3/v0.4/v0.5 form first.
+    select.value = matches[matches.length - 1].id;
+  }
+}
+
+function handleConditionFilterChange() {
+  const before = document.getElementById("experiment-select").value;
+  populateExperimentOptions("");
+  if (document.getElementById("experiment-select").value !== before) {
+    updateSelectedExperiment();
+  } else {
+    updateParticipantLinkParams();
+  }
+}
+
+function buildParticipantUrl(selectedId, config) {
+  const participantUrl = new URL("index.html", window.location.href);
+  participantUrl.searchParams.set("experiment", selectedId);
+  const instructionStyle = document.getElementById("instruction-style-select").value;
+  if (instructionStyle && instructionStyle !== "free") {
+    participantUrl.searchParams.set("instruction", instructionStyle);
+  }
+  if (config.responseModality === "spoken" && config.spokenTaskStyle === "discrete_naming") {
+    const advanceMode = document.getElementById("discrete-advance-select").value;
+    if (advanceMode) {
+      participantUrl.searchParams.set("advance", advanceMode);
+    }
+  }
+  const practiceMode = document.getElementById("practice-count-select").value;
+  if (practiceMode === "2" || practiceMode === "0") {
+    participantUrl.searchParams.set("practice", practiceMode);
+  }
+  const subset = document.getElementById("stimulus-subset-select").value;
+  if (subset === "form_a" || subset === "form_b") {
+    participantUrl.searchParams.set("subset", subset);
+  }
+  const order = document.getElementById("stimulus-order-select").value;
+  if (order === "counterbalanced_ba" || order === "random") {
+    participantUrl.searchParams.set("order", order);
+  }
+  const pLang = document.getElementById("participant-lang-select")?.value || "auto";
+  if (pLang === "ja" || pLang === "ja_locked") {
+    participantUrl.searchParams.set("lang", "ja");
+  } else if (pLang === "en" || pLang === "en_locked") {
+    participantUrl.searchParams.set("lang", "en");
+  }
+  if (pLang === "ja_locked" || pLang === "en_locked") {
+    participantUrl.searchParams.set("langLock", "1");
+  }
+  return participantUrl.href;
+}
+
+function renderSessionSummaryAndCount(config) {
+  const subset = document.getElementById("stimulus-subset-select").value;
+  const fullLen = (config.stimuli || []).length;
+  const activeCount = subset === "form_a" ? Math.ceil(fullLen / 2)
+    : subset === "form_b" ? Math.floor(fullLen / 2)
+    : fullLen;
+  document.getElementById("stimulus-count-value").textContent =
+    subset === "form_a" ? `${activeCount} (Form A)`
+    : subset === "form_b" ? `${activeCount} (Form B)`
+    : String(fullLen);
+
+  const pillsWrap = document.getElementById("session-preview-pills");
+  if (!pillsWrap) {
+    return;
+  }
+  const isAudio = config.stimulusPresentation === "audio";
+  const isSpoken = config.responseModality === "spoken";
+  const practiceMode = document.getElementById("practice-count-select").value;
+  const practiceCount = practiceMode === "2" ? 2 : practiceMode === "0" ? 0 : (isSpoken ? 2 : 0);
+  const timerSec = config.timerSeconds || 30;
+  const hasFollowUp = Boolean(config.followUp && config.followUp.enabled);
+  const pLang = document.getElementById("participant-lang-select")?.value || "auto";
+  const estMinutes = Math.max(
+    2,
+    Math.round(((practiceCount + activeCount) * Math.min(timerSec, 22) + (hasFollowUp ? activeCount * 24 : 0) + (isSpoken ? 45 : 15)) / 60)
+  );
+
+  const langPillKey = pLang === "ja" ? "pillLangJa"
+    : pLang === "en" ? "pillLangEn"
+    : pLang === "ja_locked" ? "pillLangJaLocked"
+    : pLang === "en_locked" ? "pillLangEnLocked"
+    : "pillLangAuto";
+
+  const pills = [
+    isAudio ? rt("pillAudio") : rt("pillText"),
+    isSpoken
+      ? (config.spokenTaskStyle === "discrete_naming"
+          ? (document.getElementById("discrete-advance-select").value === "key_only"
+              ? rt("pillSpokenDiscKey")
+              : rt("pillSpokenDiscVad"))
+          : rt("pillSpokenCont"))
+      : rt("pillTyped"),
+    practiceCount > 0 ? rt("pillWarmups", { count: practiceCount }) : rt("pillNoWarmup"),
+    subset === "all"
+      ? rt("pillCuesAll", { count: activeCount })
+      : rt("pillCuesHalf", { count: activeCount, form: subset === "form_a" ? "Form A" : "Form B" }),
+    hasFollowUp ? rt("pillFollowUp") : rt("pillAssocOnly"),
+    rt(langPillKey),
+    rt("pillEstMin", { min: estMinutes })
+  ];
+  pillsWrap.innerHTML = "";
+  for (const label of pills) {
+    const span = document.createElement("span");
+    span.className = "preview-pill";
+    span.textContent = label;
+    pillsWrap.appendChild(span);
+  }
+}
+
+async function updateParticipantLinkParams() {
+  const selectedId = document.getElementById("experiment-select").value;
+  const experiment = manifest.experiments.find(item => item.id === selectedId);
+  if (!experiment) {
+    return;
+  }
+  const config = await loadConfig(experiment);
+  document.getElementById("participant-link").value = buildParticipantUrl(selectedId, config);
+  renderSessionSummaryAndCount(config);
+  updateAnalysisWorkflow(config, selectedId);
+  clearCopyStatus();
+}
+
 async function updateSelectedExperiment() {
   const selectedId = document.getElementById("experiment-select").value;
   const experiment = manifest.experiments.find(item => item.id === selectedId);
+  if (!experiment) {
+    return;
+  }
   const config = await loadConfig(experiment);
-  const participantUrl = new URL("index.html", window.location.href);
-  participantUrl.searchParams.set("experiment", selectedId);
+  const isDiscreteSpoken = config.responseModality === "spoken" && config.spokenTaskStyle === "discrete_naming";
+  document.getElementById("discrete-advance-wrapper").style.display = isDiscreteSpoken ? "block" : "none";
+  if (isDiscreteSpoken && config.discreteAdvanceMode) {
+    document.getElementById("discrete-advance-select").value = config.discreteAdvanceMode;
+  }
 
-  document.getElementById("participant-link").value = participantUrl.href;
+  document.getElementById("participant-link").value = buildParticipantUrl(selectedId, config);
   document.getElementById("mode-value").textContent = config.mode || experiment.mode || "-";
+  document.getElementById("response-modality-value").textContent =
+    config.responseModality === "spoken"
+      ? `spoken (${config.spokenTaskStyle || "continuous_4"})`
+      : "written";
   document.getElementById("version-value").textContent = config.experimentVersion || "-";
   document.getElementById("status-value").textContent = experiment.status || "-";
-  document.getElementById("stimulus-count-value").textContent = String((config.stimuli || []).length);
   document.getElementById("timer-value").textContent = `${config.timerSeconds || 30}`;
   document.getElementById("stimulus-set-value").textContent = config.stimulusSetId || "-";
   document.getElementById("audio-version-value").textContent = config.audioVersion || "-";
   document.getElementById("freeze-value").textContent = config.freezeManifest || "-";
   document.getElementById("experiment-notes").textContent = experiment.notes || "";
+  renderSessionSummaryAndCount(config);
   updateAnalysisWorkflow(config, selectedId);
   clearCopyStatus();
   resetPreflight();
+  if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+    runPreflightCheck();
+  }
 }
 
 async function loadConfig(experiment) {
@@ -365,6 +1113,10 @@ async function copyAnalysisCommand() {
   await copyInputValue(document.getElementById("analysis-command"), "copy-analysis-status");
 }
 
+async function copyTranscribeCommand() {
+  await copyInputValue(document.getElementById("transcribe-command"), "copy-transcribe-status");
+}
+
 async function copyInputValue(input, statusId) {
   input.select();
   input.setSelectionRange(0, input.value.length);
@@ -377,7 +1129,7 @@ async function copyInputValue(input, statusId) {
   } catch (_error) {
     document.execCommand("copy");
   }
-  showCopyStatus(statusId, "Copied");
+  showCopyStatus(statusId, rt("copied"));
 }
 
 function showCopyStatus(statusId, text) {
@@ -394,7 +1146,7 @@ function showCopyStatus(statusId, text) {
 }
 
 function clearCopyStatus() {
-  for (const id of ["copy-link-status", "copy-analysis-status"]) {
+  for (const id of ["copy-link-status", "copy-analysis-status", "copy-transcribe-status"]) {
     const status = document.getElementById(id);
     if (status) {
       status.textContent = "";
@@ -403,10 +1155,18 @@ function clearCopyStatus() {
 }
 
 function updateAnalysisWorkflow(config, selectedId) {
+  const isSpoken = config.responseModality === "spoken";
+  const spokenWorkflow = document.getElementById("spoken-workflow");
+  if (spokenWorkflow) {
+    spokenWorkflow.style.display = isSpoken ? "block" : "none";
+  }
+  const transcribeInput = document.getElementById("transcribe-command");
+  if (transcribeInput) {
+    transcribeInput.value = `python3 tools/transcribe_spoken_lex30.py results/spoken_zips --output-dir results/raw_exports`;
+  }
   const command = buildAnalysisCommand(config, selectedId);
   document.getElementById("analysis-command").value = command;
-  document.getElementById("analysis-note").textContent =
-    "Default output: results/analysis/YYYYMMDD-HHMMSS/pilot_workbook.xlsx. GPT annotation is disabled by default; add --with-gpt only when you want optional review metadata.";
+  document.getElementById("analysis-note").textContent = rt("analysisNote");
 }
 
 function buildAnalysisCommand(config, selectedId) {
@@ -417,6 +1177,10 @@ function buildAnalysisCommand(config, selectedId) {
     "--experiment-id",
     selectedId
   ];
+  const subset = document.getElementById("stimulus-subset-select")?.value || "all";
+  if (subset === "form_a" || subset === "form_b") {
+    parts.push("--stimulus-subset", subset);
+  }
   if (!config.freezeManifest) {
     parts.push("--skip-freeze-verify");
   }
@@ -438,7 +1202,9 @@ function resetPreflight() {
     passed: false,
     running: false
   };
-  document.getElementById("preflight-summary").textContent = "Preflight has not run.";
+  lastPreflightResults = [];
+  lastPreflightMode = "not_run";
+  document.getElementById("preflight-summary").textContent = rt("preflightNotRun");
   document.getElementById("preflight-summary").className = "preflight-summary";
   document.getElementById("preflight-counts").textContent = "";
   document.getElementById("preflight-results").innerHTML = "";
@@ -461,10 +1227,12 @@ async function runPreflightCheck() {
     passed: false,
     running: true
   };
+  lastPreflightResults = [];
+  lastPreflightMode = "running";
   setParticipantControlsEnabled(false);
   button.disabled = true;
   select.disabled = true;
-  setPreflightSummary("Running preflight...", "warn");
+  setPreflightSummary(rt("preflightRunning"), "warn");
   renderPreflightResults([]);
   updatePreflightDetails([]);
 
@@ -478,8 +1246,21 @@ async function runPreflightCheck() {
     if (freeze) {
       addCheck(results, freeze.experimentId === config.experimentId, "Freeze experimentId matches config", freeze.experimentId || "-");
       addCheck(results, freeze.experimentVersion === config.experimentVersion, "Freeze experimentVersion matches config", freeze.experimentVersion || "-");
-      addCheck(results, freeze.audioVersion === config.audioVersion, "Freeze audioVersion matches config", freeze.audioVersion || "-");
+      addCheck(results, (freeze.audioVersion || "") === (config.audioVersion || ""), "Freeze audioVersion matches config", freeze.audioVersion || "-");
       addCheck(results, Number(freeze.stimulusCount) === (config.stimuli || []).length, "Freeze stimulus count matches config", `${freeze.stimulusCount || "-"} frozen`);
+    }
+
+    if (config.responseModality === "spoken") {
+      const hasMedia = Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+      const hasAudioCtx = Boolean(window.AudioContext || window.webkitAudioContext);
+      const isSecure = Boolean(window.isSecureContext || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+      addCheck(
+        results,
+        true,
+        "Spoken capture browser APIs",
+        `getUserMedia=${hasMedia ? "available" : "unavailable"} | AudioContext=${hasAudioCtx ? "available" : "unavailable"} | secureContext=${isSecure}`,
+        !(hasMedia && hasAudioCtx && isSecure)
+      );
     }
 
     if (config.stimulusPresentation === "audio") {
@@ -490,20 +1271,16 @@ async function runPreflightCheck() {
 
     const failures = results.filter(item => item.status === "fail").length;
     const warnings = results.filter(item => item.status === "warn").length;
-    const summaryClass = failures ? "fail" : warnings ? "warn" : "ok";
     const passed = failures === 0;
-    setPreflightSummary(
-      failures
-        ? `Preflight failed: ${failures} failed, ${warnings} warning(s).`
-        : warnings
-          ? `Preflight completed with ${warnings} warning(s).`
-          : "Preflight OK: config, freeze manifest, and audio files are readable.",
-      summaryClass
-    );
+    lastPreflightResults = results.slice();
+    lastPreflightMode = "completed";
+    refreshLocalizedPreflightSummary();
     updatePreflightGate(selectedId, passed);
   } catch (error) {
     addCheck(results, false, "Preflight crashed", error.message || String(error));
-    setPreflightSummary("Preflight failed.", "fail");
+    lastPreflightResults = results.slice();
+    lastPreflightMode = "crashed";
+    setPreflightSummary(rt("preflightCrashed"), "fail");
     updatePreflightGate(selectedId, false);
   } finally {
     renderPreflightResults(results);
@@ -531,7 +1308,7 @@ function ensurePreflightPassed() {
   if (preflightState.experimentId === selectedId && preflightState.passed) {
     return true;
   }
-  alert("Run Preflight Check and resolve any failures before sharing the participant URL.");
+  showCopyStatus("copy-link-status", rt("alertNeedPreflight"));
   return false;
 }
 
@@ -541,15 +1318,11 @@ function setParticipantControlsEnabled(enabled) {
     const button = document.getElementById(id);
     if (button) {
       button.disabled = !enabled;
-      button.title = enabled
-        ? "Preflight passed for the selected version."
-        : "Run Preflight Check before sharing the participant URL.";
+      button.title = enabled ? rt("titlePassed") : rt("titleLocked");
     }
   }
   if (note) {
-    note.textContent = enabled
-      ? "Participant URL is unlocked for the selected version."
-      : "Participant URL is locked until preflight passes for the selected version.";
+    note.textContent = enabled ? rt("gateUnlocked") : rt("gateLocked");
   }
 }
 
@@ -678,14 +1451,14 @@ function renderPreflightResults(results) {
   }
 }
 
-function updatePreflightDetails(results) {
+function updatePreflightDetails(results, options = {}) {
   const counts = document.getElementById("preflight-counts");
   const list = document.getElementById("preflight-results");
   const toggle = document.getElementById("toggle-preflight-details");
-  if (!results.length) {
-    counts.textContent = "";
-    toggle.style.display = "none";
-    list.hidden = false;
+  if (!results || !results.length) {
+    if (counts) counts.textContent = "";
+    if (toggle) toggle.style.display = "none";
+    if (list) list.hidden = false;
     return;
   }
 
@@ -693,12 +1466,14 @@ function updatePreflightDetails(results) {
   const warnings = results.filter(item => item.status === "warn").length;
   const failures = results.filter(item => item.status === "fail").length;
   const audioOk = results.filter(item => item.status === "ok" && item.label.startsWith("Audio ")).length;
-  const audioSummary = audioOk ? `${audioOk} audio files OK · ` : "";
-  counts.textContent = `${audioSummary}${ok} total OK · ${warnings} warning(s) · ${failures} failed`;
-  preflightDetailsVisible = failures > 0 || warnings > 0;
+  const audioPart = audioOk ? rt("preflightAudioPart", { count: audioOk }) : "";
+  counts.textContent = rt("preflightCounts", { audioPart, ok, warnings, failures });
+  if (!options.preserveVisibility) {
+    preflightDetailsVisible = failures > 0 || warnings > 0;
+  }
   list.hidden = !preflightDetailsVisible;
   toggle.style.display = "inline-block";
-  toggle.textContent = preflightDetailsVisible ? "Hide Details" : "Show Details";
+  toggle.textContent = preflightDetailsVisible ? rt("hideDetails") : rt("showDetails");
 }
 
 function togglePreflightDetails() {
@@ -706,7 +1481,7 @@ function togglePreflightDetails() {
   const toggle = document.getElementById("toggle-preflight-details");
   preflightDetailsVisible = !preflightDetailsVisible;
   list.hidden = !preflightDetailsVisible;
-  toggle.textContent = preflightDetailsVisible ? "Hide Details" : "Show Details";
+  toggle.textContent = preflightDetailsVisible ? rt("hideDetails") : rt("showDetails");
 }
 </script>
 </body>

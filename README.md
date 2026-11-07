@@ -60,13 +60,32 @@ and 30 seconds per cue. Updated Lex30 versions are also registered:
 - `updated-written-easycue-posbalanced-pilot-v0.3`
 - `updated-listening-easycue-posbalanced-pilot-v0.3`
 - `updated-listening-easycue-posbalanced-followup-pilot-v0.4`
+- `updated-written-spoken-continuous-pilot-v0.5`
+- `updated-written-spoken-discrete-pilot-v0.5`
+- `updated-listening-spoken-continuous-pilot-v0.5`
+- `updated-listening-spoken-discrete-pilot-v0.5`
 
 The listening POS-balanced follow-up v0.4 pilot is the current default for
 administration. It keeps the 30-cue Lex30 free-association core and adds
 post-association recognition, Japanese-meaning, confidence-slider, and receptive
 semantic probe fields. The earlier listening POS-balanced v0.3 pilot remains
 registered as the no-follow-up listening form with the same approved Matilda
-American English audio. Neither form is a psychometrically validated final test.
+American English audio. The four v0.5 spoken pilots reuse the same 30 cues across
+written (`text`) and listening (`audio`) stimulus presentation and compare
+continuous 4-word spoken production (`continuous_4`) against word-by-word
+discrete naming (`discrete_naming`). On `researcher.html`, researchers can filter
+by stimulus/response modality, choose `vad_and_key` vs `key_only` slot advance
+for discrete naming, choose `free` vs `star_no_chaining` association
+instructions, configure un-scored practice warm-up items (`?practice=2|0`, using
+`audio/practice/` for listening forms; default `2` for spoken modes and `0` for
+written modes), select POS- and psycholinguistically matched 15-cue parallel
+split-half forms (`?subset=form_a|form_b`, defined in
+`tools/data/parallel_split_halves.json`) or counterbalanced presentation order
+(`?order=counterbalanced_ba|random|fixed`), set or lock the participant UI
+language (`?lang=ja|en`, plus `&langLock=1` to hide the participant language
+toggle in controlled sessions), and test microphone permission before
+sharing a link. None of these
+forms is a psychometrically validated final test.
 
 The v0.4 listening follow-up freeze file is:
 
@@ -114,8 +133,13 @@ Japanese-meaning, and receptive semantic-probe columns. The browser also exports
 JSON with `schemaVersion: lex30-browser-results-v3`; use JSON as the fuller raw
 archive and CSV as the spreadsheet/scoring input.
 
-The participant interface can be switched between English and Japanese from the
-top-right language toggle. In both languages, the association task explicitly
+All three browser views (`index.html`, `researcher.html`, and
+`review_spoken.html`) can be switched between English and Japanese from the
+top-right `English / 日本語` toggle (synced via `localStorage` under
+`lex30_interface_language`, with automatic browser-locale detection and URL
+overrides `?lang=ja|en` and `?langLock=1`). Display localization never alters
+frozen JSON configs or exported CSV/JSON column names and option values. In
+both languages, the association task explicitly
 instructs participants to enter English words only. On completion, the browser
 automatically starts CSV and JSON downloads; the result screen keeps manual
 download buttons as a fallback if the browser blocks one of the downloads.
@@ -143,6 +167,33 @@ contains a currently open unfinished item, that row is written separately as
 `recovered_draft_review.csv` and should be treated as researcher-review data, not
 as a primary scored response row.
 
+## Spoken Mode Archive And Offline Transcription
+
+In `v0.5` spoken modes, the browser records raw 16 kHz mono 16-bit PCM WAV files
+with `echoCancellation`, `noiseSuppression`, and `autoGainControl` disabled to
+avoid clipping word-initial consonants, autosaves item WAV blobs to `IndexedDB`,
+and downloads a single `.zip` bundle (`results.csv`, `results.json` with
+`lex30-browser-results-v4`, and `audio/*.wav`). Convert spoken `.zip` bundles or
+extracted folders into ASR-transcribed + acoustic voice-onset CSVs before scoring:
+
+```bash
+python3 tools/transcribe_spoken_lex30.py results/spoken_zips \
+  --output-dir results/raw_exports/transcribed
+```
+
+The CLI computes deterministic 2 ms-hop energy + ZCR voice-onset latency
+(`AcousticRT1(ms)`), masks cue-playback bleed on listening items, extracts
+up to four words when `faster-whisper` or `openai-whisper` is installed (or runs
+with `--acoustic-only` using stdlib `wave` only), strips English/Japanese
+hesitations, flags homophone-ambiguous forms (`knight:night`), and writes
+`spoken_transcription_review.csv`. Open `review_spoken.html` (also linked from
+`researcher.html`) and drop the participant `.zip` bundles plus optional
+`spoken_transcription_review.csv` to inspect waveforms, cue-bleed masks, and
+`AcousticRT1(ms)` markers locally in the browser (`Alt+Space` to replay,
+one-click homophone chips, `Ctrl/Cmd+Enter` to accept and advance), then export
+the updated `spoken_transcription_review.csv` and apply corrections with
+`--apply-review-csv path/to/spoken_transcription_review.csv`.
+
 ## Score Existing CSV Exports
 
 The browser app downloads raw CSV files with four answer columns per stimulus.
@@ -167,7 +218,9 @@ python3 tools/run_pilot_analysis.py results/raw_exports \
 ```
 
 By default, the pipeline stops if raw CSV metadata or stimulus words do not
-match the selected `--experiment-id`. Use `--allow-mixed-experiments` only for
+match the selected `--experiment-id` (15-cue `form_a` / `form_b` split-half runs
+are auto-detected from `StimulusSubset` or can be locked explicitly with
+`--stimulus-subset form_a|form_b`). Use `--allow-mixed-experiments` only for
 diagnostic runs with legacy/sample files. If you intentionally reuse an existing
 `--output-dir`, pass `--force` only after preserving any human-entered workbook
 decision notes.
@@ -183,6 +236,11 @@ It writes a timestamped folder under `results/analysis/` with:
   diagnostics for complete sessions.
 - `multiword_sensitivity.csv`: all-token vs first-token-per-slot scoring
   sensitivity for participants with multiword answer slots.
+- `multifaceted_summary.csv`: secondary 6-dimension productive vocabulary
+  profile (frequency sophistication, retrieval fluency/time-cutoff sensitivity,
+  phonological/clang & homophone bounds, lexical network diversity/chaining,
+  psycholinguistic depth/derivational richness, and v0.4 receptive–productive
+  bottleneck diagnostics).
 - `external_criteria_linked.csv`, if `--external-criteria` is supplied:
   participant/session summaries linked to the supplied external criterion CSV.
 - `external_criteria_correlations.csv`, if `--external-criteria` is supplied:
@@ -305,9 +363,10 @@ NGSL ranks and scores are also reported as an auxiliary open-list comparison,
 not as the primary Lex30 scoring rule.
 Summaries are keyed by `analysis_session_key` so retakes or recovered sessions
 from the same participant ID are not silently merged.
-Concreteness, SUBTLEX-US, `wordfreq`, and WordNet POS fields are used only for
-stimulus review and pilot-item selection; they are not included in participant
-response scores.
+Concreteness, SUBTLEX-US, `wordfreq`, and WordNet POS fields do not alter primary
+binary `K1=0, K2+=1` scores; they are reported separately in secondary
+multifaceted profile columns (`*_summary.csv`, `multifaceted_summary.csv`, and
+the workbook `Multifaceted` sheet) as well as stimulus-profile outputs.
 
 At this stage, every lexical token inside an answer slot is tokenized and scored.
 The outputs therefore include `multiword_response_slots` and
@@ -351,8 +410,8 @@ GPT can be used as an annotation and review aid, not as the primary scorer:
 python3 tools/score_lex30.py lex30_results_PARTICIPANT.csv --with-gpt
 ```
 
-The script reads `OPENAI_API_KEY` from `/Users/tohokusla/Desktop/.env` by
-default. GPT annotations classify response validity and cue-response relation
+The script reads `OPENAI_API_KEY` from `.env` in the repository root (falling
+back to `~/Desktop/.env` if present) or environment variables. GPT annotations classify response validity and cue-response relation
 type, using categories such as `lexical_set`, `collocation`, `form_based`, and
 `erratic`. These annotations are written separately from the rule scores.
 

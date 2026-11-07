@@ -5,73 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lex30 Test</title>
 <style>
+:root {
+    --brand: #2f6f57;
+    --brand-hover: #255946;
+    --brand-soft: #eef7f3;
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --surface-subtle: #f8fafb;
+    --border: #d8e0e8;
+    --text: #1f2933;
+    --muted: #5f6c7b;
+    --warn: #b76e00;
+    --warn-soft: #fff6e5;
+    --danger: #a33838;
+    --danger-soft: #fdeeee;
+    --radius: 12px;
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f6f7f9;
-    color: #2b2f33;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     margin: 0;
-    padding: 24px 20px;
+    padding: 20px 16px 44px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
 }
-  
-h1, h2 {
+
+.app-header {
+    max-width: 660px;
+    margin: 0 auto 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-block {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+}
+
+h2 {
     text-align: center;
-    font-weight: normal;
+    font-weight: 600;
+    margin: 0 0 12px;
 }
-  
-#instructions, #test-area, #break-area, #phase-break-area, #followup-area, #result-area, #participant-info, #setup-error {
-    max-width: 640px;
+
+#experiment-label {
+    margin: 0;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: left;
+}
+
+#instructions, #mic-check-area, #test-area, #break-area, #phase-break-area, #followup-area, #result-area, #participant-info, #setup-error {
+    max-width: 660px;
     margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(32, 41, 54, 0.08);
+    background: var(--surface);
+    padding: 26px 28px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(216, 224, 232, 0.85);
+    box-shadow: 0 10px 28px rgba(24, 39, 56, 0.06);
 }
-  
+
 #instructions p, #participant-info p {
-    line-height: 1.6;
+    line-height: 1.65;
+    margin-top: 0;
 }
-  
+
 button {
-    background: #4CAF50;
+    background: var(--brand);
     color: #fff;
-    border: none;
-    padding: 10px 15px;
+    border: 1px solid transparent;
+    padding: 10px 16px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
     min-height: 42px;
+    transition: background-color 120ms ease, border-color 120ms ease, transform 60ms ease;
 }
-  
-button:hover {
-    background: #45a049;
+
+button:hover:not(:disabled) {
+    background: var(--brand-hover);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    background: #b5bfc9;
+    cursor: not-allowed;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
 }
 
 .secondary-button {
-    background: #56616d;
+    background: #52606d;
 }
 
-.secondary-button:hover {
-    background: #48535f;
+.secondary-button:hover:not(:disabled) {
+    background: #3e4c59;
 }
 
 .primary-button {
-    min-width: 112px;
+    min-width: 124px;
     padding: 11px 22px;
 }
 
 .backup-button {
-    background: #eef1f4;
-    color: #4b5560;
-    border: 1px solid #d8dee6;
+    background: var(--surface-subtle);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-weight: 500;
 }
 
-.backup-button:hover {
-    background: #e4e8ed;
+.backup-button:hover:not(:disabled) {
+    background: #edf1f5;
+    color: var(--text);
 }
 
 .action-bar {
@@ -79,49 +149,219 @@ button:hover {
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
-    margin-top: 18px;
+    margin-top: 20px;
 }
 
 .task-actions {
     justify-content: space-between;
-}
-
-.top-controls {
-    display: flex;
-    justify-content: flex-end;
-    max-width: 900px;
-    margin: 0 auto 8px;
+    padding-top: 14px;
+    border-top: 1px solid #edf1f5;
 }
 
 .language-toggle {
     display: inline-flex;
-    gap: 4px;
-    background: #e8edf3;
-    border-radius: 6px;
-    padding: 4px;
+    gap: 3px;
+    background: #e6ebf1;
+    border-radius: 8px;
+    padding: 3px;
 }
 
 .language-button {
-    min-height: 34px;
-    padding: 6px 10px;
+    min-height: 32px;
+    padding: 5px 11px;
     background: transparent;
-    color: #4b5560;
-    border-radius: 4px;
+    color: var(--muted);
+    border-radius: 6px;
+    font-size: 13px;
 }
 
-.language-button:hover {
-    background: #d9e1ea;
+.language-button:hover:not(:disabled) {
+    background: #d8e0e9;
+    color: var(--text);
 }
 
 .language-button.active {
-    background: #2f6f57;
+    background: var(--brand);
     color: #fff;
 }
 
 .danger-panel {
-    border-left: 4px solid #a33838;
+    border-left: 4px solid var(--danger);
 }
-  
+
+.inline-notice {
+    display: none;
+    margin: 10px 0 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--warn-soft);
+    color: #7a4900;
+    border: 1px solid #f5d491;
+}
+
+.inline-notice.visible {
+    display: block;
+}
+
+.inline-notice.error {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-color: #f1bcbc;
+}
+
+.saved-backup-card {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.saved-backup-card.visible {
+    display: block;
+}
+
+.saved-backup-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.id-entry-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#participant-id {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #c4cdd7;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--text);
+    background: #fff;
+}
+
+.task-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+#progress {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.practice-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--warn-soft);
+    color: var(--warn);
+    border: 1px solid #f3d18c;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.timer-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.timer-pill.urgent {
+    background: var(--warn-soft);
+    border-color: #f0c36d;
+    color: #8a4b00;
+}
+
+.stimulus-card {
+    background: var(--surface-subtle);
+    border: 1px solid #e3e9ef;
+    border-radius: 10px;
+    padding: 20px 16px;
+    margin: 12px 0 14px;
+    text-align: center;
+}
+
+.stimulus-card.practice-mode {
+    background: #fffcf5;
+    border-color: #f2dfb3;
+}
+
+#stimulus {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 0;
+}
+
+#audio-area {
+    margin: 12px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#audio-area:empty {
+    display: none;
+}
+
+#timer-instruction {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin: 0 0 12px;
+}
+
+.timer-bar-track {
+    height: 4px;
+    background: #edf1f5;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 0 0 14px;
+}
+
+.timer-bar-fill {
+    height: 100%;
+    width: 100%;
+    background: #68a38b;
+    transition: width 200ms linear, background-color 200ms ease;
+}
+
+.timer-bar-fill.urgent {
+    background: #d9822b;
+}
+
 .association-entry {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -131,11 +371,11 @@ button:hover {
 
 .association-entry input {
     width: 100%;
-    min-height: 44px;
-    padding: 10px;
-    border: 1px solid #c7ced6;
-    border-radius: 4px;
-    font-size: 15px;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid #c4cdd7;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 .association-entry input:disabled {
@@ -144,12 +384,14 @@ button:hover {
 }
 
 .add-answer-button {
-    min-width: 82px;
+    min-width: 88px;
+    min-height: 46px;
 }
 
 .answer-count {
-    color: #66717c;
-    font-size: 13px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
     margin: 8px 0;
     text-align: right;
 }
@@ -167,33 +409,37 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    min-height: 38px;
-    padding: 8px 10px;
-    border: 1px solid #d8dee6;
-    border-radius: 4px;
-    background: #fbfcfd;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface-subtle);
 }
 
 .association-answer-word {
     overflow-wrap: anywhere;
+    font-weight: 500;
 }
 
 .answer-remove-button {
     min-height: 28px;
     min-width: 30px;
-    padding: 4px 8px;
-    background: #eef1f4;
-    color: #4b5560;
-    border: 1px solid #d8dee6;
+    padding: 4px 10px;
+    background: #fff;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-size: 12px;
 }
 
-.answer-remove-button:hover {
-    background: #e4e8ed;
+.answer-remove-button:hover:not(:disabled) {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-color: #f1bcbc;
 }
 
 .progress-track {
-    height: 8px;
-    background: #e8edf3;
+    height: 7px;
+    background: #e6ebf1;
     border-radius: 999px;
     overflow: hidden;
     margin: 0 0 12px;
@@ -202,37 +448,49 @@ button:hover {
 .progress-fill {
     height: 100%;
     width: 0;
-    background: #2f6f57;
+    background: var(--brand);
     border-radius: inherit;
-    transition: width 160ms ease;
+    transition: width 180ms ease;
 }
 
 .phase-summary {
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.65;
+    padding: 8px 0;
 }
 
 .phase-summary strong {
     display: block;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 8px;
 }
 
 .download-status {
-    color: #2f6f57;
+    color: var(--brand);
+    background: var(--brand-soft);
+    border: 1px solid #c5e3d6;
+    border-radius: 8px;
+    padding: 10px 14px;
     font-size: 14px;
     line-height: 1.5;
     text-align: center;
-    margin: 6px 0 14px;
+    margin: 10px 0 18px;
+}
+
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .followup-field {
-    margin: 14px 0;
+    margin: 16px 0;
 }
 
 .followup-section {
-    border-top: 1px solid #e1e5ea;
-    padding-top: 14px;
+    border-top: 1px solid #e6ebf1;
+    padding-top: 16px;
     margin-top: 18px;
 }
 
@@ -249,103 +507,227 @@ button:hover {
 
 .followup-field label,
 .followup-options-title {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
+.slider-value-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand);
+    background: var(--brand-soft);
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+}
+
 .followup-field input[type="text"] {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 15px;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid #c4cdd7;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 .followup-field input[type="range"] {
     width: 100%;
     min-height: 32px;
+    accent-color: var(--brand);
 }
 
 .slider-labels {
     display: flex;
     justify-content: space-between;
-    color: #666;
+    color: var(--muted);
     font-size: 12px;
 }
 
 .followup-options {
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
     margin: 14px 0;
-    padding: 12px;
+    padding: 14px;
+    background: var(--surface-subtle);
 }
 
 .followup-options-title {
-    line-height: 1.25;
+    line-height: 1.35;
 }
 
 .followup-options label {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
-    gap: 9px;
-    margin: 8px 0;
-    font-weight: normal;
-    border: 1px solid #d8dee6;
-    border-radius: 6px;
-    padding: 10px;
+    gap: 10px;
+    margin: 8px 0 0;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: #fff;
     cursor: pointer;
+    transition: border-color 120ms ease, background-color 120ms ease;
 }
 
 .followup-options label:hover {
-    background: #f6f8fa;
+    background: #f3f7fa;
+    border-color: #b7c4d1;
+}
+
+.followup-options label:has(input:checked),
+.followup-options label.selected {
+    background: var(--brand-soft);
+    border-color: var(--brand);
+    color: #163d2e;
+    font-weight: 600;
 }
 
 .followup-options input[type="radio"] {
     width: 18px;
     height: 18px;
     flex: 0 0 auto;
+    accent-color: var(--brand);
 }
 
 .cue-reveal {
-    background: #eef4ff;
-    border-radius: 6px;
-    padding: 12px;
+    background: var(--brand-soft);
+    border: 1px solid #c5e3d6;
+    color: #163d2e;
+    border-radius: 10px;
+    padding: 14px;
     text-align: center;
-    font-size: 22px;
+    font-size: 24px;
+    font-weight: 700;
     margin: 12px 0;
 }
-  
+
 .info {
     font-size: 14px;
-    color: #555;
+    color: var(--muted);
     text-align: center;
     margin-bottom: 10px;
 }
 
 #audio-area audio {
     width: 100%;
-    max-width: 360px;
+    max-width: 340px;
+    height: 38px;
+}
+
+.audio-replay-btn {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.mic-meter-track {
+    height: 12px;
+    background: #e6ebf1;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.mic-meter-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--brand);
+    transition: width 70ms linear;
+}
+
+.spoken-panel {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    background: var(--surface-subtle);
+    margin-top: 10px;
+}
+
+.spoken-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.rec-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #eef1f4;
+    color: #4b5560;
+}
+
+.rec-badge.recording {
+    background: #fdeaea;
+    color: var(--danger);
+}
+
+.rec-badge.speaking {
+    background: #e6f4ea;
+    color: #1e6b3b;
+}
+
+.spoken-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.spoken-slot-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    background: #fff;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spoken-slot-card.active {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    font-weight: 600;
+}
+
+.spoken-slot-card.done {
+    border-color: #b7d7c8;
+    color: var(--brand);
 }
 
 @media (max-width: 520px) {
     body {
-        padding: 20px;
+        padding: 14px 12px 32px;
     }
 
-    h1 {
-        font-size: 32px;
+    .app-header {
+        align-items: flex-start;
     }
 
-    #instructions, #test-area, #break-area, #phase-break-area, #followup-area, #result-area, #participant-info, #setup-error {
-        padding: 20px;
+    #instructions, #mic-check-area, #test-area, #break-area, #phase-break-area, #followup-area, #result-area, #participant-info, #setup-error {
+        padding: 18px 16px;
     }
 
-    .association-entry {
+    .id-entry-row,
+    .association-entry,
+    .spoken-slots-grid {
         grid-template-columns: 1fr;
     }
 
-    .add-answer-button {
+    .add-answer-button,
+    #save-participant-id {
         width: 100%;
     }
 
@@ -359,49 +741,80 @@ button:hover {
     }
 
     .primary-button {
-        min-width: 96px;
+        min-width: 100px;
     }
 }
 </style>
 </head>
 <body>
-<div class="top-controls">
+<header class="app-header">
+  <div class="brand-block">
+    <h1>Lex30</h1>
+    <div id="experiment-label" class="info"></div>
+  </div>
   <div class="language-toggle" role="group" aria-label="Language">
     <button id="lang-en" class="language-button" type="button">English</button>
     <button id="lang-ja" class="language-button" type="button">日本語</button>
   </div>
-</div>
-<h1>Lex30</h1>
-<div id="experiment-label" class="info"></div>
+</header>
 
 <div id="setup-error" class="danger-panel" style="display:none;">
-  <h2>Setup Error</h2>
+  <h2 id="setup-error-title">Setup Error</h2>
   <p id="setup-error-text"></p>
 </div>
 
 <div id="participant-info">
   <p id="participant-info-text">Please enter your Participant ID to begin.</p>
-  <input type="text" id="participant-id" placeholder="Enter your ID" maxlength="20">
-  <div style="text-align:center;">
-	    <button id="save-participant-id">Submit</button>
-	    <button id="download-saved-backup" class="secondary-button" style="display:none;">Download Saved Backup</button>
-	    <button id="clear-saved-backup" class="secondary-button" style="display:none;">Clear Saved Backup</button>
-	  </div>
-	</div>
+  <div id="participant-inline-notice" class="inline-notice" role="alert" aria-live="assertive"></div>
+  <div class="id-entry-row">
+    <input type="text" id="participant-id" placeholder="Enter your ID" maxlength="20" autocomplete="off">
+    <button id="save-participant-id" class="primary-button">Submit</button>
+  </div>
+  <div id="saved-backup-card" class="saved-backup-card">
+    <div id="saved-backup-summary"></div>
+    <div class="saved-backup-actions">
+      <button id="download-saved-backup" class="backup-button" style="display:none;">Download Saved Backup</button>
+      <button id="clear-saved-backup" class="backup-button" style="display:none;">Clear Saved Backup</button>
+    </div>
+  </div>
+</div>
+
+<div id="mic-check-area" style="display:none;">
+  <h2 id="mic-check-title">Microphone Check</h2>
+  <p id="mic-check-text">This version records your spoken English responses. Please use headphones in a quiet room, enable your microphone, and test your audio level before starting.</p>
+  <div id="mic-inline-notice" class="inline-notice" role="alert" aria-live="assertive"></div>
+  <div class="mic-meter-track" aria-hidden="true"><div id="mic-check-meter-fill" class="mic-meter-fill"></div></div>
+  <p id="mic-check-status" class="info">Microphone not connected yet.</p>
+  <div id="mic-test-playback-wrap" class="info" style="display:none;">
+    <audio id="mic-test-playback" controls></audio>
+  </div>
+  <div class="action-bar" style="justify-content:center; flex-wrap:wrap;">
+    <button id="mic-enable-btn" type="button">Enable Microphone</button>
+    <button id="mic-test-btn" class="secondary-button" type="button" disabled>Record 2s Test</button>
+    <button id="mic-continue-btn" class="primary-button" type="button" disabled>Continue</button>
+  </div>
+</div>
 
 <div id="instructions" style="display:none;">
   <p id="instructions-text">You will see English words. For each word, type the words that come to your mind.</p>
-  <div style="text-align:center;">
-    <button id="start-btn">Start Test</button>
+  <div class="action-bar" style="justify-content:center;">
+    <button id="start-btn" class="primary-button">Start Test</button>
   </div>
 </div>
 
 <div id="test-area" style="display:none;">
-  <div id="progress" class="info"></div>
+  <div class="task-top-row">
+    <div id="progress" class="info"></div>
+    <div id="timer-pill" class="timer-pill" aria-live="off">30s</div>
+  </div>
   <div class="progress-track" aria-hidden="true"><div id="association-progress-bar" class="progress-fill"></div></div>
-  <h2 id="stimulus"></h2>
-  <div id="audio-area" class="info"></div>
+  <div class="timer-bar-track" aria-hidden="true"><div id="item-timer-bar" class="timer-bar-fill"></div></div>
+  <div id="stimulus-card" class="stimulus-card">
+    <h2 id="stimulus"></h2>
+    <div id="audio-area" class="info"></div>
+  </div>
   <div id="timer-instruction" class="info">Press SPACE to go to the next word anytime.</div>
+  <div id="task-inline-notice" class="inline-notice" role="alert" aria-live="assertive"></div>
   <div id="answers-area" class="answer-container">
     <div class="association-entry">
       <input id="association-answer-input" class="association-answer-input" type="text" placeholder="One English word (optional)" maxlength="30" autocomplete="off" spellcheck="false">
@@ -427,7 +840,7 @@ button:hover {
     <strong id="break-title">Break</strong>
     <p id="break-message">You may take a short break. Continue when you are ready.</p>
   </div>
-  <div class="action-bar">
+  <div class="action-bar" style="justify-content:center;">
     <button id="continue-break-btn" class="primary-button">Continue</button>
   </div>
 </div>
@@ -437,7 +850,7 @@ button:hover {
     <strong id="phase-break-title">Part 1 complete</strong>
     <p id="phase-break-message">You have finished the 30 listening items. The next part asks short follow-up questions about the same words.</p>
   </div>
-  <div class="action-bar">
+  <div class="action-bar" style="justify-content:center;">
     <button id="start-followup-btn" class="primary-button">Start Part 2</button>
   </div>
 </div>
@@ -458,12 +871,13 @@ button:hover {
 <div id="result-area" style="display:none;">
   <h2 id="thank-you-title">Thank you for your responses!</h2>
   <p id="download-status" class="download-status">Your result files should download automatically. If they do not, use the buttons below.</p>
-  <div style="text-align:center;">
-	    <button id="download-btn">Download Results</button>
-	    <button id="download-json-btn">Download JSON</button>
-	    <button id="clear-saved-backup-result" class="secondary-button" style="display:none;">Clear Saved Backup</button>
-	  </div>
-	</div>
+  <div class="result-actions">
+    <button id="download-zip-btn" class="primary-button" style="display:none;">Download Audio ZIP</button>
+    <button id="download-btn" class="primary-button">Download Results</button>
+    <button id="download-json-btn" class="secondary-button">Download JSON</button>
+    <button id="clear-saved-backup-result" class="backup-button" style="display:none;">Clear Saved Backup</button>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

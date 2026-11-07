@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lex30 Spoken Transcription &amp; Audio Review</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f7f9;
+  color: #2b2f33;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.topbar {
+  max-width: 1180px;
+  margin: 0 auto 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.topbar-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.topbar-links a {
+  color: #2f6f57;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.topbar-links a:hover {
+  text-decoration: underline;
+}
+
+.language-toggle {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: #e6ebf0;
+  border: 1px solid #d5dde5;
+}
+
+.language-button {
+  margin-top: 0;
+  min-height: 28px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  border: 0;
+}
+
+.language-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.language-button.active {
+  background: #ffffff;
+  color: #1f2933;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+}
+
+.dropzone {
+  max-width: 1180px;
+  margin: 0 auto 16px;
+  background: #fff;
+  border: 2px dashed #b9c4cf;
+  border-radius: 8px;
+  padding: 18px;
+  text-align: center;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.dropzone.dragover {
+  border-color: #2f6f57;
+  background: #eef8f3;
+}
+
+.dropzone p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #4b5560;
+}
+
+button {
+  background: #2f6f57;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #275d49;
+}
+
+button:disabled {
+  background: #a7b0b8;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  background: #eef1f4;
+  color: #39424c;
+  border: 1px solid #d0d7de;
+}
+
+.secondary-btn:hover {
+  background: #e2e7ec;
+}
+
+.toolbar {
+  max-width: 1180px;
+  margin: 0 auto 14px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+select, input[type="text"] {
+  padding: 7px 9px;
+  border: 1px solid #c8ced6;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.workspace {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.list-panel, .detail-panel {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.list-panel {
+  max-height: 74vh;
+  overflow-y: auto;
+}
+
+.item-row {
+  padding: 10px 12px;
+  border-bottom: 1px solid #edf0f3;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.item-row:hover {
+  background: #f6f9fb;
+}
+
+.item-row.active {
+  background: #eef8f3;
+  border-left: 4px solid #2f6f57;
+}
+
+.item-cue {
+  font-weight: 600;
+  color: #1f2428;
+}
+
+.item-sub {
+  color: #65707b;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge.warn {
+  background: #fce5cd;
+  color: #8a4b00;
+}
+
+.badge.ok {
+  background: #d9ead3;
+  color: #1e6b3b;
+}
+
+.badge.homo {
+  background: #e8eaed;
+  color: #3c4043;
+}
+
+.detail-panel {
+  padding: 18px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  border-bottom: 1px solid #e6ebf0;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.detail-cue {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.metric-box {
+  background: #f8f9fb;
+  border: 1px solid #e3e8ee;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.metric-box span {
+  display: block;
+  color: #65707b;
+}
+
+.metric-box strong {
+  display: block;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+#waveform-canvas {
+  width: 100%;
+  height: 96px;
+  background: #1b2228;
+  border-radius: 6px;
+  display: block;
+  cursor: pointer;
+}
+
+.wave-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #5b6670;
+  margin: 6px 0 12px;
+}
+
+.audio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.audio-row audio {
+  flex: 1 1 260px;
+  height: 36px;
+}
+
+.transcript-box {
+  background: #f8f9fb;
+  border: 1px solid #e1e6ec;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.slot-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #3b4652;
+}
+
+.slot-field input {
+  width: 100%;
+}
+
+.homo-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.homo-chip {
+  padding: 3px 8px;
+  font-size: 11px;
+  background: #eef4ff;
+  color: #1c4587;
+  border: 1px solid #c9daf8;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.homo-chip:hover {
+  background: #d9e7ff;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e6ebf0;
+  flex-wrap: wrap;
+}
+
+.shortcut-hint {
+  font-size: 12px;
+  color: #65707b;
+}
+
+@media (max-width: 860px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  .list-panel {
+    max-height: 280px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <h1 data-i18n="pageHeading">Lex30 Spoken Transcription &amp; Audio Review</h1>
+  </div>
+  <div class="topbar-links">
+    <a href="researcher.html" data-i18n="backLink">← Back to Researcher Setup</a>
+    <div class="language-toggle" role="group" aria-label="Interface language">
+      <button type="button" id="review-lang-en" class="language-button active" aria-pressed="true">English</button>
+      <button type="button" id="review-lang-ja" class="language-button" aria-pressed="false">日本語</button>
+    </div>
+  </div>
+</div>
+
+<div id="dropzone" class="dropzone">
+  <p data-i18n="dropzonePrompt">Drop participant .zip bundles and optional spoken_transcription_review.csv here (all audio stays local in your browser).</p>
+  <input type="file" id="file-picker" multiple accept=".zip,.csv,.wav" style="display:none;">
+  <button type="button" id="pick-files-btn" class="secondary-btn" data-i18n="pickFilesBtn">Choose .zip / .csv Files</button>
+  <span id="load-status" style="margin-left:10px; font-size:13px; color:#2f6f57;"></span>
+</div>
+
+<div class="toolbar">
+  <div class="toolbar-group">
+    <label for="filter-select" data-i18n="labelFilter">Filter:</label>
+    <select id="filter-select">
+      <option value="all" data-i18n="optFilterAll">All items</option>
+      <option value="needs_listen" data-i18n="optFilterListen">Needs human listen only</option>
+      <option value="homophone" data-i18n="optFilterHomo">Homophone-flagged only</option>
+      <option value="unreviewed" data-i18n="optFilterUnrev">Unreviewed only</option>
+    </select>
+    <label for="participant-filter" data-i18n="labelParticipant">Participant:</label>
+    <select id="participant-filter">
+      <option value="all" data-i18n="optAllParticipants">All participants</option>
+    </select>
+    <label style="display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
+      <input type="checkbox" id="autoplay-toggle" checked> <span data-i18n="labelAutoplay">Auto-play WAV on select</span>
+    </label>
+  </div>
+  <div class="toolbar-group">
+    <span id="progress-summary">0 / 0 reviewed</span>
+    <button type="button" id="clear-draft-btn" class="secondary-btn" style="display:none;" data-i18n="clearDraftBtn">Clear Saved Draft</button>
+    <button type="button" id="export-csv-btn" disabled data-i18n="exportCsvBtn">Download spoken_transcription_review.csv</button>
+  </div>
+</div>
+
+<div class="workspace">
+  <div class="list-panel" id="item-list">
+    <div style="padding:18px; color:#65707b; font-size:13px;" data-i18n="emptyListInitial">Load a spoken .zip archive or spoken_transcription_review.csv above to start reviewing.</div>
+  </div>
+
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-header">
+      <div>
+        <span class="detail-cue" id="detail-cue">No item selected</span>
+        <span id="detail-meta" style="margin-left:10px; font-size:13px; color:#65707b;"></span>
+      </div>
+      <div id="detail-badges"></div>
+    </div>
+
+    <div class="metrics-bar">
+      <div class="metric-box"><span data-i18n="metricRt1">Acoustic RT1</span><strong id="metric-rt1">-</strong></div>
+      <div class="metric-box"><span data-i18n="metricBleed">Cue Bleed Mask</span><strong id="metric-bleed">-</strong></div>
+      <div class="metric-box"><span data-i18n="metricSnr">SNR (dB)</span><strong id="metric-snr">-</strong></div>
+      <div class="metric-box"><span data-i18n="metricBursts">Speech Bursts</span><strong id="metric-bursts">-</strong></div>
+      <div class="metric-box"><span data-i18n="metricAsr">ASR Backend</span><strong id="metric-asr">-</strong></div>
+    </div>
+
+    <canvas id="waveform-canvas" width="720" height="96" title="Click waveform to play from position"></canvas>
+    <div class="wave-legend">
+      <span data-i18n="legendGray">■ Gray zone: stimulus audio bleed mask</span>
+      <span style="color:#2ecc71;" data-i18n="legendGreen">▍ Green line: detected Acoustic RT1</span>
+      <span style="color:#f59e0b;" data-i18n="legendAmber">▍ Amber line: playback head</span>
+    </div>
+
+    <div class="audio-row">
+      <button type="button" id="play-btn" class="secondary-btn" disabled data-i18n="playBtn">Play / Replay (Alt+Space)</button>
+      <audio id="review-audio" controls></audio>
+      <label for="playback-rate-select" style="font-size:12px; color:#5b6670;" data-i18n="labelSpeed">Speed:</label>
+      <select id="playback-rate-select" style="padding:5px 8px; border:1px solid #c8ced6; border-radius:4px; font-size:12px;">
+        <option value="0.75">0.75×</option>
+        <option value="1" selected>1.0×</option>
+        <option value="1.25">1.25×</option>
+      </select>
+      <button type="button" id="copy-asr-btn" class="secondary-btn" disabled data-i18n="copyAsrBtn">Copy ASR → Reviewer Slots</button>
+    </div>
+
+    <div class="transcript-box">
+      <div><strong data-i18n="labelRawAsr">ASR Raw Transcript:</strong> <span id="detail-raw-asr">-</span></div>
+      <div style="margin-top:4px; color:#5b6670;"><strong data-i18n="labelAsrSlots">ASR Extracted Slots:</strong> <span id="detail-asr-slots">-</span></div>
+    </div>
+
+    <div class="slots-grid">
+      <div class="slot-field">
+        <label for="rev-slot-1" data-i18n="slotLabel1">Reviewer Answer 1</label>
+        <input type="text" id="rev-slot-1" autocomplete="off" spellcheck="false">
+        <div class="homo-chips" id="homo-chips-1"></div>
+      </div>
+      <div class="slot-field">
+        <label for="rev-slot-2" data-i18n="slotLabel2">Reviewer Answer 2</label>
+        <input type="text" id="rev-slot-2" autocomplete="off" spellcheck="false">
+        <div class="homo-chips" id="homo-chips-2"></div>
+      </div>
+      <div class="slot-field">
+        <label for="rev-slot-3" data-i18n="slotLabel3">Reviewer Answer 3</label>
+        <input type="text" id="rev-slot-3" autocomplete="off" spellcheck="false">
+        <div class="homo-chips" id="homo-chips-3"></div>
+      </div>
+      <div class="slot-field">
+        <label for="rev-slot-4" data-i18n="slotLabel4">Reviewer Answer 4</label>
+        <input type="text" id="rev-slot-4" autocomplete="off" spellcheck="false">
+        <div class="homo-chips" id="homo-chips-4"></div>
+      </div>
+    </div>
+
+    <div class="slot-field">
+      <label for="rev-note" data-i18n="labelNote">Reviewer Note (optional)</label>
+      <input type="text" id="rev-note" placeholder="e.g., homophone disambiguated from context / self-repair ignored" autocomplete="off">
+    </div>
+
+    <div class="footer-actions">
+      <div style="display:flex; gap:8px;">
+        <button type="button" id="prev-btn" class="secondary-btn" disabled data-i18n="prevBtn">← Previous</button>
+        <button type="button" id="accept-next-btn" disabled data-i18n="acceptNextBtn">Accept &amp; Next (Ctrl+Enter) →</button>
+      </div>
+      <span class="shortcut-hint" data-i18n="shortcutHint">Shortcuts: Alt+Space Replay · Alt+↑/↓ Prev/Next · Ctrl/Cmd+Enter Accept &amp; Next</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const REVIEW_CSV_COLUMNS = [
+  "source_archive",
+  "participant_id",
+  "participant_session_id",
+  "stimulus_order",
+  "stimulus",
+  "audio_wav_path",
+  "sha256_verified",
+  "bleed_mask_ms",
+  "acoustic_rt1_ms",
+  "acoustic_burst_count",
+  "snr_db",
+  "asr_backend",
+  "asr_raw_transcript",
+  "fillers_removed",
+  "answer1",
+  "answer2",
+  "answer3",
+  "answer4",
+  "homophone_alternatives",
+  "needs_human_listen",
+  "reviewer_answer1",
+  "reviewer_answer2",
+  "reviewer_answer3",
+  "reviewer_answer4",
+  "reviewer_note"
+];
+
+const BUILTIN_HOMOPHONES = (() => {
+  const groups = [
+    ["night", "knight"], ["sun", "son"], ["sea", "see"], ["write", "right", "rite"],
+    ["flower", "flour"], ["peace", "piece"], ["bare", "bear"], ["wait", "weight"],
+    ["weak", "week"], ["mail", "male"], ["plain", "plane"], ["sail", "sale"],
+    ["steal", "steel"], ["tail", "tale"], ["waist", "waste"], ["stair", "stare"],
+    ["brake", "break"], ["cell", "sell"], ["cent", "scent"], ["die", "dye"],
+    ["fair", "fare"], ["heal", "heel"], ["hear", "here"], ["hole", "whole"],
+    ["hour", "our"], ["knot", "not"], ["meat", "meet"], ["pair", "pear"],
+    ["pray", "prey"], ["principal", "principle"], ["rain", "reign", "rein"],
+    ["road", "rode"], ["role", "roll"], ["root", "route"], ["scene", "seen"],
+    ["seam", "seem"], ["sole", "soul"], ["some", "sum"], ["stationary", "stationery"],
+    ["suite", "sweet"], ["weather", "whether"], ["witch", "which"], ["wood", "would"],
+    ["board", "bored"], ["aloud", "allowed"], ["altar", "alter"], ["cereal", "serial"],
+    ["coarse", "course"], ["morning", "mourning"], ["profit", "prophet"]
+  ];
+  const map = new Map();
+  for (const g of groups) {
+    for (const w of g) map.set(w, g);
+  }
+  return map;
+})();
+
+const LANGUAGE_STORAGE_KEY = "lex30_interface_language";
+const REVIEW_DRAFT_STORAGE_KEY = "lex30_spoken_review_draft_v1";
+
+const REVIEW_I18N = {
+  en: {
+    docTitle: "Lex30 Spoken Transcription & Audio Review",
+    pageHeading: "Lex30 Spoken Transcription & Audio Review",
+    backLink: "← Back to Researcher Setup",
+    dropzonePrompt: "Drop participant .zip bundles and optional spoken_transcription_review.csv here (all audio stays local in your browser).",
+    pickFilesBtn: "Choose .zip / .csv Files",
+    labelFilter: "Filter:",
+    optFilterAll: "All items",
+    optFilterListen: "Needs human listen only",
+    optFilterHomo: "Homophone-flagged only",
+    optFilterUnrev: "Unreviewed only",
+    labelParticipant: "Participant:",
+    optAllParticipants: "All participants",
+    labelAutoplay: "Auto-play WAV on select",
+    clearDraftBtn: "Clear Saved Draft",
+    exportCsvBtn: "Download spoken_transcription_review.csv",
+    emptyListInitial: "Load a spoken .zip archive or spoken_transcription_review.csv above to start reviewing.",
+    emptyListFiltered: "No items match the current filter.",
+    noItemSelected: "No item selected",
+    metricRt1: "Acoustic RT1",
+    metricBleed: "Cue Bleed Mask",
+    metricSnr: "SNR (dB)",
+    metricBursts: "Speech Bursts",
+    metricAsr: "ASR Backend",
+    canvasTitle: "Click waveform to play from position",
+    canvasEmptyHint: "Drop the participant .zip archive to view waveform & play WAV audio",
+    legendGray: "■ Gray zone: stimulus audio bleed mask",
+    legendGreen: "▍ Green line: detected Acoustic RT1",
+    legendAmber: "▍ Amber line: playback head",
+    playBtn: "Play / Replay (Alt+Space)",
+    labelSpeed: "Speed:",
+    copyAsrBtn: "Copy ASR → Reviewer Slots",
+    labelRawAsr: "ASR Raw Transcript:",
+    labelAsrSlots: "ASR Extracted Slots:",
+    slotLabel1: "Reviewer Answer 1",
+    slotLabel2: "Reviewer Answer 2",
+    slotLabel3: "Reviewer Answer 3",
+    slotLabel4: "Reviewer Answer 4",
+    labelNote: "Reviewer Note (optional)",
+    notePlaceholder: "e.g., homophone disambiguated from context / self-repair ignored",
+    prevBtn: "← Previous",
+    acceptNextBtn: "Accept & Next (Ctrl+Enter) →",
+    shortcutHint: "Shortcuts: Alt+Space Replay · Alt+↑/↓ Prev/Next · Ctrl/Cmd+Enter Accept & Next",
+    progressSummary: "{done} / {total} reviewed",
+    noWords: "(no words)",
+    emptyToken: "(empty)",
+    badgeReviewed: "Reviewed",
+    badgeListen: "Listen",
+    badgeAsrOk: "ASR OK",
+    badgeNeedsListen: "Needs human listen",
+    badgeHomophone: "Homophone: {list}",
+    statusLoaded: "Loaded {rows} item rows ({zips} ZIP, {csvs} CSV, {wavs} audio refs).",
+    statusRestored: "Restored {rows} draft rows from browser storage (drop .zip to re-attach WAV playback).",
+    statusCleared: "Cleared saved draft."
+  },
+  ja: {
+    docTitle: "Lex30 音声書き起こし＆波形確認UI",
+    pageHeading: "Lex30 音声書き起こし＆波形確認UI",
+    backLink: "← 研究者設定ページに戻る",
+    dropzonePrompt: "参加者の .zip ファイル（および任意の spoken_transcription_review.csv）をここにドロップしてください（音声はすべてブラウザ内で処理されます）。",
+    pickFilesBtn: ".zip / .csv ファイルを選択",
+    labelFilter: "絞り込み:",
+    optFilterAll: "すべての項目",
+    optFilterListen: "要確認（音声確認推奨）のみ",
+    optFilterHomo: "同音異義語候補ありのみ",
+    optFilterUnrev: "未確認のみ",
+    labelParticipant: "参加者:",
+    optAllParticipants: "すべての参加者",
+    labelAutoplay: "選択時にWAVを自動再生",
+    clearDraftBtn: "保存済み下書きを消去",
+    exportCsvBtn: "spoken_transcription_review.csv を保存",
+    emptyListInitial: "上の枠から音声 .zip アーカイブまたは spoken_transcription_review.csv を読み込んで確認を開始してください。",
+    emptyListFiltered: "現在の絞り込み条件に一致する項目はありません。",
+    noItemSelected: "項目未選択",
+    metricRt1: "発話開始潜時 (RT1)",
+    metricBleed: "刺激音声マスク",
+    metricSnr: "SNR (dB)",
+    metricBursts: "発話バースト数",
+    metricAsr: "ASRバックエンド",
+    canvasTitle: "波形をクリックするとその位置から再生します",
+    canvasEmptyHint: "参加者の .zip アーカイブをドロップすると波形表示とWAV再生が有効になります",
+    legendGray: "■ 灰色帯：刺激音声の回り込みマスク区間",
+    legendGreen: "▍ 緑線：検出された Acoustic RT1",
+    legendAmber: "▍ 橙線：再生ヘッド",
+    playBtn: "再生 / 頭出し (Alt+Space)",
+    labelSpeed: "再生速度:",
+    copyAsrBtn: "ASR結果を確認枠へコピー",
+    labelRawAsr: "ASR 生書き起こし:",
+    labelAsrSlots: "ASR 抽出スロット:",
+    slotLabel1: "確認後の回答 1",
+    slotLabel2: "確認後の回答 2",
+    slotLabel3: "確認後の回答 3",
+    slotLabel4: "確認後の回答 4",
+    labelNote: "確認メモ（任意）",
+    notePlaceholder: "例：文脈から同音異義語を確定／言い直しを除外",
+    prevBtn: "← 前へ",
+    acceptNextBtn: "確定して次へ (Ctrl+Enter) →",
+    shortcutHint: "ショートカット: Alt+Space 再生 · Alt+↑/↓ 前後の項目 · Ctrl/Cmd+Enter 確定して次へ",
+    progressSummary: "{done} / {total} 確認済",
+    noWords: "(回答なし)",
+    emptyToken: "(空欄)",
+    badgeReviewed: "確認済",
+    badgeListen: "要確認",
+    badgeAsrOk: "ASR済",
+    badgeNeedsListen: "要リスニング確認",
+    badgeHomophone: "同音異義語: {list}",
+    statusLoaded: "{rows} 項目を読み込みました（ZIP {zips}件・CSV {csvs}件・音声参照 {wavs}件）。",
+    statusRestored: "ブラウザ保存の下書き {rows} 項目を復元しました（WAV再生には .zip をドロップしてください）。",
+    statusCleared: "保存済み下書きを消去しました。"
+  }
+};
+
+let reviewLang = "en";
+let lastStatusState = null;
+let reviewRows = [];
+let filteredIndices = [];
+let selectedRowIdx = -1;
+let wavBytesByKey = new Map();
+let activeAudioUrl = "";
+let activeDecoded = { samples: new Float32Array(0), sampleRate: 16000, bleedMs: 0, rt1Ms: "" };
+let playheadRafId = null;
+
+function detectInitialReviewLanguage() {
+  try {
+    if (typeof window !== "undefined" && window.location) {
+      const params = new URLSearchParams(window.location.search || "");
+      const q = params.get("lang");
+      if (q === "ja" || q === "en") return q;
+    }
+  } catch (_e) {}
+  try {
+    const saved = typeof localStorage !== "undefined" ? localStorage.getItem(LANGUAGE_STORAGE_KEY) : null;
+    if (saved === "ja" || saved === "en") return saved;
+  } catch (_e) {}
+  if (typeof navigator !== "undefined" && /^ja\b/i.test(String(navigator.language || ""))) {
+    return "ja";
+  }
+  return "en";
+}
+
+function rvt(key, params = {}) {
+  const table = REVIEW_I18N[reviewLang] || REVIEW_I18N.en;
+  const raw = table[key] ?? REVIEW_I18N.en[key] ?? key;
+  return Object.entries(params).reduce(
+    (acc, [k, v]) => acc.replaceAll(`{${k}}`, String(v)),
+    raw
+  );
+}
+
+function setLoadStatus(key, params = {}) {
+  lastStatusState = key ? { key, params } : null;
+  const el = document.getElementById("load-status");
+  if (el) {
+    el.textContent = lastStatusState ? rvt(lastStatusState.key, lastStatusState.params) : "";
+  }
+}
+
+function applyReviewLanguage() {
+  if (typeof document === "undefined") return;
+  if (document.documentElement) {
+    document.documentElement.lang = reviewLang === "ja" ? "ja" : "en";
+  }
+  document.title = rvt("docTitle");
+  for (const code of ["en", "ja"]) {
+    const btn = document.getElementById(`review-lang-${code}`);
+    if (btn) {
+      const active = reviewLang === code;
+      if (btn.classList) btn.classList.toggle("active", active);
+      if (btn.setAttribute) btn.setAttribute("aria-pressed", active ? "true" : "false");
+    }
+  }
+  if (document.querySelectorAll) {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (key) {
+        el.textContent = rvt(key);
+      }
+    });
+  }
+  const canvas = document.getElementById("waveform-canvas");
+  if (canvas) canvas.title = rvt("canvasTitle");
+  const noteInput = document.getElementById("rev-note");
+  if (noteInput) noteInput.placeholder = rvt("notePlaceholder");
+  if (lastStatusState) {
+    setLoadStatus(lastStatusState.key, lastStatusState.params);
+  }
+  populateParticipantFilter();
+  if (selectedRowIdx >= 0 && selectedRowIdx < reviewRows.length) {
+    selectRow(selectedRowIdx, false);
+  } else {
+    const cueEl = document.getElementById("detail-cue");
+    if (cueEl) cueEl.textContent = rvt("noItemSelected");
+    if (!reviewRows.length) {
+      const progress = document.getElementById("progress-summary");
+      if (progress) progress.textContent = rvt("progressSummary", { done: 0, total: 0 });
+      const list = document.getElementById("item-list");
+      if (list) {
+        list.innerHTML = `<div style="padding:18px; color:#65707b; font-size:13px;">${escapeHtml(rvt("emptyListInitial"))}</div>`;
+      }
+    } else {
+      refreshList();
+    }
+    drawWaveform(activeDecoded.samples, activeDecoded.sampleRate, activeDecoded.bleedMs, activeDecoded.rt1Ms, -1);
+  }
+}
+
+function setReviewLanguage(lang) {
+  if (lang !== "en" && lang !== "ja") return;
+  reviewLang = lang;
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+    }
+  } catch (_e) {}
+  applyReviewLanguage();
+}
+
+async function parseZipEntries(uint8Bytes) {
+  const view = new DataView(uint8Bytes.buffer, uint8Bytes.byteOffset, uint8Bytes.byteLength);
+  let eocdOffset = -1;
+  const minPos = Math.max(0, uint8Bytes.byteLength - 65557);
+  for (let pos = uint8Bytes.byteLength - 22; pos >= minPos; pos--) {
+    if (view.getUint32(pos, true) === 0x06054b50) {
+      eocdOffset = pos;
+      break;
+    }
+  }
+  if (eocdOffset < 0) {
+    throw new Error("Invalid ZIP file (End of Central Directory not found).");
+  }
+  const entryCount = view.getUint16(eocdOffset + 10, true);
+  const centralOffset = view.getUint32(eocdOffset + 16, true);
+  const decoder = new TextDecoder("utf-8");
+  const out = new Map();
+
+  let ptr = centralOffset;
+  for (let i = 0; i < entryCount; i++) {
+    if (view.getUint32(ptr, true) !== 0x02014b50) break;
+    const method = view.getUint16(ptr + 10, true);
+    const compSize = view.getUint32(ptr + 20, true);
+    const nameLen = view.getUint16(ptr + 28, true);
+    const extraLen = view.getUint16(ptr + 30, true);
+    const commentLen = view.getUint16(ptr + 32, true);
+    const localOffset = view.getUint32(ptr + 42, true);
+    const name = decoder.decode(uint8Bytes.subarray(ptr + 46, ptr + 46 + nameLen));
+    ptr += 46 + nameLen + extraLen + commentLen;
+
+    if (name.endsWith("/")) continue;
+    const localNameLen = view.getUint16(localOffset + 26, true);
+    const localExtraLen = view.getUint16(localOffset + 28, true);
+    const dataStart = localOffset + 30 + localNameLen + localExtraLen;
+    const rawSlice = uint8Bytes.subarray(dataStart, dataStart + compSize);
+
+    if (method === 0) {
+      out.set(name, new Uint8Array(rawSlice));
+    } else if (method === 8 && typeof DecompressionStream !== "undefined") {
+      const ds = new DecompressionStream("deflate-raw");
+      const writer = ds.writable.getWriter();
+      writer.write(rawSlice);
+      writer.close();
+      const buf = await new Response(ds.readable).arrayBuffer();
+      out.set(name, new Uint8Array(buf));
+    }
+  }
+  return out;
+}
+
+function parseCsvText(text) {
+  const clean = String(text || "").replace(/^\uFEFF/, "");
+  const rows = [];
+  let row = [];
+  let field = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < clean.length; i++) {
+    const ch = clean[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (clean[i + 1] === '"') {
+          field += '"';
+          i += 1;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        field += ch;
+      }
+    } else if (ch === '"') {
+      inQuotes = true;
+    } else if (ch === ",") {
+      row.push(field);
+      field = "";
+    } else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && clean[i + 1] === "\n") i += 1;
+      row.push(field);
+      field = "";
+      if (row.length > 1 || row[0] !== "") rows.push(row);
+      row = [];
+    } else {
+      field += ch;
+    }
+  }
+  if (field !== "" || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+  if (!rows.length) return [];
+  const headers = rows[0].map(h => h.trim());
+  return rows.slice(1).map(vals => {
+    const obj = {};
+    headers.forEach((h, idx) => {
+      obj[h] = vals[idx] ?? "";
+    });
+    return obj;
+  });
+}
+
+function csvEscape(val) {
+  const str = String(val ?? "");
+  return /[",\r\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;
+}
+
+function serializeReviewCsv(rows) {
+  const lines = [REVIEW_CSV_COLUMNS.map(csvEscape).join(",")];
+  for (const r of rows) {
+    lines.push(REVIEW_CSV_COLUMNS.map(col => csvEscape(r[col] ?? "")).join(","));
+  }
+  return lines.join("\n") + "\n";
+}
+
+function decodePcmWav16(wavBytes) {
+  if (!wavBytes || wavBytes.byteLength < 44) {
+    return { samples: new Float32Array(0), sampleRate: 16000 };
+  }
+  const view = new DataView(wavBytes.buffer, wavBytes.byteOffset, wavBytes.byteLength);
+  const channels = view.getUint16(22, true) || 1;
+  const sampleRate = view.getUint32(24, true) || 16000;
+  const bitsPerSample = view.getUint16(34, true) || 16;
+  let offset = 12;
+  let dataStart = 44;
+  let dataBytes = wavBytes.byteLength - 44;
+
+  while (offset + 8 <= wavBytes.byteLength) {
+    const id = String.fromCharCode(
+      view.getUint8(offset), view.getUint8(offset + 1),
+      view.getUint8(offset + 2), view.getUint8(offset + 3)
+    );
+    const size = view.getUint32(offset + 4, true);
+    if (id === "data") {
+      dataStart = offset + 8;
+      dataBytes = Math.min(size, wavBytes.byteLength - dataStart);
+      break;
+    }
+    offset += 8 + size + (size % 2);
+  }
+
+  if (bitsPerSample !== 16) {
+    return { samples: new Float32Array(0), sampleRate };
+  }
+  const frames = Math.floor(dataBytes / (2 * channels));
+  const mono = new Float32Array(frames);
+  for (let i = 0; i < frames; i++) {
+    let acc = 0;
+    for (let c = 0; c < channels; c++) {
+      acc += view.getInt16(dataStart + (i * channels + c) * 2, true) / 32768;
+    }
+    mono[i] = acc / channels;
+  }
+  return { samples: mono, sampleRate };
+}
+
+function computeBrowserAcoustics(samples, sampleRate, bleedMaskMs = 0) {
+  if (!samples.length || sampleRate <= 0) {
+    return { rt1Ms: "", burstCount: 0, snrDb: 0, durationMs: 0 };
+  }
+  const durationMs = Math.round((samples.length * 1000) / sampleRate);
+  const win = Math.max(16, Math.round(sampleRate * 0.01));
+  const hop = Math.max(8, Math.round(sampleRate * 0.002));
+  const maskSample = Math.max(0, Math.round((bleedMaskMs / 1000) * sampleRate));
+  const starts = [];
+  const rmsArr = [];
+  const zcrArr = [];
+
+  for (let s = 0; s + win <= samples.length; s += hop) {
+    let sq = 0;
+    let zc = 0;
+    let prev = samples[s];
+    for (let j = s; j < s + win; j++) {
+      const v = samples[j];
+      sq += v * v;
+      if ((v >= 0 && prev < 0) || (v < 0 && prev >= 0)) zc += 1;
+      prev = v;
+    }
+    starts.push(s);
+    rmsArr.push(Math.sqrt(sq / win));
+    zcrArr.push(zc / win);
+  }
+  if (!rmsArr.length) return { rt1Ms: "", burstCount: 0, snrDb: 0, durationMs };
+
+  const post = rmsArr.filter((_r, idx) => starts[idx] >= maskSample);
+  const pool = (post.length ? post : rmsArr).slice().sort((a, b) => a - b);
+  const noise = Math.min(Math.max(pool[Math.floor(pool.length * 0.15)] || 0.002, 0.002), 0.045);
+  const peak = pool[pool.length - 1] || 0;
+  const snrDb = peak > noise ? Number((20 * Math.log10(peak / noise)).toFixed(2)) : 0;
+
+  const vThresh = Math.max(noise * 3.5, 0.015);
+  const fThresh = Math.max(noise * 2.4, 0.010);
+  const rThresh = Math.max(noise * 1.8, 0.008);
+  const minSpeech = Math.max(1, Math.round(55 / 2));
+  const minGap = Math.max(1, Math.round(210 / 2));
+
+  const bursts = [];
+  let inBurst = false;
+  let bStart = 0;
+  let sil = 0;
+  for (let i = 0; i < starts.length; i++) {
+    if (starts[i] < maskSample) continue;
+    const active = rmsArr[i] >= vThresh || (rmsArr[i] >= fThresh && zcrArr[i] >= 0.18);
+    if (!inBurst) {
+      if (active) {
+        inBurst = true;
+        bStart = i;
+        sil = 0;
+      }
+    } else if (rmsArr[i] >= rThresh || active) {
+      sil = 0;
+    } else {
+      sil += 1;
+      if (sil >= minGap) {
+        const bEnd = Math.max(bStart, i - sil);
+        if (bEnd - bStart + 1 >= minSpeech) bursts.push([bStart, bEnd]);
+        inBurst = false;
+        sil = 0;
+      }
+    }
+  }
+  if (inBurst) {
+    const bEnd = starts.length - 1 - sil;
+    if (bEnd - bStart + 1 >= minSpeech) bursts.push([bStart, bEnd]);
+  }
+  let rt1Ms = "";
+  if (bursts.length > 0) {
+    let ref = bursts[0][0];
+    while (ref > 0 && starts[ref - 1] >= maskSample && rmsArr[ref - 1] >= rThresh && bursts[0][0] - ref < 8) {
+      ref -= 1;
+    }
+    rt1Ms = Math.round((starts[ref] * 1000) / sampleRate);
+  }
+  return { rt1Ms, burstCount: bursts.length, snrDb, durationMs };
+}
+
+function wavLookupKeys(sessionId, order, wavPath) {
+  const base = String(wavPath || "").split("/").pop();
+  return [
+    `${sessionId}::${order}`,
+    `${sessionId}::${base}`,
+    String(wavPath || ""),
+    base
+  ].filter(Boolean);
+}
+
+function findWavBytesForRow(row) {
+  const keys = wavLookupKeys(row.participant_session_id, row.stimulus_order, row.audio_wav_path);
+  for (const k of keys) {
+    if (wavBytesByKey.has(k)) return wavBytesByKey.get(k);
+  }
+  return null;
+}
+
+function rowKey(row) {
+  return `${row.participant_session_id || row.participant_id}::${row.stimulus_order}::${row.stimulus}`;
+}
+
+function mergeOrAddRow(incoming) {
+  const key = rowKey(incoming);
+  const idx = reviewRows.findIndex(r => rowKey(r) === key);
+  if (idx >= 0) {
+    reviewRows[idx] = { ...reviewRows[idx], ...incoming };
+  } else {
+    reviewRows.push(incoming);
+  }
+}
+
+async function handleSelectedFiles(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  const decoder = new TextDecoder("utf-8");
+  let zipCount = 0;
+  let csvCount = 0;
+
+  for (const file of files) {
+    const buf = new Uint8Array(await file.arrayBuffer());
+    const lower = file.name.toLowerCase();
+    if (lower.endsWith(".zip")) {
+      zipCount += 1;
+      const entries = await parseZipEntries(buf);
+      let rawSessionRows = [];
+      for (const [entryName, bytes] of entries.entries()) {
+        if (entryName.toLowerCase().endsWith(".csv")) {
+          const parsed = parseCsvText(decoder.decode(bytes));
+          if (parsed.length && "Stimulus" in parsed[0]) {
+            rawSessionRows = parsed;
+          }
+        }
+      }
+      const sessionGuess = rawSessionRows[0]?.ParticipantSessionId || "";
+      for (const [entryName, bytes] of entries.entries()) {
+        if (entryName.toLowerCase().endsWith(".wav")) {
+          const base = entryName.split("/").pop();
+          const m = base.match(/^0*(\d+)-/);
+          wavBytesByKey.set(entryName, bytes);
+          wavBytesByKey.set(base, bytes);
+          if (sessionGuess) {
+            wavBytesByKey.set(`${sessionGuess}::${base}`, bytes);
+            if (m) wavBytesByKey.set(`${sessionGuess}::${m[1]}`, bytes);
+          }
+        }
+      }
+      for (const r of rawSessionRows) {
+        const order = String(r.StimulusOrder || "").trim();
+        const stim = String(r.Stimulus || "").trim();
+        const wavRel = String(r.SpokenAudioFile || `audio/${order.padStart(2, "0")}-${stim.toLowerCase()}.wav`);
+        const firstPlay = Number.parseFloat(r["AudioFirstPlayAt(ms)"]);
+        const lastEnd = Number.parseFloat(r["AudioLastEndedAt(ms)"]);
+        const bleedMs = String(r.StimulusPresentation || "").toLowerCase() === "audio" && Number.isFinite(firstPlay) && Number.isFinite(lastEnd) && lastEnd >= firstPlay
+          ? Number(((lastEnd - firstPlay) + 120).toFixed(1))
+          : 0;
+        const wavBytes = wavBytesByKey.get(`${r.ParticipantSessionId || ""}::${order}`) || wavBytesByKey.get(wavRel) || wavBytesByKey.get(wavRel.split("/").pop());
+        const decoded = wavBytes ? decodePcmWav16(wavBytes) : { samples: new Float32Array(0), sampleRate: 16000 };
+        const ac = computeBrowserAcoustics(decoded.samples, decoded.sampleRate, bleedMs);
+        const existingKey = `${r.ParticipantSessionId || r.Participant}::${order}::${stim}`;
+        if (!reviewRows.some(existing => rowKey(existing) === existingKey)) {
+          mergeOrAddRow({
+            source_archive: file.name,
+            participant_id: r.Participant || "",
+            participant_session_id: r.ParticipantSessionId || "",
+            stimulus_order: order,
+            stimulus: stim,
+            audio_wav_path: wavRel,
+            sha256_verified: wavBytes ? "yes" : "missing",
+            bleed_mask_ms: bleedMs,
+            acoustic_rt1_ms: r["AcousticRT1(ms)"] || ac.rt1Ms,
+            acoustic_burst_count: r.AcousticBurstCount || ac.burstCount,
+            snr_db: r["AcousticSnr(dB)"] || ac.snrDb,
+            asr_backend: r.AsrBackend || "none",
+            asr_raw_transcript: r.AsrRawTranscript || "",
+            fillers_removed: "",
+            answer1: r.Answer1 || "",
+            answer2: r.Answer2 || "",
+            answer3: r.Answer3 || "",
+            answer4: r.Answer4 || "",
+            homophone_alternatives: r.HomophoneFlags || "",
+            needs_human_listen: (r.Answer1 || r.Answer2 || r.Answer3 || r.Answer4) ? "no" : "yes",
+            reviewer_answer1: "",
+            reviewer_answer2: "",
+            reviewer_answer3: "",
+            reviewer_answer4: "",
+            reviewer_note: ""
+          });
+        }
+      }
+    } else if (lower.endsWith(".csv")) {
+      csvCount += 1;
+      const parsed = parseCsvText(decoder.decode(buf));
+      for (const r of parsed) {
+        if ("stimulus" in r && "source_archive" in r) {
+          const cleanRow = {};
+          for (const col of REVIEW_CSV_COLUMNS) cleanRow[col] = r[col] ?? "";
+          mergeOrAddRow(cleanRow);
+        }
+      }
+    } else if (lower.endsWith(".wav")) {
+      wavBytesByKey.set(file.name, buf);
+    }
+  }
+
+  reviewRows.sort((a, b) => {
+    const pCmp = String(a.participant_id).localeCompare(String(b.participant_id));
+    if (pCmp !== 0) return pCmp;
+    return (Number.parseInt(a.stimulus_order, 10) || 0) - (Number.parseInt(b.stimulus_order, 10) || 0);
+  });
+
+  populateParticipantFilter();
+  refreshList();
+  if (filteredIndices.length > 0 && selectedRowIdx < 0) {
+    selectRow(filteredIndices[0], false);
+  } else if (selectedRowIdx >= 0) {
+    selectRow(selectedRowIdx, false);
+  }
+  document.getElementById("export-csv-btn").disabled = reviewRows.length === 0;
+  persistReviewDraft();
+  setLoadStatus("statusLoaded", {
+    rows: reviewRows.length,
+    zips: zipCount,
+    csvs: csvCount,
+    wavs: wavBytesByKey.size
+  });
+}
+
+function persistReviewDraft() {
+  if (typeof localStorage === "undefined") return;
+  try {
+    if (!reviewRows.length) {
+      localStorage.removeItem(REVIEW_DRAFT_STORAGE_KEY);
+    } else {
+      localStorage.setItem(REVIEW_DRAFT_STORAGE_KEY, JSON.stringify({ rows: reviewRows, selectedRowIdx }));
+    }
+    const clearBtn = document.getElementById("clear-draft-btn");
+    if (clearBtn) {
+      clearBtn.style.display = reviewRows.length ? "inline-block" : "none";
+    }
+  } catch (_err) {
+    // Best-effort draft save only.
+  }
+}
+
+function restoreReviewDraft() {
+  if (typeof localStorage === "undefined") return;
+  try {
+    const raw = localStorage.getItem(REVIEW_DRAFT_STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed?.rows) || !parsed.rows.length) return;
+    reviewRows = parsed.rows;
+    populateParticipantFilter();
+    refreshList();
+    const target = Number.isInteger(parsed.selectedRowIdx) && parsed.selectedRowIdx >= 0 && parsed.selectedRowIdx < reviewRows.length
+      ? parsed.selectedRowIdx
+      : (filteredIndices[0] ?? -1);
+    if (target >= 0) selectRow(target, false);
+    document.getElementById("export-csv-btn").disabled = false;
+    document.getElementById("clear-draft-btn").style.display = "inline-block";
+    setLoadStatus("statusRestored", { rows: reviewRows.length });
+  } catch (_err) {
+    // Ignore corrupt local draft.
+  }
+}
+
+function isRowReviewed(row) {
+  return Boolean(
+    (row.reviewer_answer1 || "").trim() ||
+    (row.reviewer_answer2 || "").trim() ||
+    (row.reviewer_answer3 || "").trim() ||
+    (row.reviewer_answer4 || "").trim() ||
+    (row.reviewer_note || "").trim()
+  );
+}
+
+function populateParticipantFilter() {
+  const select = document.getElementById("participant-filter");
+  if (!select) return;
+  const prev = select.value;
+  const participants = Array.from(new Set(reviewRows.map(r => r.participant_id).filter(Boolean)));
+  select.innerHTML = `<option value="all">${escapeHtml(rvt("optAllParticipants"))}</option>`;
+  for (const p of participants) {
+    const opt = document.createElement("option");
+    opt.value = p;
+    opt.textContent = p;
+    select.appendChild(opt);
+  }
+  if (participants.includes(prev)) select.value = prev;
+}
+
+function refreshList() {
+  const mode = document.getElementById("filter-select").value || "all";
+  const pFilter = document.getElementById("participant-filter").value || "all";
+  filteredIndices = [];
+  reviewRows.forEach((r, idx) => {
+    if (pFilter !== "all" && r.participant_id !== pFilter) return;
+    if (mode === "needs_listen" && String(r.needs_human_listen).toLowerCase() !== "yes") return;
+    if (mode === "homophone" && !String(r.homophone_alternatives || "").trim()) return;
+    if (mode === "unreviewed" && isRowReviewed(r)) return;
+    filteredIndices.push(idx);
+  });
+
+  const reviewedCount = reviewRows.filter(isRowReviewed).length;
+  document.getElementById("progress-summary").textContent =
+    rvt("progressSummary", { done: reviewedCount, total: reviewRows.length });
+
+  const container = document.getElementById("item-list");
+  container.innerHTML = "";
+  if (!filteredIndices.length) {
+    const msg = reviewRows.length ? rvt("emptyListFiltered") : rvt("emptyListInitial");
+    container.innerHTML = `<div style="padding:18px; color:#65707b; font-size:13px;">${escapeHtml(msg)}</div>`;
+    return;
+  }
+
+  for (const idx of filteredIndices) {
+    const r = reviewRows[idx];
+    const div = document.createElement("div");
+    div.className = "item-row" + (idx === selectedRowIdx ? " active" : "");
+    div.onclick = () => selectRow(idx, document.getElementById("autoplay-toggle").checked);
+
+    const left = document.createElement("div");
+    const slotsPreview = [
+      r.reviewer_answer1 || r.answer1,
+      r.reviewer_answer2 || r.answer2,
+      r.reviewer_answer3 || r.answer3,
+      r.reviewer_answer4 || r.answer4
+    ].filter(Boolean).join(", ") || rvt("noWords");
+    left.innerHTML = `<div class="item-cue">#${r.stimulus_order} ${escapeHtml(r.stimulus)} <span style="font-weight:normal; color:#65707b;">(${escapeHtml(r.participant_id)})</span></div>` +
+      `<div class="item-sub">RT1: ${r.acoustic_rt1_ms !== "" ? r.acoustic_rt1_ms + " ms" : "-"} · ${escapeHtml(slotsPreview)}</div>`;
+
+    const right = document.createElement("div");
+    if (isRowReviewed(r)) {
+      right.innerHTML = `<span class="badge ok">${escapeHtml(rvt("badgeReviewed"))}</span>`;
+    } else if (String(r.needs_human_listen).toLowerCase() === "yes") {
+      right.innerHTML = `<span class="badge warn">${escapeHtml(rvt("badgeListen"))}</span>`;
+    } else {
+      right.innerHTML = `<span class="badge homo">${escapeHtml(rvt("badgeAsrOk"))}</span>`;
+    }
+    div.append(left, right);
+    container.appendChild(div);
+  }
+}
+
+function escapeHtml(text) {
+  return String(text ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function selectRow(idx, autoPlay = false) {
+  if (idx < 0 || idx >= reviewRows.length) return;
+  saveCurrentInputsToRow();
+  selectedRowIdx = idx;
+  const r = reviewRows[idx];
+
+  document.getElementById("detail-cue").textContent = `#${r.stimulus_order} ${r.stimulus}`;
+  document.getElementById("detail-meta").textContent = `${r.participant_id} (${r.source_archive || "session"})`;
+
+  const badges = [];
+  if (String(r.needs_human_listen).toLowerCase() === "yes") {
+    badges.push(`<span class="badge warn">${escapeHtml(rvt("badgeNeedsListen"))}</span>`);
+  }
+  if (r.homophone_alternatives) {
+    badges.push(`<span class="badge homo">${escapeHtml(rvt("badgeHomophone", { list: r.homophone_alternatives }))}</span>`);
+  }
+  if (isRowReviewed(r)) {
+    badges.push(`<span class="badge ok">${escapeHtml(rvt("badgeReviewed"))}</span>`);
+  }
+  document.getElementById("detail-badges").innerHTML = badges.join(" ");
+
+  document.getElementById("metric-rt1").textContent = r.acoustic_rt1_ms !== "" ? `${r.acoustic_rt1_ms} ms` : "-";
+  document.getElementById("metric-bleed").textContent = `${r.bleed_mask_ms || 0} ms`;
+  document.getElementById("metric-snr").textContent = r.snr_db !== "" ? `${r.snr_db} dB` : "-";
+  document.getElementById("metric-bursts").textContent = String(r.acoustic_burst_count ?? "-");
+  document.getElementById("metric-asr").textContent = r.asr_backend || "-";
+
+  document.getElementById("detail-raw-asr").textContent = r.asr_raw_transcript || rvt("emptyToken");
+  document.getElementById("detail-asr-slots").textContent =
+    [r.answer1, r.answer2, r.answer3, r.answer4].map((w, i) => `[${i + 1}] ${w || "-"}`).join("   ");
+
+  for (let s = 1; s <= 4; s++) {
+    const input = document.getElementById(`rev-slot-${s}`);
+    input.value = r[`reviewer_answer${s}`] || "";
+    input.placeholder = r[`answer${s}`] ? `ASR: ${r[`answer${s}`]}` : rvt("emptyToken");
+    renderHomophoneChips(s, input.value || r[`answer${s}`]);
+  }
+  document.getElementById("rev-note").value = r.reviewer_note || "";
+
+  const wavBytes = findWavBytesForRow(r);
+  const audioEl = document.getElementById("review-audio");
+  if (activeAudioUrl) {
+    URL.revokeObjectURL(activeAudioUrl);
+    activeAudioUrl = "";
+  }
+  if (wavBytes) {
+    activeAudioUrl = URL.createObjectURL(new Blob([wavBytes], { type: "audio/wav" }));
+    audioEl.src = activeAudioUrl;
+    const rateSelect = document.getElementById("playback-rate-select");
+    audioEl.playbackRate = Number.parseFloat(rateSelect?.value || "1") || 1;
+    document.getElementById("play-btn").disabled = false;
+    const decoded = decodePcmWav16(wavBytes);
+    activeDecoded = {
+      samples: decoded.samples,
+      sampleRate: decoded.sampleRate,
+      bleedMs: Number(r.bleed_mask_ms) || 0,
+      rt1Ms: r.acoustic_rt1_ms
+    };
+    drawWaveform(activeDecoded.samples, activeDecoded.sampleRate, activeDecoded.bleedMs, activeDecoded.rt1Ms, -1);
+    if (autoPlay) {
+      audioEl.play().catch(() => {});
+    }
+  } else {
+    audioEl.removeAttribute("src");
+    document.getElementById("play-btn").disabled = true;
+    activeDecoded = { samples: new Float32Array(0), sampleRate: 16000, bleedMs: 0, rt1Ms: "" };
+    drawWaveform(activeDecoded.samples, 16000, 0, "", -1);
+  }
+
+  document.getElementById("copy-asr-btn").disabled = false;
+  document.getElementById("accept-next-btn").disabled = false;
+  const posInFiltered = filteredIndices.indexOf(idx);
+  document.getElementById("prev-btn").disabled = posInFiltered <= 0;
+  refreshList();
+}
+
+function renderHomophoneChips(slotNum, wordCandidate) {
+  const wrap = document.getElementById(`homo-chips-${slotNum}`);
+  wrap.innerHTML = "";
+  const clean = String(wordCandidate || "").trim().toLowerCase();
+  const group = BUILTIN_HOMOPHONES.get(clean);
+  if (!group) return;
+  for (const option of group) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "homo-chip";
+    chip.textContent = option;
+    chip.onclick = () => {
+      document.getElementById(`rev-slot-${slotNum}`).value = option;
+      saveCurrentInputsToRow();
+      refreshList();
+    };
+    wrap.appendChild(chip);
+  }
+}
+
+function drawWaveform(samples, sampleRate, bleedMaskMs, rt1Ms, playheadSec = -1) {
+  const canvas = document.getElementById("waveform-canvas");
+  if (!canvas || !canvas.getContext) return;
+  const dpr = (typeof window !== "undefined" && window.devicePixelRatio) ? Math.min(window.devicePixelRatio, 2) : 1;
+  const cssW = canvas.clientWidth || 720;
+  const cssH = canvas.clientHeight || 96;
+  const targetW = Math.round(cssW * dpr);
+  const targetH = Math.round(cssH * dpr);
+  if (canvas.width !== targetW || canvas.height !== targetH) {
+    canvas.width = targetW;
+    canvas.height = targetH;
+  }
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.fillStyle = "#1b2228";
+  ctx.fillRect(0, 0, w, h);
+
+  if (!samples.length || sampleRate <= 0) {
+    ctx.fillStyle = "#7f8c98";
+    ctx.font = `${Math.round(12 * dpr)}px sans-serif`;
+    ctx.fillText(rvt("canvasEmptyHint"), Math.round(16 * dpr), h / 2 + Math.round(4 * dpr));
+    return;
+  }
+
+  const totalMs = (samples.length * 1000) / sampleRate;
+  if (bleedMaskMs > 0 && totalMs > 0) {
+    const maskX = Math.min(w, Math.round((bleedMaskMs / totalMs) * w));
+    ctx.fillStyle = "rgba(180, 190, 200, 0.22)";
+    ctx.fillRect(0, 0, maskX, h);
+  }
+
+  ctx.strokeStyle = "#67b7dc";
+  ctx.lineWidth = Math.max(1, dpr * 0.9);
+  ctx.beginPath();
+  const step = Math.max(1, Math.floor(samples.length / w));
+  const mid = h / 2;
+  const pad = Math.round(4 * dpr);
+  for (let x = 0; x < w; x++) {
+    const start = x * step;
+    const end = Math.min(samples.length, start + step);
+    let min = 0;
+    let max = 0;
+    for (let j = start; j < end; j++) {
+      const v = samples[j];
+      if (v < min) min = v;
+      if (v > max) max = v;
+    }
+    ctx.moveTo(x + 0.5, mid + min * (mid - pad));
+    ctx.lineTo(x + 0.5, mid + max * (mid - pad));
+  }
+  ctx.stroke();
+
+  const rtVal = Number.parseFloat(rt1Ms);
+  if (Number.isFinite(rtVal) && totalMs > 0) {
+    const rtX = Math.min(w - 1, Math.max(1, Math.round((rtVal / totalMs) * w)));
+    ctx.strokeStyle = "#2ecc71";
+    ctx.lineWidth = Math.round(2 * dpr);
+    ctx.beginPath();
+    ctx.moveTo(rtX, 0);
+    ctx.lineTo(rtX, h);
+    ctx.stroke();
+  }
+
+  if (playheadSec >= 0 && totalMs > 0) {
+    const playX = Math.min(w - 1, Math.max(1, Math.round(((playheadSec * 1000) / totalMs) * w)));
+    ctx.strokeStyle = "#f59e0b";
+    ctx.lineWidth = Math.round(2 * dpr);
+    ctx.beginPath();
+    ctx.moveTo(playX, 0);
+    ctx.lineTo(playX, h);
+    ctx.stroke();
+  }
+}
+
+function saveCurrentInputsToRow() {
+  if (selectedRowIdx < 0 || selectedRowIdx >= reviewRows.length) return;
+  const r = reviewRows[selectedRowIdx];
+  for (let s = 1; s <= 4; s++) {
+    r[`reviewer_answer${s}`] = document.getElementById(`rev-slot-${s}`).value.trim();
+  }
+  r.reviewer_note = document.getElementById("rev-note").value.trim();
+  persistReviewDraft();
+}
+
+function copyAsrToReviewerSlots() {
+  if (selectedRowIdx < 0) return;
+  const r = reviewRows[selectedRowIdx];
+  for (let s = 1; s <= 4; s++) {
+    const input = document.getElementById(`rev-slot-${s}`);
+    if (!input.value.trim() && r[`answer${s}`]) {
+      input.value = r[`answer${s}`];
+    }
+  }
+  saveCurrentInputsToRow();
+  selectRow(selectedRowIdx, false);
+}
+
+function acceptCurrentAndAdvance() {
+  if (selectedRowIdx < 0) return;
+  const r = reviewRows[selectedRowIdx];
+  const anyTyped = [1, 2, 3, 4].some(s => document.getElementById(`rev-slot-${s}`).value.trim() !== "");
+  if (!anyTyped) {
+    for (let s = 1; s <= 4; s++) {
+      document.getElementById(`rev-slot-${s}`).value = r[`answer${s}`] || "";
+    }
+  }
+  saveCurrentInputsToRow();
+  const anyAfterCopy = [1, 2, 3, 4].some(s => (r[`reviewer_answer${s}`] || "").trim() !== "");
+  if (!anyAfterCopy && !(r.reviewer_note || "").trim()) {
+    document.getElementById("rev-note").value = "verified_blank";
+    saveCurrentInputsToRow();
+  }
+  const pos = filteredIndices.indexOf(selectedRowIdx);
+  if (pos >= 0 && pos + 1 < filteredIndices.length) {
+    selectRow(filteredIndices[pos + 1], document.getElementById("autoplay-toggle").checked);
+  } else {
+    refreshList();
+  }
+}
+
+function exportReviewedCsv() {
+  saveCurrentInputsToRow();
+  const csv = serializeReviewCsv(reviewRows);
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "spoken_transcription_review.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+if (typeof document !== "undefined" && document.getElementById) {
+  document.addEventListener("DOMContentLoaded", () => {
+    reviewLang = detectInitialReviewLanguage();
+    const langEnBtn = document.getElementById("review-lang-en");
+    const langJaBtn = document.getElementById("review-lang-ja");
+    if (langEnBtn) langEnBtn.onclick = () => setReviewLanguage("en");
+    if (langJaBtn) langJaBtn.onclick = () => setReviewLanguage("ja");
+    applyReviewLanguage();
+
+    const dropzone = document.getElementById("dropzone");
+    const picker = document.getElementById("file-picker");
+    const audioEl = document.getElementById("review-audio");
+    document.getElementById("pick-files-btn").onclick = () => picker.click();
+    picker.onchange = () => handleSelectedFiles(picker.files);
+
+    dropzone.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropzone.classList.add("dragover");
+    });
+    dropzone.addEventListener("dragleave", () => dropzone.classList.remove("dragover"));
+    dropzone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropzone.classList.remove("dragover");
+      handleSelectedFiles(e.dataTransfer.files);
+    });
+
+    document.getElementById("filter-select").onchange = refreshList;
+    document.getElementById("participant-filter").onchange = refreshList;
+    document.getElementById("export-csv-btn").onclick = exportReviewedCsv;
+    document.getElementById("clear-draft-btn").onclick = () => {
+      reviewRows = [];
+      filteredIndices = [];
+      selectedRowIdx = -1;
+      persistReviewDraft();
+      populateParticipantFilter();
+      refreshList();
+      document.getElementById("detail-cue").textContent = rvt("noItemSelected");
+      document.getElementById("detail-meta").textContent = "";
+      document.getElementById("detail-badges").innerHTML = "";
+      document.getElementById("export-csv-btn").disabled = true;
+      setLoadStatus("statusCleared");
+    };
+    document.getElementById("playback-rate-select").onchange = e => {
+      audioEl.playbackRate = Number.parseFloat(e.target.value) || 1;
+    };
+    document.getElementById("copy-asr-btn").onclick = copyAsrToReviewerSlots;
+    document.getElementById("accept-next-btn").onclick = acceptCurrentAndAdvance;
+    document.getElementById("prev-btn").onclick = () => {
+      const pos = filteredIndices.indexOf(selectedRowIdx);
+      if (pos > 0) selectRow(filteredIndices[pos - 1], document.getElementById("autoplay-toggle").checked);
+    };
+    document.getElementById("play-btn").onclick = () => {
+      audioEl.currentTime = 0;
+      audioEl.playbackRate = Number.parseFloat(document.getElementById("playback-rate-select").value) || 1;
+      audioEl.play().catch(() => {});
+    };
+
+    const tickPlayhead = () => {
+      if (!audioEl.paused && !audioEl.ended && activeDecoded.samples.length) {
+        drawWaveform(activeDecoded.samples, activeDecoded.sampleRate, activeDecoded.bleedMs, activeDecoded.rt1Ms, audioEl.currentTime);
+        playheadRafId = window.requestAnimationFrame(tickPlayhead);
+      }
+    };
+    audioEl.addEventListener("play", () => {
+      if (playheadRafId) window.cancelAnimationFrame(playheadRafId);
+      playheadRafId = window.requestAnimationFrame(tickPlayhead);
+    });
+    audioEl.addEventListener("pause", () => {
+      if (playheadRafId) window.cancelAnimationFrame(playheadRafId);
+      drawWaveform(activeDecoded.samples, activeDecoded.sampleRate, activeDecoded.bleedMs, activeDecoded.rt1Ms, audioEl.currentTime);
+    });
+    audioEl.addEventListener("ended", () => {
+      if (playheadRafId) window.cancelAnimationFrame(playheadRafId);
+      drawWaveform(activeDecoded.samples, activeDecoded.sampleRate, activeDecoded.bleedMs, activeDecoded.rt1Ms, -1);
+    });
+
+    document.getElementById("waveform-canvas").onclick = e => {
+      if (!audioEl.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audioEl.currentTime = ratio * audioEl.duration;
+      audioEl.play().catch(() => {});
+    };
+    for (let s = 1; s <= 4; s++) {
+      document.getElementById(`rev-slot-${s}`).addEventListener("input", e => {
+        saveCurrentInputsToRow();
+        renderHomophoneChips(s, e.target.value);
+      });
+    }
+    document.getElementById("rev-note").addEventListener("input", saveCurrentInputsToRow);
+
+    window.addEventListener("keydown", e => {
+      if (e.altKey && e.code === "Space") {
+        e.preventDefault();
+        document.getElementById("play-btn").click();
+      } else if (e.altKey && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+        e.preventDefault();
+        const pos = filteredIndices.indexOf(selectedRowIdx);
+        const nextPos = e.key === "ArrowDown" ? pos + 1 : pos - 1;
+        if (nextPos >= 0 && nextPos < filteredIndices.length) {
+          selectRow(filteredIndices[nextPos], document.getElementById("autoplay-toggle").checked);
+        }
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        if (!document.getElementById("accept-next-btn").disabled) acceptCurrentAndAdvance();
+      }
+    });
+
+    restoreReviewDraft();
+  });
+}
+</script>
+</body>
+</html>

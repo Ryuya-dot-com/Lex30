@@ -13,7 +13,7 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "results" / "recovered"
-EXPECTED_SCHEMAS = {"lex30-browser-results-v2", "lex30-browser-results-v3"}
+EXPECTED_SCHEMAS = {"lex30-browser-results-v2", "lex30-browser-results-v3", "lex30-browser-results-v4"}
 BASE_COLUMNS = [
     "ExperimentId",
     "ExperimentVersion",
@@ -75,6 +75,23 @@ TAIL_COLUMNS = [
     "AntonymChoice",
     "AntonymCorrect",
     "AntonymAnswer",
+    "ResponseModality",
+    "SpokenTaskStyle",
+    "DiscreteAdvanceMode",
+    "AssociationInstructionStyle",
+    "Slot1Onset(ms)",
+    "Slot2Onset(ms)",
+    "Slot3Onset(ms)",
+    "Slot4Onset(ms)",
+    "Slot1Completed(ms)",
+    "Slot2Completed(ms)",
+    "Slot3Completed(ms)",
+    "Slot4Completed(ms)",
+    "SpokenAudioFile",
+    "SpokenAudioSha256",
+    "SpokenDuration(ms)",
+    "StimulusSubset",
+    "StimulusOrderPolicy",
     "RecoverySourceFile",
     "RecoveryRowType",
     "RecoveryIsComplete",
@@ -227,9 +244,10 @@ def payload_flags(payload: dict[str, Any], *, include_draft: bool) -> list[str]:
         flags.append("no_completed_rows")
     if payload.get("currentDraft") and include_draft:
         flags.append("current_draft_recovered_separately")
+    is_audio_cue = ((payload.get("experiment") or {}).get("stimulusPresentation") or "") == "audio"
     if any("audio" not in response for response in responses):
         flags.append("missing_audio_log")
-    if any((response.get("audio") or {}).get("audioPlayCount") == 0 for response in responses):
+    if is_audio_cue and any((response.get("audio") or {}).get("audioPlayCount") == 0 for response in responses):
         flags.append("completed_item_with_no_audio_play")
     return flags
 
@@ -285,6 +303,23 @@ def base_row(
         "AudioTimerStartReason": audio_value(response, "audioTimerStartReason"),
         "CompletedAssociationBreakOrders": "|".join(str(order) for order in completed_break_orders),
         **followup_values(payload, response),
+        "ResponseModality": experiment.get("responseModality", "written"),
+        "SpokenTaskStyle": experiment.get("spokenTaskStyle", ""),
+        "DiscreteAdvanceMode": experiment.get("discreteAdvanceMode", ""),
+        "AssociationInstructionStyle": experiment.get("associationInstructionStyle", "free"),
+        "Slot1Onset(ms)": (response.get("slotOnsetMs") or ["", "", "", ""])[0] if len(response.get("slotOnsetMs") or []) > 0 else "",
+        "Slot2Onset(ms)": (response.get("slotOnsetMs") or ["", "", "", ""])[1] if len(response.get("slotOnsetMs") or []) > 1 else "",
+        "Slot3Onset(ms)": (response.get("slotOnsetMs") or ["", "", "", ""])[2] if len(response.get("slotOnsetMs") or []) > 2 else "",
+        "Slot4Onset(ms)": (response.get("slotOnsetMs") or ["", "", "", ""])[3] if len(response.get("slotOnsetMs") or []) > 3 else "",
+        "Slot1Completed(ms)": (response.get("slotCompletedMs") or ["", "", "", ""])[0] if len(response.get("slotCompletedMs") or []) > 0 else "",
+        "Slot2Completed(ms)": (response.get("slotCompletedMs") or ["", "", "", ""])[1] if len(response.get("slotCompletedMs") or []) > 1 else "",
+        "Slot3Completed(ms)": (response.get("slotCompletedMs") or ["", "", "", ""])[2] if len(response.get("slotCompletedMs") or []) > 2 else "",
+        "Slot4Completed(ms)": (response.get("slotCompletedMs") or ["", "", "", ""])[3] if len(response.get("slotCompletedMs") or []) > 3 else "",
+        "SpokenAudioFile": (response.get("spoken") or {}).get("audioFile", ""),
+        "SpokenAudioSha256": (response.get("spoken") or {}).get("sha256", ""),
+        "SpokenDuration(ms)": (response.get("spoken") or {}).get("durationMs", ""),
+        "StimulusSubset": experiment.get("stimulusSubset", "all"),
+        "StimulusOrderPolicy": experiment.get("stimulusOrderPolicy", "fixed"),
         "RecoverySourceFile": source_file,
         "RecoveryRowType": row_type,
         "RecoveryIsComplete": bool(state.get("isComplete")),

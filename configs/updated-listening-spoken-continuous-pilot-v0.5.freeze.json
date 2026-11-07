@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "lex30-freeze-v1",
+  "frozenAt": "2026-11-07T16:17:49.141000+00:00",
+  "experimentId": "updated-listening-spoken-continuous-pilot-v0.5",
+  "experimentVersion": "0.5.0",
+  "label": "Updated Lex30 - listening cue, spoken continuous (30s) pilot v0.5",
+  "registryEntry": {
+    "id": "updated-listening-spoken-continuous-pilot-v0.5",
+    "label": "Updated Lex30 - listening cue, spoken continuous (30s) pilot v0.5",
+    "config": "configs/updated-listening-spoken-continuous-pilot-v0.5.json",
+    "mode": "listening_cue_spoken",
+    "status": "spoken_pilot"
+  },
+  "mode": "listening_cue_spoken",
+  "stimulusPresentation": "audio",
+  "stimulusSetId": "updated-easycue-posbalanced-pilot-30-v0.3",
+  "stimulusCount": 30,
+  "responseCount": 4,
+  "timerSeconds": 30,
+  "randomizeStimuli": false,
+  "audioBasePath": "audio/updated-listening-easycue-posbalanced-pilot-v0.3",
+  "audioExtension": "mp3",
+  "audioVersion": "american-matilda-number-nuhmber-20260705-2358",
+  "audioAutoplay": true,
+  "stimuli": [
+    "center",
+    "garden",
+    "health",
+    "doctor",
+    "white",
+    "course",
+    "number",
+    "listen",
+    "people",
+    "early",
+    "travel",
+    "office",
+    "ground",
+    "letter",
+    "father",
+    "school",
+    "answer",
+    "nature",
+    "useful",
+    "person",
+    "mother",
+    "black",
+    "member",
+    "family",
+    "appear",
+    "system",
+    "think",
+    "begin",
+    "report",
+    "return"
+  ],
+  "files": [
+    {
+      "role": "experiment_config",
+      "path": "configs/updated-listening-spoken-continuous-pilot-v0.5.json",
+      "bytes": 2537,
+      "sha256": "39b0044c14360c2f56732ff1022ff64236b254a295ad8b6f55c5494bf7e64c42"
+    }
+  ],
+  "audioFiles": [
+    {
+      "order": 1,
+      "stimulus": "center",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/01-center.mp3",
+      "bytes": 14254,
+      "sha256": "f419e044663962ac0a5bcfc71fa228849de9171d57b49e60526bfb337d1a7194"
+    },
+    {
+      "order": 2,
+      "stimulus": "garden",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/02-garden.mp3",
+      "bytes": 15090,
+      "sha256": "e93f4baa3ebfe706792d81f8cb81cda6f7414f702e9e22307dacc9789628e78a"
+    },
+    {
+      "order": 3,
+      "stimulus": "health",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/03-health.mp3",
+      "bytes": 13000,
+      "sha256": "b9c4ced3f25123672bf46e80728213a432d6b007dde54f71489f510a024314be"
+    },
+    {
+      "order": 4,
+      "stimulus": "doctor",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/04-doctor.mp3",
+      "bytes": 15090,
+      "sha256": "9f9df3be83b2778f4a92614a286340ec00242e9d07e4bfcc95fa925cc0b77636"
+    },
+    {
+      "order": 5,
+      "stimulus": "white",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/05-white.mp3",
+      "bytes": 13836,
+      "sha256": "11660da363ac8c25eccb6c32beb80029e965749b5bfa3f2ff32910321a7c54f0"
+    },
+    {
+      "order": 6,
+      "stimulus": "course",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/06-course.mp3",
+      "bytes": 14254,
+      "sha256": "5c426b1faeb80b69a8a723138d3a03bfb093eb3673810a631a77029a541c54aa"
+    },
+    {
+      "order": 7,
+      "stimulus": "number",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/07-number.mp3",
+      "bytes": 10911,
+      "sha256": "70b4c208759d80398996968b643804bfba27f639f6f4b72619c8d532f59dd370"
+    },
+    {
+      "order": 8,
+      "stimulus": "listen",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/08-listen.mp3",
+      "bytes": 13836,
+      "sha256": "c529c5357a18203241306bf849e74a398db91bdfa28eb251802eca0149562318"
+    },
+    {
+      "order": 9,
+      "stimulus": "people",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/09-people.mp3",
+      "bytes": 14254,
+      "sha256": "ee3612b71bf722615a3782accf9e9784c512e6bec50b28ddee449044072d6e46"
+    },
+    {
+      "order": 10,
+      "stimulus": "early",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/10-early.mp3",
+      "bytes": 10911,
+      "sha256": "9e519e9010db8f38f0e37baea83789175a47dc6917d85b75193198d21b6bd3a2"
+    },
+    {
+      "order": 11,
+      "stimulus": "travel",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/11-travel.mp3",
+      "bytes": 15090,
+      "sha256": "2f19681f9e059553130fcc26e99aeb71240a2b0b14ded0d08538afb86f709670"
+    },
+    {
+      "order": 12,
+      "stimulus": "office",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/12-office.mp3",
+      "bytes": 14254,
+      "sha256": "e761df11ce025f24920c5d5f1c0482530c51ed796e63162797c00c5c134b4833"
+    },
+    {
+      "order": 13,
+      "stimulus": "ground",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/13-ground.mp3",
+      "bytes": 14254,
+      "sha256": "00c408c0664a5c4334eb02362e8052f9fd0c5bafccce6e5cc08890ff8a443fc6"
+    },
+    {
+      "order": 14,
+      "stimulus": "letter",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/14-letter.mp3",
+      "bytes": 13000,
+      "sha256": "2a500c365890218710fefaff46c2abf77933472241d92388eff41f663fbb74e7"
+    },
+    {
+      "order": 15,
+      "stimulus": "father",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/15-father.mp3",
+      "bytes": 14254,
+      "sha256": "a7d9fa831c010a6d4e487714879c30c2c04ff0e05a4b53e686d67af4c97ae584"
+    },
+    {
+      "order": 16,
+      "stimulus": "school",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/16-school.mp3",
+      "bytes": 13836,
+      "sha256": "c6d5fb91cd04af8f9db19514274f8164323d354152c4f3ce1f700da8abf0e556"
+    },
+    {
+      "order": 17,
+      "stimulus": "answer",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/17-answer.mp3",
+      "bytes": 14254,
+      "sha256": "e30b7ab384178ba5f6a6e532521a9dcb365c3e9cfba39658aeb162974bcc7b74"
+    },
+    {
+      "order": 18,
+      "stimulus": "nature",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/18-nature.mp3",
+      "bytes": 14254,
+      "sha256": "dfd7817163ee75b832e88b1af347ebcb514973886a5a4c35f590bc75e8af34e8"
+    },
+    {
+      "order": 19,
+      "stimulus": "useful",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/19-useful.mp3",
+      "bytes": 15090,
+      "sha256": "57ca23f544c4c502c2342d962ea50c23383d159768b7ecf65b851c3536c074da"
+    },
+    {
+      "order": 20,
+      "stimulus": "person",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/20-person.mp3",
+      "bytes": 15090,
+      "sha256": "d7f142349d3bf2607b484311c758e6455730986ae5d0a12af53971d1ab056606"
+    },
+    {
+      "order": 21,
+      "stimulus": "mother",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/21-mother.mp3",
+      "bytes": 13836,
+      "sha256": "106838527e1e57e26ccb14ac37ecb055d0d22d29ad44a84072bf09bad2127a9d"
+    },
+    {
+      "order": 22,
+      "stimulus": "black",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/22-black.mp3",
+      "bytes": 13836,
+      "sha256": "0f67f6a2552186b3f395bec460ba1786694fbcb49f8f7e5905be65e912ed2459"
+    },
+    {
+      "order": 23,
+      "stimulus": "member",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/23-member.mp3",
+      "bytes": 14254,
+      "sha256": "6f8d9150252243e405b8654c5f91d2f72b66db6cd85c3193626e7235bde9a12e"
+    },
+    {
+      "order": 24,
+      "stimulus": "family",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/24-family.mp3",
+      "bytes": 15090,
+      "sha256": "dfbdf92a0126850cd71e2efd131a0c470d7983f9567e0c9fbf72d753a273d42d"
+    },
+    {
+      "order": 25,
+      "stimulus": "appear",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/25-appear.mp3",
+      "bytes": 14254,
+      "sha256": "f0f53be26053fb8fbdde210abad3eeae35eb5c78d2dbbf8f33bde12a61831916"
+    },
+    {
+      "order": 26,
+      "stimulus": "system",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/26-system.mp3",
+      "bytes": 15090,
+      "sha256": "18d13181175cd6e878f0ff38428e3c72e1f82fb59fc44cdf2394141c578c6184"
+    },
+    {
+      "order": 27,
+      "stimulus": "think",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/27-think.mp3",
+      "bytes": 12164,
+      "sha256": "245e9a586033280f9b4daa0ca4a9ba90b444868d2c32199236d8266db406ba6e"
+    },
+    {
+      "order": 28,
+      "stimulus": "begin",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/28-begin.mp3",
+      "bytes": 15090,
+      "sha256": "ce6ede583f1e7d56c049778f9ee4e3619d3ce2cbef158e1ca0c942f0a120733d"
+    },
+    {
+      "order": 29,
+      "stimulus": "report",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/29-report.mp3",
+      "bytes": 15926,
+      "sha256": "4d104e958d499b06f346d710a087090065473b3acc295c17e2cd4fd30b27433a"
+    },
+    {
+      "order": 30,
+      "stimulus": "return",
+      "path": "audio/updated-listening-easycue-posbalanced-pilot-v0.3/30-return.mp3",
+      "bytes": 15090,
+      "sha256": "0b81deb9cfadd8a72ebf161846980863d051d045330806918b04732aba3b5000"
+    }
+  ],
+  "notes": [
+    "This lock file records the exact config and audio file checksums for pilot administration.",
+    "Rule-based scoring remains primary; optional GPT annotations are review metadata only.",
+    "Spelling is preserved as typed unless a researcher supplies a manual override file during scoring."
+  ]
+}

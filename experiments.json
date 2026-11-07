@@ -64,6 +64,50 @@
       "mode": "listening",
       "status": "frozen_followup_pilot",
       "notes": "Lex30-compatible listening association task plus post-task cue recognition, Japanese meaning, and receptive semantic-depth probes for all 30 cues. Uses the frozen v0.3 cue/audio set."
+    },
+    {
+      "id": "updated-written-spoken-continuous-pilot-v0.5",
+      "label": "Updated Lex30 - written cue, spoken continuous (30s) pilot v0.5",
+      "config": "configs/updated-written-spoken-continuous-pilot-v0.5.json",
+      "mode": "written_cue_spoken",
+      "stimulusPresentation": "text",
+      "responseModality": "spoken",
+      "spokenTaskStyle": "continuous_4",
+      "status": "spoken_pilot",
+      "notes": "Visual text cues (30 POS-balanced easy cues) with continuous 30s spoken response recording (up to 4 English words per cue; 16 kHz mono PCM WAV + ZIP export)."
+    },
+    {
+      "id": "updated-written-spoken-discrete-pilot-v0.5",
+      "label": "Updated Lex30 - written cue, spoken discrete naming (1-by-1) pilot v0.5",
+      "config": "configs/updated-written-spoken-discrete-pilot-v0.5.json",
+      "mode": "written_cue_spoken",
+      "stimulusPresentation": "text",
+      "responseModality": "spoken",
+      "spokenTaskStyle": "discrete_naming",
+      "status": "spoken_pilot",
+      "notes": "Visual text cues (30 POS-balanced easy cues) with 4-slot word-by-word naming recording (real-time VAD + Enter/Space slot advance; 16 kHz mono PCM WAV + ZIP export)."
+    },
+    {
+      "id": "updated-listening-spoken-continuous-pilot-v0.5",
+      "label": "Updated Lex30 - listening cue, spoken continuous (30s) pilot v0.5",
+      "config": "configs/updated-listening-spoken-continuous-pilot-v0.5.json",
+      "mode": "listening_cue_spoken",
+      "stimulusPresentation": "audio",
+      "responseModality": "spoken",
+      "spokenTaskStyle": "continuous_4",
+      "status": "spoken_pilot",
+      "notes": "Listening cues (approved v0.3 Matilda audio) with continuous 30s spoken response recording (up to 4 English words per cue; headphones recommended; 16 kHz mono PCM WAV + ZIP export)."
+    },
+    {
+      "id": "updated-listening-spoken-discrete-pilot-v0.5",
+      "label": "Updated Lex30 - listening cue, spoken discrete naming (1-by-1) pilot v0.5",
+      "config": "configs/updated-listening-spoken-discrete-pilot-v0.5.json",
+      "mode": "listening_cue_spoken",
+      "stimulusPresentation": "audio",
+      "responseModality": "spoken",
+      "spokenTaskStyle": "discrete_naming",
+      "status": "spoken_pilot",
+      "notes": "Listening cues (approved v0.3 Matilda audio) with 4-slot word-by-word naming recording (real-time VAD + Enter/Space slot advance; headphones recommended; 16 kHz mono PCM WAV + ZIP export)."
     }
   ]
 }
