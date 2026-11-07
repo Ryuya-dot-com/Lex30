@@ -129,15 +129,24 @@ Alongside the unchanged primary deterministic binary score (`K1 = 0`, `K2+ = 1`)
 in `multifaceted_summary.csv` and the `Multifaceted` workbook sheet:
 
 1. **Frequency Sophistication**: polytomous band totals (`K1=0, K2=1, K3=2, K4+=3`)
-   and continuous log-rank, SUBTLEX-US `Lg10CD`, and `wordfreq` Zipf means.
+   reported as token sum (`nj8_polytomous_token_score`), deduplicated first-type sum
+   (`nj8_polytomous_type_score`), clang-filtered first-type sum
+   (`nj8_polytomous_type_no_clang_score`), single-cue non-recycled polytomous sum
+   (`nj8_unique_cue_polytomous_no_clang_score`), and Empirical-Bayes smoothed type rate
+   (`nj8_eb_type_sophistication`, $k=20, \mu_0=0.35$), alongside continuous log-rank,
+   SUBTLEX-US `Lg10CD`, and `wordfreq` Zipf means. Use
+   `python3 tools/simulate_lex30_scoring.py` to evaluate these scoring rules across
+   Japanese EFL proficiency, verbosity, word-recycling, and listening/spoken scenarios.
 2. **Retrieval Fluency**: slot-1 onset latency (`mean_rt1_onset_ms`,
    `median_rt1_onset_ms`), inter-response interval (`mean_iri_ms`), and 5s/10s
    time-cutoff K2+ scores.
-3. **Phonological vs Semantic Processing**: cue-response form/clang ratio and
-   homophone sensitivity bounds.
+3. **Phonological vs Semantic Processing & Recycling**: cue-response form/clang ratio,
+   cross-cue lemma repetition/perseveration diagnostics (`cross_cue_repeated_tokens`,
+   `cross_cue_recycling_percent`, `max_cues_per_lemma`), and homophone sensitivity bounds.
 4. **Network Structure & Chaining**: lexical TTR, intra-item POS diversity,
    response-to-response chaining index (`sim(R_t, R_{t-1}) - sim(R_t, Cue)`),
-   forward flow, and optional `--association-norms` stereotypy strength.
+   forward flow, and bundled cue-response association strength (`tools/data/lex30_association_norms.csv`,
+   overridable via `--association-norms`).
 5. **Psycholinguistic & Morphological Depth**: Brysbaert concreteness mean,
    Shannon POS entropy, noun-bias ratio, derivational suffix ratio, and word length.
 6. **Receptive–Productive Bottleneck (`v0.4` follow-up)**: cue perception accuracy,

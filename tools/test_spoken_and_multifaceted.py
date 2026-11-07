@@ -466,6 +466,20 @@ fs.writeFileSync({json.dumps(str(meta_out))}, JSON.stringify({{ sha256: sha, dur
             )
             self.assertEqual(int(mf["nj8_token_score"]), expected_binary)
             self.assertGreater(int(mf["nj8_polytomous_token_score"]), int(mf["nj8_token_score"]))
+            self.assertGreater(int(mf["nj8_polytomous_type_score"]), 0)
+            self.assertGreaterEqual(
+                int(mf["nj8_polytomous_type_score"]),
+                int(mf["nj8_polytomous_type_no_clang_score"]),
+            )
+            self.assertGreaterEqual(
+                int(mf["nj8_polytomous_type_no_clang_score"]),
+                int(mf["nj8_unique_cue_polytomous_no_clang_score"]),
+            )
+            self.assertIn("cross_cue_repeated_tokens", mf)
+            self.assertIn("cross_cue_recycling_percent", mf)
+            self.assertIn("max_cues_per_lemma", mf)
+            self.assertGreater(float(mf["nj8_eb_type_sophistication"]), 0.0)
+            self.assertIn("bnc_coca_polytomous_type_score", mf)
 
             # Dimension 2: fluency & time-cutoff monotonic order (5s <= 10s <= 30s total).
             k2_5s = int(mf["nj8_k2plus_within_5s"])
@@ -1179,6 +1193,31 @@ fs.writeFileSync({json.dumps(str(out_path))}, JSON.stringify({{
             self.assertEqual(res["revBadgeJa"], "確認済")
             self.assertEqual(res["revProgJa"], "2 / 5 確認済")
             self.assertTrue(res["csvHeaderLine"].startswith("source_archive,participant_id,participant_session_id,"))
+
+    def test_simulate_lex30_scoring_cli(self) -> None:
+        import simulate_lex30_scoring
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out_dir = Path(tmp) / "sim_out"
+            rc = simulate_lex30_scoring.main(["--n-learners", "60", "--output-dir", str(out_dir)])
+            self.assertEqual(rc, 0)
+            summary_csv = out_dir / "scoring_simulation_summary.csv"
+            summary_json = out_dir / "scoring_simulation_summary.json"
+            self.assertTrue(summary_csv.exists())
+            self.assertTrue(summary_json.exists())
+            with summary_csv.open(encoding="utf-8", newline="") as fh:
+                rows = list(csv.DictReader(fh))
+            # 4 scenarios x 10 indices = 40 rows
+            self.assertEqual(len(rows), 40)
+            jp_rows = {r["scoring_method"]: r for r in rows if r["scenario"] == "jp_efl_mixed_univ"}
+            self.assertGreater(
+                float(jp_rows["nj8_polytomous_type_no_clang_score"]["r_true_theta"]),
+                float(jp_rows["nj8_token_score"]["r_true_theta"]),
+            )
+            self.assertLess(
+                float(jp_rows["nj8_unique_cue_polytomous_no_clang_score"]["partial_r_recycling_gaming"]),
+                float(jp_rows["nj8_polytomous_type_no_clang_score"]["partial_r_recycling_gaming"]),
+            )
 
 
 if __name__ == "__main__":

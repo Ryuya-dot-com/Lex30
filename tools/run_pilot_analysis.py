@@ -55,7 +55,12 @@ SCORE_DIAGNOSTIC_FIELDS = [
     ("ngsl_token_score", "NGSL token score"),
     ("ngsl_type_score", "NGSL type score"),
 ]
-EXTERNAL_SCORE_FIELDS = SCORE_DIAGNOSTIC_FIELDS
+EXTERNAL_SCORE_FIELDS = SCORE_DIAGNOSTIC_FIELDS + [
+    ("nj8_polytomous_type_score", "NJ8 polytomous type score"),
+    ("nj8_polytomous_type_no_clang_score", "NJ8 polytomous type no-clang score"),
+    ("nj8_unique_cue_polytomous_no_clang_score", "NJ8 unique-cue polytomous no-clang score"),
+    ("nj8_eb_type_sophistication", "NJ8 Empirical-Bayes type sophistication"),
+]
 EXTERNAL_JOIN_KEY_ALIASES = [
     (
         "analysis_session_key",
@@ -302,6 +307,14 @@ EXCEL_NUMERIC_FIELDS = {
     "bnc_coca_polytomous_score",
     "nj8_polytomous_token_score",
     "bnc_coca_polytomous_token_score",
+    "nj8_polytomous_type_score",
+    "bnc_coca_polytomous_type_score",
+    "nj8_polytomous_type_no_clang_score",
+    "nj8_unique_cue_polytomous_no_clang_score",
+    "nj8_eb_type_sophistication",
+    "cross_cue_repeated_tokens",
+    "cross_cue_recycling_percent",
+    "max_cues_per_lemma",
     "nj8_log_rank",
     "mean_nj8_log_rank",
     "subtlex_lg10cd",
@@ -1991,6 +2004,14 @@ def write_multifaceted_summary(
                 "nj8_token_percent_of_response_slots": summary.get("nj8_token_percent_of_response_slots", ""),
                 "nj8_polytomous_token_score": summary.get("nj8_polytomous_token_score", ""),
                 "bnc_coca_polytomous_token_score": summary.get("bnc_coca_polytomous_token_score", ""),
+                "nj8_polytomous_type_score": summary.get("nj8_polytomous_type_score", ""),
+                "bnc_coca_polytomous_type_score": summary.get("bnc_coca_polytomous_type_score", ""),
+                "nj8_polytomous_type_no_clang_score": summary.get("nj8_polytomous_type_no_clang_score", ""),
+                "nj8_unique_cue_polytomous_no_clang_score": summary.get("nj8_unique_cue_polytomous_no_clang_score", ""),
+                "nj8_eb_type_sophistication": summary.get("nj8_eb_type_sophistication", ""),
+                "cross_cue_repeated_tokens": summary.get("cross_cue_repeated_tokens", ""),
+                "cross_cue_recycling_percent": summary.get("cross_cue_recycling_percent", ""),
+                "max_cues_per_lemma": summary.get("max_cues_per_lemma", ""),
                 "mean_nj8_log_rank": summary.get("mean_nj8_log_rank", ""),
                 "mean_subtlex_lg10cd": summary.get("mean_subtlex_lg10cd", ""),
                 "mean_wordfreq_zipf": summary.get("mean_wordfreq_zipf", ""),
@@ -2622,12 +2643,14 @@ def make_report(
                 ["Dimension", "Metric", "Batch Mean"],
                 [
                     ["1. Sophistication", "NJ8 polytomous token score (K1=0..K4+=3)", _mf_mean("nj8_polytomous_token_score", 2)],
+                    ["1. Sophistication", "NJ8 polytomous type no-clang / unique-cue", f"{_mf_mean('nj8_polytomous_type_no_clang_score', 2)} / {_mf_mean('nj8_unique_cue_polytomous_no_clang_score', 2)}"],
+                    ["1. Sophistication", "NJ8 EB type sophistication (k=20, mu0=0.35)", _mf_mean("nj8_eb_type_sophistication", 4)],
                     ["1. Sophistication", "Mean NJ8 log10(rank)", _mf_mean("mean_nj8_log_rank", 4)],
                     ["1. Sophistication", "Mean SUBTLEX-US Lg10CD", _mf_mean("mean_subtlex_lg10cd", 3)],
                     ["2. Retrieval Fluency", "Mean RT1 onset (ms)", _mf_mean("mean_rt1_onset_ms", 1)],
                     ["2. Retrieval Fluency", "Mean inter-response interval (ms)", _mf_mean("mean_iri_ms", 1)],
                     ["2. Retrieval Fluency", "NJ8 K2+ tokens within 5s / 10s", f"{_mf_mean('nj8_k2plus_within_5s', 2)} / {_mf_mean('nj8_k2plus_within_10s', 2)}"],
-                    ["3. Associative Quality", "Clang form-based % of lexical tokens", _mf_mean("clang_percent_of_lexical_tokens", 2)],
+                    ["3. Associative Quality", "Clang form-based % / Cross-cue recycling %", f"{_mf_mean('clang_percent_of_lexical_tokens', 2)} / {_mf_mean('cross_cue_recycling_percent', 2)}"],
                     ["3. Associative Quality", "Homophone NJ8 conservative / lenient", f"{_mf_mean('homophone_conservative_nj8_score', 2)} / {_mf_mean('homophone_lenient_nj8_score', 2)}"],
                     ["4. Semantic Structure", "Lexical TTR", _mf_mean("lexical_ttr", 4)],
                     ["4. Semantic Structure", "Mean chaining index / forward flow", f"{_mf_mean('mean_chaining_index', 4)} / {_mf_mean('mean_forward_flow', 4)}"],
@@ -2912,6 +2935,7 @@ def make_manifest(
         score_lex30.DEFAULT_ANTBNC_PATH,
         score_lex30.DEFAULT_NGSL_STATS_PATH,
         score_lex30.DEFAULT_NGSL_LEMMAS_PATH,
+        score_lex30.DEFAULT_ASSOCIATION_NORMS_PATH,
         DEFAULT_JAPANESE_GLOSSES_PATH,
         DEFAULT_PARALLEL_HALVES_PATH,
     ]

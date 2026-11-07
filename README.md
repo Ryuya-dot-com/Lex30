@@ -237,10 +237,13 @@ It writes a timestamped folder under `results/analysis/` with:
 - `multiword_sensitivity.csv`: all-token vs first-token-per-slot scoring
   sensitivity for participants with multiword answer slots.
 - `multifaceted_summary.csv`: secondary 6-dimension productive vocabulary
-  profile (frequency sophistication, retrieval fluency/time-cutoff sensitivity,
-  phonological/clang & homophone bounds, lexical network diversity/chaining,
-  psycholinguistic depth/derivational richness, and v0.4 receptive–productive
-  bottleneck diagnostics).
+  profile (frequency sophistication including polytomous type/clang-filtered/EB-smoothed
+  indices, retrieval fluency/time-cutoff sensitivity, phonological/clang &
+  homophone bounds, lexical network diversity/chaining, psycholinguistic
+  depth/derivational richness, and v0.4 receptive–productive bottleneck
+  diagnostics). See `python3 tools/simulate_lex30_scoring.py` for the 4-scenario
+  Japanese EFL psychometric simulation benchmark comparing binary vs. secondary
+  indices.
 - `external_criteria_linked.csv`, if `--external-criteria` is supplied:
   participant/session summaries linked to the supplied external criterion CSV.
 - `external_criteria_correlations.csv`, if `--external-criteria` is supplied:

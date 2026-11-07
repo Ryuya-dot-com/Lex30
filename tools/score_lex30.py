@@ -39,6 +39,7 @@ DEFAULT_BNC_COCA_XLSX = DATA_ROOT / "bnc_coca" / "BNC_COCA_lists.xlsx"
 DEFAULT_ANTBNC_PATH = DATA_ROOT / "antbnc" / "antbnc_lemmas_ver_004.txt"
 DEFAULT_NGSL_STATS_PATH = DATA_ROOT / "ngsl" / "NGSL_1.2_stats.csv"
 DEFAULT_NGSL_LEMMAS_PATH = DATA_ROOT / "ngsl" / "NGSL_1.2_lemmatized_for_research.csv"
+DEFAULT_ASSOCIATION_NORMS_PATH = DATA_ROOT / "lex30_association_norms.csv"
 
 
 def resolve_default_env_path() -> Path:
@@ -136,6 +137,14 @@ SUMMARY_FIELDS = [
     "ngsl_off_list_tokens",
     "nj8_polytomous_token_score",
     "bnc_coca_polytomous_token_score",
+    "nj8_polytomous_type_score",
+    "bnc_coca_polytomous_type_score",
+    "nj8_polytomous_type_no_clang_score",
+    "nj8_unique_cue_polytomous_no_clang_score",
+    "nj8_eb_type_sophistication",
+    "cross_cue_repeated_tokens",
+    "cross_cue_recycling_percent",
+    "max_cues_per_lemma",
     "mean_nj8_log_rank",
     "mean_subtlex_lg10cd",
     "mean_wordfreq_zipf",
@@ -370,6 +379,9 @@ def get_multifaceted_norms() -> dict[str, Any]:
         _MULTIFACETED_NORMS_CACHE["subtlex_us"] = psycholinguistic.load_subtlex_us()
         _MULTIFACETED_NORMS_CACHE["wordfreq_zipf"] = psycholinguistic.wordfreq_zipf
         _MULTIFACETED_NORMS_CACHE["homophones"] = transcribe_spoken_lex30.HOMOPHONE_LOOKUP
+        _MULTIFACETED_NORMS_CACHE["default_association_norms"] = load_association_norms(
+            DEFAULT_ASSOCIATION_NORMS_PATH
+        )
     return _MULTIFACETED_NORMS_CACHE
 
 
@@ -789,8 +801,9 @@ def score_rows(
     scored: list[ScoredToken] = []
     seen_by_participant: defaultdict[str, Counter[str]] = defaultdict(Counter)
     manual_overrides = manual_overrides or {}
-    association_norms = association_norms or {}
     norms = get_multifaceted_norms()
+    if association_norms is None:
+        association_norms = norms["default_association_norms"]
     concreteness_map: dict[str, dict[str, float | int]] = norms["concreteness"]
     subtlex_map: dict[str, dict[str, float | int]] = norms["subtlex_us"]
     zipf_fn = norms["wordfreq_zipf"]
@@ -1119,6 +1132,49 @@ def aggregate(scored: list[ScoredToken]) -> list[dict[str, Any]]:
         homo_ambig_count = sum(1 for r in lexical_rows if r.lookup_token in homophone_lookup)
         assoc_vals = [r.association_norm_strength for r in lexical_rows if r.association_norm_strength is not None]
 
+        nj8_poly_type = sum(
+            r.nj8_polytomous_score for r in lexical_rows if r.duplicate_token_count_so_far == 0
+        )
+        bnc_poly_type = sum(
+            r.bnc_coca_polytomous_score for r in lexical_rows if r.duplicate_token_count_so_far == 0
+        )
+        seen_non_clang_heads: set[str] = set()
+        nj8_poly_type_no_clang = 0
+        cues_by_head: dict[str, set[str]] = defaultdict(set)
+        head_poly_non_clang: dict[str, int] = {}
+        seen_in_prior_stimuli: set[str] = set()
+        cross_cue_repeated = 0
+        rows_by_stim_order: dict[str, list[ScoredToken]] = defaultdict(list)
+        for r in lexical_rows:
+            stim_k = r.stimulus.strip().lower()
+            rows_by_stim_order[stim_k].append(r)
+            if r.normalized_head:
+                cues_by_head[r.normalized_head].add(stim_k)
+            if not r.is_clang_candidate and r.normalized_head:
+                if r.normalized_head not in seen_non_clang_heads:
+                    seen_non_clang_heads.add(r.normalized_head)
+                    nj8_poly_type_no_clang += r.nj8_polytomous_score
+                    head_poly_non_clang[r.normalized_head] = r.nj8_polytomous_score
+        for _stim_k, s_rows in rows_by_stim_order.items():
+            current_stim_heads: set[str] = set()
+            for r in s_rows:
+                if r.normalized_head:
+                    if r.normalized_head in seen_in_prior_stimuli:
+                        cross_cue_repeated += 1
+                    current_stim_heads.add(r.normalized_head)
+            seen_in_prior_stimuli.update(current_stim_heads)
+        max_cues_lemma = max((len(c_set) for c_set in cues_by_head.values()), default=0)
+        cross_cue_recycle_pct = round(100.0 * cross_cue_repeated / len(lexical_rows), 2) if lexical_rows else 0.0
+        nj8_unique_cue_poly_no_clang = sum(
+            pts for h, pts in head_poly_non_clang.items() if len(cues_by_head.get(h, ())) == 1
+        )
+        # Empirical Bayes shrinkage rate (k=20 pseudo-types at Japanese EFL baseline mu0=0.35 poly pts/type)
+        nj8_eb_type_soph: float | str = (
+            round((nj8_poly_type_no_clang + 20.0 * 0.35) / (len(seen_non_clang_heads) + 20.0), 4)
+            if lexical_rows
+            else ""
+        )
+
         unique_heads = {r.normalized_head for r in lexical_rows if r.normalized_head}
         lexical_ttr = round(len(unique_heads) / len(lexical_rows), 4) if lexical_rows else 0.0
 
@@ -1195,6 +1251,14 @@ def aggregate(scored: list[ScoredToken]) -> list[dict[str, Any]]:
                 "ngsl_off_list_tokens": sum(1 for r in lexical_rows if r.ngsl_status == "off_list"),
                 "nj8_polytomous_token_score": sum(r.nj8_polytomous_score for r in rows),
                 "bnc_coca_polytomous_token_score": sum(r.bnc_coca_polytomous_score for r in rows),
+                "nj8_polytomous_type_score": nj8_poly_type,
+                "bnc_coca_polytomous_type_score": bnc_poly_type,
+                "nj8_polytomous_type_no_clang_score": nj8_poly_type_no_clang,
+                "nj8_unique_cue_polytomous_no_clang_score": nj8_unique_cue_poly_no_clang,
+                "nj8_eb_type_sophistication": nj8_eb_type_soph,
+                "cross_cue_repeated_tokens": cross_cue_repeated,
+                "cross_cue_recycling_percent": cross_cue_recycle_pct,
+                "max_cues_per_lemma": max_cues_lemma,
                 "mean_nj8_log_rank": round(statistics.fmean(log_ranks), 4) if log_ranks else "",
                 "mean_subtlex_lg10cd": round(statistics.fmean(subtlex_vals), 3) if subtlex_vals else "",
                 "mean_wordfreq_zipf": round(statistics.fmean(zipf_vals), 3) if zipf_vals else "",
@@ -1479,7 +1543,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "--association-norms",
         type=Path,
-        help="Optional CSV of cue-response association strengths (columns: cue, response, strength).",
+        default=DEFAULT_ASSOCIATION_NORMS_PATH,
+        help="Optional CSV of cue-response association strengths (columns: cue, response, strength). Defaults to tools/data/lex30_association_norms.csv.",
     )
     parser.add_argument("--with-gpt", action="store_true", help="Add GPT annotations. Not used for rule score.")
     parser.add_argument("--gpt-model", default=os.environ.get("LEX30_GPT_MODEL", "gpt-5.5"))
